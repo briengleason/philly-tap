@@ -49,8 +49,8 @@ else
         echo "⚠️  Commit failed. Continuing with push..."
     }
     
-    # Get current branch name
-    BRANCH=$(git branch --show-current)
+    # Get current branch name (compatible with older git versions)
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
     
     # Push to GitHub
     echo "📤 Pushing to GitHub..."
