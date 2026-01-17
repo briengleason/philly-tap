@@ -414,6 +414,245 @@ suite.test('Integration: complete game flow', () => {
     suite.assert(gameState.totalScore <= 500, 'Total score should be <= 500');
 });
 
+// Share score emoji tests
+function getScoreEmoji(score) {
+    if (score === 100) return '🎯';
+    if (score >= 95) return '🏅';
+    if (score >= 90) return '🏆';
+    if (score >= 85) return '🎉';
+    if (score >= 80) return '✨';
+    if (score >= 75) return '😁';
+    if (score >= 70) return '🤗';
+    if (score >= 65) return '😊';
+    if (score >= 60) return '🙂';
+    if (score >= 50) return '🫣';
+    if (score >= 40) return '😶';
+    if (score >= 30) return '😐';
+    if (score >= 20) return '😕';
+    if (score >= 10) return '😢';
+    return '😭';
+}
+
+function formatShareDate() {
+    const today = new Date();
+    const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                  'July', 'August', 'September', 'October', 'November', 'December'];
+    const month = months[today.getMonth()];
+    const day = today.getDate();
+    return `${month} ${day}`;
+}
+
+function generateShareMessage(guesses, locations, totalScore, url = 'https://briengleason.github.io/philly-fingered/') {
+    const date = formatShareDate();
+    
+    // Sort locations by their original order (by id)
+    const sortedLocations = locations.slice().sort((a, b) => a.id - b.id);
+    
+    // Build score string with emojis
+    const scoreParts = sortedLocations.map(location => {
+        const guess = guesses[location.id];
+        if (guess) {
+            const emoji = getScoreEmoji(guess.score);
+            return `${guess.score}${emoji}`;
+        }
+        return '';
+    }).filter(part => part !== '');
+    
+    const scoreString = scoreParts.join(' ');
+    
+    return `${url}  ${date}\n${scoreString}\nFinal score: ${totalScore}`;
+}
+
+suite.test('Share emoji: perfect score (100) should be 🎯', () => {
+    suite.assertEquals(getScoreEmoji(100), '🎯');
+});
+
+suite.test('Share emoji: excellent scores (95-99) should be 🏅', () => {
+    suite.assertEquals(getScoreEmoji(99), '🏅');
+    suite.assertEquals(getScoreEmoji(95), '🏅');
+    suite.assertEquals(getScoreEmoji(98), '🏅'));
+});
+
+suite.test('Share emoji: great scores (90-94) should be 🏆', () => {
+    suite.assertEquals(getScoreEmoji(94), '🏆');
+    suite.assertEquals(getScoreEmoji(90), '🏆');
+    suite.assertEquals(getScoreEmoji(92), '🏆');
+});
+
+suite.test('Share emoji: good scores (85-89) should be 🎉', () => {
+    suite.assertEquals(getScoreEmoji(89), '🎉');
+    suite.assertEquals(getScoreEmoji(85), '🎉');
+    suite.assertEquals(getScoreEmoji(87), '🎉');
+});
+
+suite.test('Share emoji: nice scores (80-84) should be ✨', () => {
+    suite.assertEquals(getScoreEmoji(84), '✨');
+    suite.assertEquals(getScoreEmoji(80), '✨');
+    suite.assertEquals(getScoreEmoji(82), '✨');
+});
+
+suite.test('Share emoji: good scores (75-79) should be 😁', () => {
+    suite.assertEquals(getScoreEmoji(79), '😁');
+    suite.assertEquals(getScoreEmoji(75), '😁');
+});
+
+suite.test('Share emoji: okay scores (70-74) should be 🤗', () => {
+    suite.assertEquals(getScoreEmoji(74), '🤗');
+    suite.assertEquals(getScoreEmoji(70), '🤗');
+});
+
+suite.test('Share emoji: low scores should have appropriate emojis', () => {
+    suite.assertEquals(getScoreEmoji(50), '🫣');
+    suite.assertEquals(getScoreEmoji(40), '😶');
+    suite.assertEquals(getScoreEmoji(30), '😐');
+    suite.assertEquals(getScoreEmoji(20), '😕');
+    suite.assertEquals(getScoreEmoji(10), '😢');
+    suite.assertEquals(getScoreEmoji(0), '😭');
+});
+
+suite.test('Share emoji: boundary values should be correct', () => {
+    suite.assertEquals(getScoreEmoji(100), '🎯');
+    suite.assertEquals(getScoreEmoji(99), '🏅');
+    suite.assertEquals(getScoreEmoji(95), '🏅');
+    suite.assertEquals(getScoreEmoji(94), '🏆');
+    suite.assertEquals(getScoreEmoji(90), '🏆');
+    suite.assertEquals(getScoreEmoji(89), '🎉');
+    suite.assertEquals(getScoreEmoji(85), '🎉');
+    suite.assertEquals(getScoreEmoji(84), '✨');
+    suite.assertEquals(getScoreEmoji(80), '✨');
+});
+
+suite.test('Share date: should format correctly', () => {
+    const date = formatShareDate();
+    // Should be in format "Month Day" (e.g., "January 17")
+    suite.assert(date.includes(' '), 'Date should contain a space');
+    suite.assert(date.length > 5, 'Date should be longer than 5 characters');
+    // Check it contains a valid month name
+    const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                   'July', 'August', 'September', 'October', 'November', 'December'];
+    const hasMonth = months.some(month => date.startsWith(month));
+    suite.assert(hasMonth, 'Date should start with a month name');
+});
+
+suite.test('Share message: should include URL and date', () => {
+    const guesses = {
+        0: { score: 100, distance: 0 },
+        1: { score: 80, distance: 100 }
+    };
+    const message = generateShareMessage(guesses, mockLocations.slice(0, 2), 180);
+    
+    suite.assert(message.includes('https://briengleason.github.io/philly-fingered/'), 
+        'Message should include URL');
+    suite.assert(message.includes('Final score: 180'), 
+        'Message should include final score');
+});
+
+suite.test('Share message: should include all scores with emojis', () => {
+    const guesses = {
+        0: { score: 100, distance: 0 },
+        1: { score: 95, distance: 50 },
+        2: { score: 90, distance: 100 },
+        3: { score: 85, distance: 200 },
+        4: { score: 80, distance: 300 }
+    };
+    const message = generateShareMessage(guesses, mockLocations, 450);
+    
+    suite.assert(message.includes('100🎯'), 'Should include 100 with 🎯');
+    suite.assert(message.includes('95🏅'), 'Should include 95 with 🏅');
+    suite.assert(message.includes('90🏆'), 'Should include 90 with 🏆');
+    suite.assert(message.includes('85🎉'), 'Should include 85 with 🎉');
+    suite.assert(message.includes('80✨'), 'Should include 80 with ✨');
+});
+
+suite.test('Share message: should format scores in correct order', () => {
+    const guesses = {
+        0: { score: 100, distance: 0 },
+        1: { score: 80, distance: 100 },
+        2: { score: 60, distance: 500 }
+    };
+    const message = generateShareMessage(guesses, mockLocations.slice(0, 3), 240);
+    
+    // Scores should appear in order: 100🎯 80✨ 60🙂
+    const scorePart = message.split('\n')[1];
+    suite.assert(scorePart.includes('100🎯'), 'First score should be 100🎯');
+    suite.assert(scorePart.includes('80✨'), 'Second score should be 80✨');
+    suite.assert(scorePart.includes('60🙂'), 'Third score should be 60🙂');
+});
+
+suite.test('Share message: should handle missing guesses', () => {
+    const guesses = {
+        0: { score: 100, distance: 0 },
+        2: { score: 80, distance: 100 }
+    };
+    const message = generateShareMessage(guesses, mockLocations, 180);
+    
+    // Should only include scores that exist
+    suite.assert(message.includes('100🎯'), 'Should include first score');
+    suite.assert(message.includes('80✨'), 'Should include third score');
+    // Should not include location 1, 3, 4 in the score string
+    const scoreLine = message.split('\n')[1];
+    const scoreCount = scoreLine.split(' ').length;
+    suite.assertEquals(scoreCount, 2, 'Should only have 2 scores');
+});
+
+suite.test('Share message: should match example format', () => {
+    const guesses = {
+        0: { score: 96, distance: 50 },
+        1: { score: 100, distance: 0 },
+        2: { score: 95, distance: 80 },
+        3: { score: 87, distance: 200 },
+        4: { score: 89, distance: 150 }
+    };
+    const totalScore = 96 + 100 + 95 + 87 + 89;
+    const message = generateShareMessage(guesses, mockLocations, totalScore);
+    
+    // Check structure
+    const lines = message.split('\n');
+    suite.assertEquals(lines.length, 3, 'Should have 3 lines');
+    suite.assert(lines[0].includes('https://'), 'First line should have URL and date');
+    suite.assert(lines[1].includes('96'), 'Second line should have scores');
+    suite.assert(lines[2].includes('Final score:'), 'Third line should have final score');
+    
+    // Check scores are present
+    suite.assert(lines[1].includes('96🏅'), 'Should have 96🏅');
+    suite.assert(lines[1].includes('100🎯'), 'Should have 100🎯');
+    suite.assert(lines[1].includes('95🏅'), 'Should have 95🏅');
+    suite.assert(lines[1].includes('87🎉'), 'Should have 87🎉');
+    suite.assert(lines[1].includes('89🎉'), 'Should have 89🎉');
+});
+
+suite.test('Share message: should handle all score ranges', () => {
+    const guesses = {
+        0: { score: 100, distance: 0 },
+        1: { score: 50, distance: 2500 },
+        2: { score: 30, distance: 3500 },
+        3: { score: 10, distance: 4500 },
+        4: { score: 0, distance: 5000 }
+    };
+    const message = generateShareMessage(guesses, mockLocations, 190);
+    
+    suite.assert(message.includes('100🎯'), 'Perfect score');
+    suite.assert(message.includes('50🫣'), 'Low score');
+    suite.assert(message.includes('30😐'), 'Very low score');
+    suite.assert(message.includes('10😢'), 'Extremely low score');
+    suite.assert(message.includes('0😭'), 'Zero score');
+});
+
+suite.test('Share message: final score should match sum', () => {
+    const guesses = {
+        0: { score: 100, distance: 0 },
+        1: { score: 80, distance: 100 },
+        2: { score: 60, distance: 500 },
+        3: { score: 40, distance: 1000 },
+        4: { score: 20, distance: 2000 }
+    };
+    const totalScore = 300;
+    const message = generateShareMessage(guesses, mockLocations, totalScore);
+    
+    suite.assert(message.includes('Final score: 300'), 
+        'Final score should match the sum');
+});
+
 // Run all tests
 if (typeof module !== 'undefined' && module.exports) {
     // Node.js
