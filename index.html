@@ -1274,11 +1274,11 @@
             let score = calculateScore(distance);
             
             // Apply multipliers for later locations
-            if (location.id === 2 || location.id === 3) {
-                // Locations 3 & 4 (ids 2 & 3) get x2 multiplier
+            if (location.id === 2) {
+                // Location 3 (id 2) gets x2 multiplier
                 score = Math.round(score * 2);
-            } else if (location.id === 4) {
-                // Location 5 (id 4) gets x3 multiplier
+            } else if (location.id === 3 || location.id === 4) {
+                // Locations 4-5 (ids 3, 4) get x3 multiplier
                 score = Math.round(score * 3);
             }
             

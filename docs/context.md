@@ -123,10 +123,10 @@ philly-fingered/
 ### 4. Scoring System
 - **Base Scores**: 0-100 points per location (calculated from distance)
 - **Score Multipliers**:
-  - Locations 0-2 (id: 0-2): Base score only (no multiplier)
-  - Location 3 (id: 3): Base score × 2 (doubled)
-  - Location 4 (id: 4): Base score × 3 (tripled)
-- **Total Score Range**: 0-700 points (sum of all 5 locations with multipliers)
+  - Locations 1-2 (id: 0-1): Base score only (no multiplier)
+  - Location 3 (id: 2): Base score × 2 (doubled)
+  - Locations 4-5 (id: 3-4): Base score × 3 (tripled)
+- **Total Score Range**: 0-1000 points (sum of all 5 locations with multipliers: 100 + 100 + 200 + 300 + 300)
 - **Distance-based**: Uses Haversine formula to calculate distance
 - **Scoring Curve**: Exponential decay (closer = exponentially better score)
   - Formula: `baseScore = 100 * (1 - (distance / MAX_DISTANCE))^1.5`
@@ -209,10 +209,10 @@ function applyScoreMultiplier(score, locationId)
 - Closer guesses get disproportionately better scores
 - Maximum distance: 5000 meters (5km)
 - **Score Multipliers** (applied after base score calculation):
-  - Location 3 (id: 3): **x2 multiplier** (doubles the base score)
-  - Location 4 (id: 4): **x3 multiplier** (triples the base score)
-  - Locations 0-2 (id: 0-2): No multiplier (base score only)
-- Maximum possible total score: 700 points (100 + 100 + 100 + 200 + 300)
+  - Location 3 (id: 2): **x2 multiplier** (doubles the base score)
+  - Locations 4-5 (id: 3-4): **x3 multiplier** (triples the base score)
+  - Locations 1-2 (id: 0-1): No multiplier (base score only)
+- Maximum possible total score: 1000 points (100 + 100 + 200 + 300 + 300)
 
 ### Share Message Generation
 ```javascript
@@ -260,7 +260,7 @@ let displayUpdateTimeoutId = null;
       score: number                          // Score 0-100
     }
   },
-  totalScore: number                         // Sum of all scores (0-500)
+  totalScore: number                         // Sum of all scores (0-1000 with multipliers)
 }
 ```
 

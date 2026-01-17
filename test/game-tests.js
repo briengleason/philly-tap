@@ -221,7 +221,7 @@ suite.test('Score multiplier: location 5 (id 4) should have x3 multiplier', () =
 
 suite.test('Score multiplier: perfect score (100) with x2 should be 200', () => {
     const baseScore = 100;
-    const finalScore = applyScoreMultiplier(baseScore, 3);
+    const finalScore = applyScoreMultiplier(baseScore, 2);
     suite.assertEquals(finalScore, 200, 'Perfect score x2 should be 200');
 });
 
@@ -233,8 +233,8 @@ suite.test('Score multiplier: perfect score (100) with x3 should be 300', () => 
 
 suite.test('Score multiplier: zero score should remain zero', () => {
     const baseScore = 0;
-    const score2x = applyScoreMultiplier(baseScore, 3);
-    const score3x = applyScoreMultiplier(baseScore, 4);
+    const score2x = applyScoreMultiplier(baseScore, 2);
+    const score3x = applyScoreMultiplier(baseScore, 3);
     suite.assertEquals(score2x, 0, 'Zero score x2 should remain 0');
     suite.assertEquals(score3x, 0, 'Zero score x3 should remain 0');
 });
@@ -244,7 +244,7 @@ suite.test('Score multiplier: multipliers should work with all base scores', () 
     
     testScores.forEach(baseScore => {
         const score2x = applyScoreMultiplier(baseScore, 2);
-        const score3x = applyScoreMultiplier(baseScore, 4);
+        const score3x = applyScoreMultiplier(baseScore, 3);
         
         suite.assertEquals(score2x, baseScore * 2, 
             `Score ${baseScore} x2 should be ${baseScore * 2}, got ${score2x}`);
@@ -264,10 +264,10 @@ suite.test('Score multiplier: integration with distance calculation', () => {
     const scoreLoc5 = applyScoreMultiplier(baseScore, 4);
     
     // Verify multipliers applied correctly
-    suite.assert(scoreLoc3 === baseScore, 
-        `Location 3 (id 2) should have no multiplier`);
-    suite.assert(scoreLoc4 === baseScore * 2, 
-        `Location 4 (id 3) score should be baseScore x2`);
+    suite.assert(scoreLoc3 === baseScore * 2, 
+        `Location 3 (id 2) score should be baseScore x2`);
+    suite.assert(scoreLoc4 === baseScore * 3, 
+        `Location 4 (id 3) score should be baseScore x3`);
     suite.assert(scoreLoc5 === baseScore * 3, 
         `Location 5 (id 4) score should be baseScore x3`);
 });
