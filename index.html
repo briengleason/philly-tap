@@ -105,101 +105,109 @@
             }
         }
         
-        /* Score panel */
-        #score-panel {
+        /* Game panel - shows current location and running score */
+        #game-panel {
             position: fixed;
             top: 20px;
             right: 20px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             z-index: 1000;
-            min-width: 250px;
-            max-width: 300px;
+            min-width: 280px;
+            max-width: 320px;
         }
         
-        #total-score {
+        #progress-indicator {
             text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e5e7eb;
-        }
-        
-        #total-score-value {
-            font-size: 42px;
-            font-weight: 700;
-            color: #2563eb;
-            line-height: 1;
-            margin-bottom: 5px;
-        }
-        
-        #total-score-label {
             font-size: 12px;
-            color: #666;
+            color: #6b7280;
+            margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
-        #locations-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        #current-location {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
         }
         
-        .location-item {
-            padding: 12px;
-            border-radius: 10px;
-            background: #f9fafb;
-            border: 2px solid #e5e7eb;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        #current-location-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
         }
         
-        .location-item:hover {
-            background: #f3f4f6;
-            border-color: #d1d5db;
-        }
-        
-        .location-item.active {
-            background: #eff6ff;
-            border-color: #2563eb;
-        }
-        
-        .location-item.completed {
-            background: #f0fdf4;
-            border-color: #22c55e;
-            cursor: default;
-        }
-        
-        .location-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        
-        .location-name {
-            font-weight: 600;
-            font-size: 14px;
-            color: #111827;
-        }
-        
-        .location-score {
+        #current-location-name {
+            font-size: 20px;
             font-weight: 700;
-            font-size: 16px;
-            color: #2563eb;
+            color: #111827;
+            margin-bottom: 8px;
         }
         
-        .location-status {
-            font-size: 11px;
+        #current-location-instruction {
+            font-size: 14px;
             color: #6b7280;
         }
         
-        .location-status.completed {
-            color: #22c55e;
+        #running-score {
+            text-align: center;
+        }
+        
+        #running-score-label {
+            font-size: 11px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        #running-score-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2563eb;
+            line-height: 1;
+        }
+        
+        #completion-screen {
+            display: none;
+            text-align: center;
+        }
+        
+        #completion-screen.show {
+            display: block;
+        }
+        
+        #final-score {
+            font-size: 56px;
+            font-weight: 700;
+            color: #2563eb;
+            margin: 20px 0;
+        }
+        
+        #completion-message {
+            font-size: 18px;
+            color: #111827;
+            margin-bottom: 15px;
+        }
+        
+        #play-again-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        #play-again-btn:hover {
+            background: #1d4ed8;
         }
         
         /* Quick score popup */
@@ -244,25 +252,29 @@
         }
         
         @media (max-width: 767px) {
-            #score-panel {
+            #game-panel {
                 top: 10px;
                 right: 10px;
                 left: 10px;
                 max-width: none;
                 min-width: auto;
-                padding: 15px;
+                padding: 20px;
             }
             
-            #total-score-value {
-                font-size: 36px;
+            #current-location-icon {
+                font-size: 40px;
             }
             
-            #locations-list {
-                gap: 8px;
+            #current-location-name {
+                font-size: 18px;
             }
             
-            .location-item {
-                padding: 10px;
+            #running-score-value {
+                font-size: 32px;
+            }
+            
+            #final-score {
+                font-size: 48px;
             }
         }
         
@@ -310,12 +322,25 @@
 </head>
 <body>
     <div id="map"></div>
-    <div id="score-panel">
-        <div id="total-score">
-            <div id="total-score-value">0</div>
-            <div id="total-score-label">Total Score</div>
+    <div id="game-panel">
+        <div id="game-content">
+            <div id="progress-indicator">Location <span id="current-location-number">1</span> of <span id="total-locations">5</span></div>
+            <div id="current-location">
+                <div id="current-location-icon">🔔</div>
+                <div id="current-location-name">Loading...</div>
+                <div id="current-location-instruction">Tap on the map to find this location</div>
+            </div>
+            <div id="running-score">
+                <div id="running-score-label">Running Total</div>
+                <div id="running-score-value">0</div>
+            </div>
         </div>
-        <div id="locations-list"></div>
+        <div id="completion-screen">
+            <div id="completion-message">🎉 All locations found! 🎉</div>
+            <div id="final-score">0</div>
+            <div id="running-score-label">Final Score</div>
+            <button id="play-again-btn" onclick="location.reload()">Play Again</button>
+        </div>
     </div>
     <div id="quick-score">
         <div id="quick-score-value">0</div>
@@ -553,7 +578,7 @@
         
         // Game state
         let gameState = {
-            currentLocation: null,
+            currentLocationIndex: 0,  // Index of current location (0-4)
             guesses: {},
             totalScore: 0
         };
@@ -631,62 +656,67 @@
             }, 2000);
         }
         
-        // Render locations list UI
-        function renderLocationsList() {
-            const locationsList = document.getElementById('locations-list');
-            locationsList.innerHTML = '';
-            
-            locations.forEach((location, index) => {
-                const guess = gameState.guesses[location.id];
-                const isCompleted = guess !== undefined;
-                const isActive = gameState.currentLocation === location.id && !isCompleted;
-                
-                const item = document.createElement('div');
-                item.className = `location-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
-                
-                if (!isCompleted) {
-                    item.addEventListener('click', () => selectLocation(location.id));
-                }
-                
-                item.innerHTML = `
-                    <div class="location-header">
-                        <span class="location-name">${location.icon} ${location.name}</span>
-                        <span class="location-score">${isCompleted ? guess.score : '-'}</span>
-                    </div>
-                    <div class="location-status ${isCompleted ? 'completed' : ''}">
-                        ${isCompleted ? `✓ ${formatDistance(guess.distance)} away` : isActive ? 'Tap on map to guess' : 'Tap to select'}
-                    </div>
-                `;
-                
-                locationsList.appendChild(item);
-            });
-        }
-        
-        // Update total score display
-        function updateTotalScore() {
-            const totalScoreValue = document.getElementById('total-score-value');
-            totalScoreValue.textContent = gameState.totalScore;
-        }
-        
-        // Select a location to guess
-        function selectLocation(locationId) {
-            if (gameState.guesses[locationId]) {
-                return; // Already guessed
+        // Get current location
+        function getCurrentLocation() {
+            if (gameState.currentLocationIndex >= locations.length) {
+                return null; // All locations completed
             }
-            gameState.currentLocation = locationId;
-            saveGameState();
-            renderLocationsList();
+            return locations[gameState.currentLocationIndex];
+        }
+        
+        // Update UI to show current location
+        function updateCurrentLocationDisplay() {
+            const location = getCurrentLocation();
+            
+            if (!location) {
+                // All locations completed
+                showCompletionScreen();
+                return;
+            }
+            
+            // Update progress indicator
+            document.getElementById('current-location-number').textContent = gameState.currentLocationIndex + 1;
+            document.getElementById('total-locations').textContent = locations.length;
+            
+            // Update current location display
+            document.getElementById('current-location-icon').textContent = location.icon;
+            document.getElementById('current-location-name').textContent = location.name;
+            
+            // Check if already guessed
+            const guess = gameState.guesses[location.id];
+            if (guess) {
+                document.getElementById('current-location-instruction').textContent = 
+                    `✓ Found! ${formatDistance(guess.distance)} away - ${guess.score} points`;
+            } else {
+                document.getElementById('current-location-instruction').textContent = 
+                    'Tap on the map to find this location';
+            }
+        }
+        
+        // Update running score display
+        function updateRunningScore() {
+            document.getElementById('running-score-value').textContent = gameState.totalScore;
+        }
+        
+        // Show completion screen
+        function showCompletionScreen() {
+            document.getElementById('game-content').style.display = 'none';
+            document.getElementById('completion-screen').classList.add('show');
+            document.getElementById('final-score').textContent = gameState.totalScore;
         }
         
         // Make a guess for the current location
         function makeGuess(tapLatLng) {
-            if (gameState.currentLocation === null) {
-                return; // No location selected
+            const location = getCurrentLocation();
+            
+            if (!location) {
+                return; // All locations completed
             }
             
-            const location = locations[gameState.currentLocation];
             if (gameState.guesses[location.id]) {
-                return; // Already guessed
+                // Already guessed this location, advance to next
+                advanceToNextLocation();
+                return;
             }
             
             // Calculate distance
@@ -716,13 +746,39 @@
             // Show quick score
             showQuickScore(score);
             
-            // Clear current location selection
-            gameState.currentLocation = null;
-            
-            // Save and update UI
+            // Save state
             saveGameState();
-            renderLocationsList();
-            updateTotalScore();
+            
+            // Update UI
+            updateCurrentLocationDisplay();
+            updateRunningScore();
+            
+            // Advance to next location after a short delay
+            setTimeout(() => {
+                advanceToNextLocation();
+            }, 1500);
+        }
+        
+        // Advance to next location
+        function advanceToNextLocation() {
+            // Find next unguessed location
+            while (gameState.currentLocationIndex < locations.length) {
+                const location = locations[gameState.currentLocationIndex];
+                if (!gameState.guesses[location.id]) {
+                    // Found next unguessed location
+                    break;
+                }
+                gameState.currentLocationIndex++;
+            }
+            
+            // If we've completed all locations, show completion screen
+            if (gameState.currentLocationIndex >= locations.length) {
+                showCompletionScreen();
+            } else {
+                updateCurrentLocationDisplay();
+            }
+            
+            saveGameState();
         }
         
         // Store references to markers and lines for all locations
@@ -747,9 +803,24 @@
         
         // Initialize game (called after locations are loaded)
         function initializeGame() {
+            // Restore game state - find first unguessed location
+            if (Object.keys(gameState.guesses).length > 0) {
+                // Find first unguessed location
+                for (let i = 0; i < locations.length; i++) {
+                    if (!gameState.guesses[locations[i].id]) {
+                        gameState.currentLocationIndex = i;
+                        break;
+                    }
+                }
+                // If all guessed, show completion
+                if (gameState.currentLocationIndex >= locations.length) {
+                    showCompletionScreen();
+                }
+            }
+            
             // Initialize UI
-            renderLocationsList();
-            updateTotalScore();
+            updateCurrentLocationDisplay();
+            updateRunningScore();
             restoreMarkers();
         }
         
