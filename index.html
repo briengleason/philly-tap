@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Philadelphia Map</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        
+        /* Hide all map labels and text */
+        .leaflet-container {
+            font-size: 0 !important;
+        }
+        
+        .leaflet-tile-container img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script>
+        // Initialize map centered on Philadelphia
+        const map = L.map('map', {
+            center: [39.9526, -75.1652], // Philadelphia coordinates
+            zoom: 13,
+            zoomControl: true,
+            scrollWheelZoom: true,
+            doubleClickZoom: true,
+            boxZoom: true,
+            keyboard: true,
+            dragging: true,
+            touchZoom: true
+        });
+        
+        // Use CartoDB light_nolabels - specifically designed to have no labels
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19,
+            minZoom: 10
+        }).addTo(map);
+        
+        // Additional CSS to hide any remaining text elements and controls
+        const style = document.createElement('style');
+        style.textContent = `
+            .leaflet-container .leaflet-control-attribution,
+            .leaflet-container .leaflet-control-scale {
+                display: none !important;
+            }
+            .leaflet-tile-pane {
+                filter: contrast(1.1) brightness(0.95);
+            }
+            /* Hide any text that might appear on tiles */
+            .leaflet-tile-container {
+                font-size: 0 !important;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Prevent default touch behaviors that might interfere
+        map.getContainer().addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        // Ensure map fills the screen on mobile
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 100);
+    </script>
+</body>
+</html>
