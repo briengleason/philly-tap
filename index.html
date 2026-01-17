@@ -1131,19 +1131,69 @@
         // Get emoji based on score
         function getScoreEmoji(score) {
             if (score === 100) return '🎯';
+            if (score >= 98) return '👑';
+            if (score >= 97) return '⭐';
+            if (score >= 96) return '💫';
             if (score >= 95) return '🏅';
+            if (score >= 94) return '🥇';
+            if (score >= 93) return '🏵️';
+            if (score >= 92) return '🎖️';
+            if (score >= 91) return '🏅';
             if (score >= 90) return '🏆';
+            if (score >= 89) return '💎';
+            if (score >= 88) return '💍';
+            if (score >= 87) return '✨';
+            if (score >= 86) return '🌟';
             if (score >= 85) return '🎉';
-            if (score >= 80) return '✨';
+            if (score >= 84) return '🎊';
+            if (score >= 83) return '🔥';
+            if (score >= 82) return '💥';
+            if (score >= 81) return '⚡';
+            if (score >= 80) return '⭐';
+            if (score >= 79) return '💫';
+            if (score >= 78) return '✨';
+            if (score >= 77) return '🌟';
+            if (score >= 76) return '💎';
             if (score >= 75) return '😁';
+            if (score >= 74) return '😄';
+            if (score >= 73) return '😊';
+            if (score >= 72) return '👍';
+            if (score >= 71) return '👏';
             if (score >= 70) return '🤗';
-            if (score >= 65) return '😊';
-            if (score >= 60) return '🙂';
+            if (score >= 69) return '🙌';
+            if (score >= 68) return '👋';
+            if (score >= 67) return '✌️';
+            if (score >= 66) return '🤞';
+            if (score >= 65) return '🙌';
+            if (score >= 64) return '🤝';
+            if (score >= 63) return '👌';
+            if (score >= 62) return '🙂';
+            if (score >= 61) return '😌';
+            if (score >= 60) return '👌';
+            if (score >= 58) return '🤔';
+            if (score >= 55) return '😐';
+            if (score >= 53) return '😑';
             if (score >= 50) return '🫣';
+            if (score >= 48) return '🤷';
+            if (score >= 45) return '😕';
+            if (score >= 43) return '😶';
             if (score >= 40) return '😶';
-            if (score >= 30) return '😐';
-            if (score >= 20) return '😕';
-            if (score >= 10) return '😢';
+            if (score >= 38) return '😑';
+            if (score >= 35) return '😐';
+            if (score >= 33) return '😕';
+            if (score >= 30) return '😟';
+            if (score >= 28) return '😞';
+            if (score >= 25) return '😔';
+            if (score >= 23) return '😓';
+            if (score >= 20) return '😟';
+            if (score >= 18) return '😥';
+            if (score >= 15) return '😢';
+            if (score >= 13) return '😰';
+            if (score >= 10) return '😨';
+            if (score >= 8) return '😱';
+            if (score >= 5) return '😰';
+            if (score >= 3) return '😭';
+            if (score >= 1) return '💀';
             return '😭';
         }
         
@@ -1271,22 +1321,24 @@
             );
             
             // Calculate base score
-            let score = calculateScore(distance);
+            let baseScore = calculateScore(distance);
             
             // Apply multipliers for later locations
+            let finalScore = baseScore;
             if (location.id === 2) {
                 // Location 3 (id 2) gets x2 multiplier
-                score = Math.round(score * 2);
+                finalScore = Math.round(baseScore * 2);
             } else if (location.id === 3 || location.id === 4) {
                 // Locations 4-5 (ids 3, 4) get x3 multiplier
-                score = Math.round(score * 3);
+                finalScore = Math.round(baseScore * 3);
             }
             
             // Store guess (save latlng as plain object for JSON serialization)
             gameState.guesses[location.id] = {
                 latlng: { lat: tapLatLng.lat, lng: tapLatLng.lng },
                 distance: distance,
-                score: score
+                baseScore: baseScore,
+                score: finalScore
             };
             
             // Update total score
@@ -1295,8 +1347,8 @@
             // Create markers and line
             createMarkersAndLine(location.id, tapLatLng, distance);
             
-            // Show quick score
-            showQuickScore(score);
+            // Show quick score (show final multiplied score)
+            showQuickScore(finalScore);
             
             // Save state
             saveGameState();
