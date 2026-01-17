@@ -766,6 +766,11 @@
             totalScore: 0
         };
         
+        // Track transition state to prevent location skipping
+        let isTransitioning = false;
+        let transitionTimeoutId = null;
+        let displayUpdateTimeoutId = null;
+        
         // Developer mode flag (set to true to enable reset functionality)
         const DEV_MODE = false; // Change to true for development/testing
         
@@ -1096,6 +1101,11 @@
         
         // Make a guess for the current location
         function makeGuess(tapLatLng) {
+            // Prevent processing during transition to avoid location skipping
+            if (isTransitioning) {
+                return;
+            }
+            
             const location = getCurrentLocation();
             
             if (!location) {
@@ -1182,22 +1192,41 @@
                 if (gameState.currentLocationIndex >= locations.length) {
                     showCompletionScreen();
                     saveGameState();
+                    isTransitioning = false;
                 } else {
                     // Show transition overlay with next location
                     const nextLocation = locations[gameState.currentLocationIndex];
                     showNextLocationTransition(nextLocation);
                     
                     // Update display after transition
-                    setTimeout(() => {
+                    displayUpdateTimeoutId = setTimeout(() => {
                         updateCurrentLocationDisplay(true);
                         saveGameState();
+                        isTransitioning = false;
                     }, 2100);
                 }
+                transitionTimeoutId = null;
             }, 500);
         }
         
         // Advance to next location (used when already guessed)
         function advanceToNextLocation() {
+            // Prevent processing during transition to avoid location skipping
+            if (isTransitioning) {
+                return;
+            }
+            
+            // Set transitioning flag
+            isTransitioning = true;
+            
+            // Clear any existing transition timeouts
+            if (transitionTimeoutId) {
+                clearTimeout(transitionTimeoutId);
+            }
+            if (displayUpdateTimeoutId) {
+                clearTimeout(displayUpdateTimeoutId);
+            }
+            
             // Find next unguessed location
             while (gameState.currentLocationIndex < locations.length) {
                 const location = locations[gameState.currentLocationIndex];
@@ -1211,11 +1240,13 @@
             // If we've completed all locations, show completion screen
             if (gameState.currentLocationIndex >= locations.length) {
                 showCompletionScreen();
+                isTransitioning = false;
             } else {
                 const nextLocation = locations[gameState.currentLocationIndex];
                 showNextLocationTransition(nextLocation);
-                setTimeout(() => {
+                displayUpdateTimeoutId = setTimeout(() => {
                     updateCurrentLocationDisplay(true);
+                    isTransitioning = false;
                 }, 2100);
             }
             

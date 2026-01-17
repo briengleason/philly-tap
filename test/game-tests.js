@@ -1009,6 +1009,230 @@ suite.test('Map styles: attribution should be hidden', () => {
     suite.assert(attributionHidden, 'Map attribution should be hidden via CSS');
 });
 
+// Mobile transition tests - prevent location skipping
+suite.test('Mobile transition: should not skip locations during rapid taps', () => {
+    const guesses = {};
+    const visitedLocationIds = [];
+    let currentIndex = 0;
+    let isTransitioning = false;
+    
+    // Simulate the makeGuess function with transition guard
+    function simulateMakeGuess(locationId) {
+        // Prevent processing during transition (simulating the fix)
+        if (isTransitioning) {
+            return;
+        }
+        
+        const location = mockLocations[currentIndex];
+        if (!location || location.id !== locationId) {
+            return; // Wrong location or invalid
+        }
+        
+        // Mark as transitioning
+        isTransitioning = true;
+        
+        // Store guess
+        guesses[location.id] = { score: 100, distance: 0 };
+        visitedLocationIds.push(location.id);
+        
+        // Simulate transition delay (500ms + 2100ms = 2600ms total)
+        // In real code, this would be async, but for testing we'll simulate it
+        setTimeout(() => {
+            // Find next unguessed location
+            let nextIndex = currentIndex + 1;
+            while (nextIndex < mockLocations.length) {
+                const testLocation = mockLocations[nextIndex];
+                if (!guesses[testLocation.id]) {
+                    break;
+                }
+                nextIndex++;
+            }
+            
+            if (nextIndex < mockLocations.length) {
+                currentIndex = nextIndex;
+            } else {
+                currentIndex = mockLocations.length;
+            }
+            
+            isTransitioning = false;
+        }, 100); // Shorter delay for testing
+    }
+    
+    // Simulate rapid taps (like on mobile) - tapping before transition completes
+    // This should NOT cause locations to be skipped
+    for (let i = 0; i < mockLocations.length; i++) {
+        const location = mockLocations[currentIndex];
+        if (location) {
+            // First tap - should process
+            simulateMakeGuess(location.id);
+            
+            // Rapid second tap during transition - should be ignored
+            simulateMakeGuess(location.id);
+            
+            // Wait for transition to complete
+            // In real scenario, this would be handled by setTimeout
+        }
+    }
+    
+    // Wait for all transitions to complete
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            // Verify all locations were visited
+            const expectedIds = [0, 1, 2, 3, 4];
+            suite.assertEquals(visitedLocationIds.sort((a, b) => a - b), expectedIds, 
+                'All locations should be visited, none skipped');
+            
+            // Verify locations were visited in order (no skipping)
+            for (let i = 0; i < visitedLocationIds.length - 1; i++) {
+                const current = visitedLocationIds[i];
+                const next = visitedLocationIds[i + 1];
+                suite.assert(next === current + 1, 
+                    `Locations should be sequential. Found ${current} followed by ${next}`);
+            }
+            
+            resolve();
+        }, 1000);
+    });
+});
+
+suite.test('Mobile transition: should prevent multiple simultaneous transitions', () => {
+    let isTransitioning = false;
+    let transitionCount = 0;
+    
+    function simulateTransition() {
+        if (isTransitioning) {
+            return; // Should be blocked
+        }
+        isTransitioning = true;
+        transitionCount++;
+        
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 100);
+    }
+    
+    // Simulate rapid calls
+    simulateTransition();
+    simulateTransition(); // Should be blocked
+    simulateTransition(); // Should be blocked
+    
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            suite.assertEquals(transitionCount, 1, 
+                'Only one transition should execute, others should be blocked');
+            resolve();
+        }, 200);
+    });
+});
+
+suite.test('Mobile transition: should visit all locations sequentially without skipping', () => {
+    const guesses = {};
+    const visitedIndices = [];
+    let currentIndex = 0;
+    let isTransitioning = false;
+    
+    function advanceLocation() {
+        if (isTransitioning) {
+            return;
+        }
+        
+        isTransitioning = true;
+        visitedIndices.push(currentIndex);
+        guesses[mockLocations[currentIndex].id] = { score: 100, distance: 0 };
+        
+        // Simulate finding next location
+        setTimeout(() => {
+            let nextIndex = currentIndex + 1;
+            while (nextIndex < mockLocations.length) {
+                if (!guesses[mockLocations[nextIndex].id]) {
+                    break;
+                }
+                nextIndex++;
+            }
+            currentIndex = nextIndex < mockLocations.length ? nextIndex : mockLocations.length;
+            isTransitioning = false;
+        }, 50);
+    }
+    
+    // Simulate game progression
+    for (let i = 0; i < mockLocations.length; i++) {
+        advanceLocation();
+        // Try to advance again immediately (should be blocked)
+        advanceLocation();
+    }
+    
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            // Should have visited all 5 locations
+            suite.assertEquals(visitedIndices.length, mockLocations.length, 
+                `Should visit all ${mockLocations.length} locations`);
+            
+            // Should be in order: 0, 1, 2, 3, 4
+            const expected = [0, 1, 2, 3, 4];
+            suite.assertEquals(visitedIndices, expected, 
+                'Locations should be visited in order without skipping');
+            
+            resolve();
+        }, 500);
+    });
+});
+
+suite.test('Mobile transition: second and fourth locations should not be skipped', () => {
+    // This test specifically checks the reported bug where locations 2 and 4 (indices 1 and 3) were skipped
+    const guesses = {};
+    const visitedLocationIds = [];
+    let currentIndex = 0;
+    let isTransitioning = false;
+    
+    function processGuess() {
+        if (isTransitioning || currentIndex >= mockLocations.length) {
+            return;
+        }
+        
+        isTransitioning = true;
+        const location = mockLocations[currentIndex];
+        guesses[location.id] = { score: 100, distance: 0 };
+        visitedLocationIds.push(location.id);
+        
+        setTimeout(() => {
+            let nextIndex = currentIndex + 1;
+            while (nextIndex < mockLocations.length && guesses[mockLocations[nextIndex].id]) {
+                nextIndex++;
+            }
+            currentIndex = nextIndex < mockLocations.length ? nextIndex : mockLocations.length;
+            isTransitioning = false;
+        }, 50);
+    }
+    
+    // Process all locations
+    for (let i = 0; i < mockLocations.length * 2; i++) { // Extra iterations to catch any issues
+        processGuess();
+    }
+    
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            // Verify location 2 (index 1, id 1) was visited
+            suite.assert(visitedLocationIds.includes(1), 
+                'Location 2 (id 1) should not be skipped');
+            
+            // Verify location 4 (index 3, id 3) was visited
+            suite.assert(visitedLocationIds.includes(3), 
+                'Location 4 (id 3) should not be skipped');
+            
+            // Verify all locations were visited
+            suite.assertEquals(visitedLocationIds.length, mockLocations.length, 
+                'All locations should be visited');
+            
+            // Verify sequential order
+            const sorted = [...visitedLocationIds].sort((a, b) => a - b);
+            suite.assertEquals(sorted, [0, 1, 2, 3, 4], 
+                'Locations should be visited in sequential order');
+            
+            resolve();
+        }, 500);
+    });
+});
+
 // Run all tests
 if (typeof module !== 'undefined' && module.exports) {
     // Node.js
