@@ -949,6 +949,27 @@
             document.getElementById('game-content').style.display = 'none';
             document.getElementById('completion-screen').classList.add('show');
             document.getElementById('final-score').textContent = gameState.totalScore;
+            
+            // Populate results table
+            const tableBody = document.getElementById('results-table-body');
+            tableBody.innerHTML = '';
+            
+            // Sort locations by their original order (by id)
+            const sortedLocations = locations.slice().sort((a, b) => a.id - b.id);
+            
+            sortedLocations.forEach(location => {
+                const guess = gameState.guesses[location.id];
+                if (guess) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="location-icon">${location.icon}</td>
+                        <td class="location-name">${location.name}</td>
+                        <td class="distance">${formatDistance(guess.distance)}</td>
+                        <td class="score">${guess.score}</td>
+                    `;
+                    tableBody.appendChild(row);
+                }
+            });
         }
         
         // Make a guess for the current location
