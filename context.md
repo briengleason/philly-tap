@@ -9,6 +9,7 @@
 ```
 philly-fingered/
 ├── index.html          # Main application (single-page app)
+├── locations.yaml      # Daily locations configuration
 ├── README.md           # User-facing documentation
 ├── DEPLOYMENT.md       # Deployment instructions
 ├── context.md          # This file - project context
@@ -22,6 +23,8 @@ philly-fingered/
 - **Mapping**: Leaflet.js (open-source mapping library)
 - **Map Tiles**: CartoDB light_nolabels (no street names/labels)
 - **Storage**: localStorage (for daily game state persistence)
+- **Configuration**: YAML file for daily locations (`locations.yaml`)
+- **YAML Parser**: js-yaml (loaded from CDN)
 - **Deployment**: Static hosting (GitHub Pages, Netlify, Vercel, etc.)
 
 ## Core Features
@@ -33,12 +36,15 @@ philly-fingered/
 - Touch and mouse interaction support
 
 ### 2. Daily Location Guessing Game
-- **5 Locations per day**:
+- **5 Locations per day** (configurable via `locations.yaml`)
+- **Default locations**:
   1. Liberty Bell (🔔)
   2. Independence Hall (🏛️)
   3. Philadelphia Museum of Art (🎨)
   4. Reading Terminal Market (🍕)
   5. City Hall (🏢)
+- **Date-based configuration**: Different locations can be set for specific dates
+- **Fallback**: Uses default locations if no date-specific config exists
 
 ### 3. Scoring System
 - **Individual Scores**: 0-100 points per location
@@ -106,7 +112,30 @@ score = 100 * (1 - (distance / MAX_DISTANCE))^1.5
 - Value: JSON stringified gameState
 - Resets automatically each day
 
-## Location Coordinates
+## Location Configuration
+
+Locations are defined in `locations.yaml` file. The file supports:
+
+1. **Default locations**: Used when no specific date match is found
+2. **Date-specific locations**: Format `YYYY-MM-DD` as keys for specific dates
+
+### YAML Structure
+
+```yaml
+default:
+  - id: 0
+    name: Location Name
+    coordinates: [lat, lng]
+    icon: 🔔
+
+2025-01-20:
+  - id: 0
+    name: Different Location
+    coordinates: [lat, lng]
+    icon: 🏛️
+```
+
+### Default Location Coordinates
 
 All coordinates are in [latitude, longitude] format:
 
@@ -166,18 +195,34 @@ See `DEPLOYMENT.md` for detailed deployment instructions.
 ## Maintenance
 
 ### Updating Locations
-Edit the `locations` array in `index.html`:
-```javascript
-const locations = [
-  {
-    id: 0,
-    name: 'Location Name',
-    coordinates: [lat, lng],
-    icon: '🔔'
-  },
-  // ...
-];
+Edit `locations.yaml` file:
+
+1. **Update default locations**: Modify the `default:` section
+2. **Add date-specific locations**: Add a new date key (YYYY-MM-DD format)
+3. **Location format**:
+   ```yaml
+   - id: 0
+     name: Location Name
+     coordinates: [latitude, longitude]
+     icon: 🔔
+   ```
+
+Example:
+```yaml
+default:
+  - id: 0
+    name: Liberty Bell
+    coordinates: [39.9496, -75.1503]
+    icon: 🔔
+
+2025-01-20:
+  - id: 0
+    name: Philadelphia Museum of Art
+    coordinates: [39.9656, -75.1809]
+    icon: 🎨
 ```
+
+The app automatically loads the correct locations based on today's date.
 
 ### Changing Scoring
 Modify `MAX_DISTANCE` and `calculateScore()` function in `index.html`.

@@ -1,0 +1,49 @@
+# Daily Locations for Philly Fingered
+# Each day can have different locations
+# Format: YYYY-MM-DD
+
+# Default locations (used if no specific date match)
+default:
+  - id: 0
+    name: Liberty Bell
+    coordinates: [39.9496, -75.1503]
+    icon: 🔔
+  - id: 1
+    name: Independence Hall
+    coordinates: [39.9489, -75.1500]
+    icon: 🏛️
+  - id: 2
+    name: Philadelphia Museum of Art
+    coordinates: [39.9656, -75.1809]
+    icon: 🎨
+  - id: 3
+    name: Reading Terminal Market
+    coordinates: [39.9531, -75.1584]
+    icon: 🍕
+  - id: 4
+    name: City Hall
+    coordinates: [39.9523, -75.1636]
+    icon: 🏢
+
+# Example: Specific locations for a date
+# 2025-01-20:
+#   - id: 0
+#     name: Liberty Bell
+#     coordinates: [39.9496, -75.1503]
+#     icon: 🔔
+#   - id: 1
+#     name: Philadelphia Museum of Art
+#     coordinates: [39.9656, -75.1809]
+#     icon: 🎨
+#   - id: 2
+#     name: Reading Terminal Market
+#     coordinates: [39.9531, -75.1584]
+#     icon: 🍕
+#   - id: 3
+#     name: City Hall
+#     coordinates: [39.9523, -75.1636]
+#     icon: 🏢
+#   - id: 4
+#     name: Independence Hall
+#     coordinates: [39.9489, -75.1500]
+#     icon: 🏛️

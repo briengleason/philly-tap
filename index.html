@@ -325,6 +325,9 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
+    <!-- js-yaml for parsing YAML files -->
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    
     <script>
         // Detect if device is mobile
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
@@ -465,39 +468,85 @@
             });
         }
         
-        // Define 5 Philadelphia locations for daily guessing
-        const locations = [
-            {
-                id: 0,
-                name: 'Liberty Bell',
-                coordinates: [39.9496, -75.1503],
-                icon: '🔔'
-            },
-            {
-                id: 1,
-                name: 'Independence Hall',
-                coordinates: [39.9489, -75.1500],
-                icon: '🏛️'
-            },
-            {
-                id: 2,
-                name: 'Philadelphia Museum of Art',
-                coordinates: [39.9656, -75.1809],
-                icon: '🎨'
-            },
-            {
-                id: 3,
-                name: 'Reading Terminal Market',
-                coordinates: [39.9531, -75.1584],
-                icon: '🍕'
-            },
-            {
-                id: 4,
-                name: 'City Hall',
-                coordinates: [39.9523, -75.1636],
-                icon: '🏢'
+        // Locations will be loaded from YAML file
+        let locations = [];
+        
+        // Get today's date in YYYY-MM-DD format
+        function getTodayDateString() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        
+        // Load locations from YAML file
+        async function loadLocations() {
+            try {
+                const response = await fetch('locations.yaml');
+                const yamlText = await response.text();
+                const data = jsyaml.load(yamlText);
+                
+                const today = getTodayDateString();
+                
+                // Check if there are specific locations for today
+                if (data[today] && Array.isArray(data[today])) {
+                    locations = data[today];
+                } else if (data.default && Array.isArray(data.default)) {
+                    // Use default locations
+                    locations = data.default;
+                } else {
+                    throw new Error('No locations found in YAML file');
+                }
+                
+                // Ensure all locations have IDs
+                locations = locations.map((loc, index) => ({
+                    ...loc,
+                    id: loc.id !== undefined ? loc.id : index
+                }));
+                
+                console.log(`Loaded ${locations.length} locations for ${today}`);
+                
+                // Initialize game after locations are loaded
+                initializeGame();
+            } catch (error) {
+                console.error('Error loading locations:', error);
+                // Fallback to default locations if YAML fails
+                locations = [
+                    {
+                        id: 0,
+                        name: 'Liberty Bell',
+                        coordinates: [39.9496, -75.1503],
+                        icon: '🔔'
+                    },
+                    {
+                        id: 1,
+                        name: 'Independence Hall',
+                        coordinates: [39.9489, -75.1500],
+                        icon: '🏛️'
+                    },
+                    {
+                        id: 2,
+                        name: 'Philadelphia Museum of Art',
+                        coordinates: [39.9656, -75.1809],
+                        icon: '🎨'
+                    },
+                    {
+                        id: 3,
+                        name: 'Reading Terminal Market',
+                        coordinates: [39.9531, -75.1584],
+                        icon: '🍕'
+                    },
+                    {
+                        id: 4,
+                        name: 'City Hall',
+                        coordinates: [39.9523, -75.1636],
+                        icon: '🏢'
+                    }
+                ];
+                initializeGame();
             }
-        ];
+        }
         
         // Maximum distance for scoring (in meters) - beyond this gives 0 points
         const MAX_DISTANCE = 5000;
@@ -676,6 +725,9 @@
             updateTotalScore();
         }
         
+        // Store references to markers and lines for all locations
+        let locationMarkers = {}; // { locationId: { tapMarker, locationMarker, line, label } }
+        
         // Restore markers for completed guesses
         function restoreMarkers() {
             Object.keys(gameState.guesses).forEach(locationId => {
@@ -693,13 +745,16 @@
             });
         }
         
-        // Initialize UI
-        renderLocationsList();
-        updateTotalScore();
-        restoreMarkers();
+        // Initialize game (called after locations are loaded)
+        function initializeGame() {
+            // Initialize UI
+            renderLocationsList();
+            updateTotalScore();
+            restoreMarkers();
+        }
         
-        // Store references to markers and lines for all locations
-        let locationMarkers = {}; // { locationId: { tapMarker, locationMarker, line, label } }
+        // Start loading locations when page loads
+        loadLocations();
         
         // Create custom pin icon
         function createPinIcon(color, isLocation = false, customIcon = null) {
