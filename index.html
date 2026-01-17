@@ -483,7 +483,7 @@
         // Load locations from YAML file
         async function loadLocations() {
             try {
-                const response = await fetch('locations.yaml');
+                const response = await fetch('config/locations.yaml');
                 const yamlText = await response.text();
                 const data = jsyaml.load(yamlText);
                 

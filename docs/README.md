@@ -23,14 +23,22 @@ python3 -m http.server 8000
 # Then visit http://localhost:8000
 ```
 
-## 📁 Files
+## 📁 Project Structure
 
-- `index.html` - Main application
-- `locations.yaml` - Daily locations configuration
-- `README.md` - This file
-- `DEPLOYMENT.md` - Deployment instructions
-- `context.md` - Project documentation
+```
+philly-fingered/
+├── index.html              # Main application (root - required for GitHub Pages)
+├── config/
+│   └── locations.yaml      # Daily locations configuration
+├── docs/
+│   ├── README.md           # This file
+│   ├── DEPLOYMENT.md       # Deployment instructions
+│   ├── GITHUB_PAGES_SETUP.md  # GitHub Pages setup guide
+│   └── context.md          # Project documentation
+└── scripts/
+    └── sync-to-github.sh   # Auto-sync script
+```
 
 ## 🛠️ Development
 
-See `context.md` for detailed project documentation and `DEPLOYMENT.md` for deployment options.
+See `docs/context.md` for detailed project documentation and `docs/DEPLOYMENT.md` for deployment options.

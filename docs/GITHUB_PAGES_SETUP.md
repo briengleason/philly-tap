@@ -29,8 +29,8 @@ Your repository is already connected to GitHub! Follow these steps to enable Git
 The following files are already set up:
 
 - ✅ `.nojekyll` - Ensures GitHub Pages serves all files correctly
-- ✅ `index.html` - Main application file
-- ✅ `locations.yaml` - Location configuration
+- ✅ `index.html` - Main application file (in root)
+- ✅ `config/locations.yaml` - Location configuration
 - ✅ Repository is on `main` branch
 
 ## 🎯 Custom Domain (Optional)
@@ -60,9 +60,10 @@ If you want to use a custom domain:
 - Check the Actions tab for build status
 
 **YAML file not loading?**
-- Ensure `locations.yaml` is in the root directory
+- Ensure `config/locations.yaml` exists
 - Check browser console for errors
 - Verify the file is committed to the repository
+- Verify the path in `index.html` is `config/locations.yaml`
 
 ---
 

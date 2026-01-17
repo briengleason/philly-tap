@@ -7,9 +7,10 @@ set -e
 
 echo "🔄 Syncing to GitHub..."
 
-# Get the current directory
+# Get the script directory and navigate to repo root
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "$SCRIPT_DIR"
+REPO_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
+cd "$REPO_ROOT"
 
 # Check if git is initialized
 if [ ! -d .git ]; then
@@ -25,14 +26,14 @@ if ! git remote get-url origin &>/dev/null; then
 fi
 
 # Update context.md with current date
-if [ -f context.md ]; then
+if [ -f docs/context.md ]; then
     # Update the "Last Updated" section
     if [[ "$OSTYPE" == "darwin"* ]]; then
         # macOS
-        sed -i '' "s/Generated:.*/Generated: $(date)/" context.md
+        sed -i '' "s/Generated:.*/Generated: $(date)/" docs/context.md
     else
         # Linux
-        sed -i "s/Generated:.*/Generated: $(date)/" context.md
+        sed -i "s/Generated:.*/Generated: $(date)/" docs/context.md
     fi
 fi
 

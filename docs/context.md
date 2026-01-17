@@ -8,13 +8,18 @@
 
 ```
 philly-fingered/
-├── index.html          # Main application (single-page app)
-├── locations.yaml      # Daily locations configuration
-├── README.md           # User-facing documentation
-├── DEPLOYMENT.md       # Deployment instructions
-├── context.md          # This file - project context
-├── .gitignore         # Git ignore rules
-└── sync-to-github.sh   # Auto-sync script
+├── index.html              # Main application (root - required for GitHub Pages)
+├── config/
+│   └── locations.yaml      # Daily locations configuration
+├── docs/
+│   ├── README.md           # User-facing documentation
+│   ├── DEPLOYMENT.md       # Deployment instructions
+│   ├── GITHUB_PAGES_SETUP.md  # GitHub Pages setup guide
+│   └── context.md          # This file - project context
+├── scripts/
+│   └── sync-to-github.sh   # Auto-sync script
+├── .gitignore             # Git ignore rules
+└── .nojekyll              # GitHub Pages configuration
 ```
 
 ## Technology Stack
@@ -23,7 +28,7 @@ philly-fingered/
 - **Mapping**: Leaflet.js (open-source mapping library)
 - **Map Tiles**: CartoDB light_nolabels (no street names/labels)
 - **Storage**: localStorage (for daily game state persistence)
-- **Configuration**: YAML file for daily locations (`locations.yaml`)
+- **Configuration**: YAML file for daily locations (`config/locations.yaml`)
 - **YAML Parser**: js-yaml (loaded from CDN)
 - **Deployment**: Static hosting (GitHub Pages, Netlify, Vercel, etc.)
 
@@ -36,7 +41,7 @@ philly-fingered/
 - Touch and mouse interaction support
 
 ### 2. Daily Location Guessing Game
-- **5 Locations per day** (configurable via `locations.yaml`)
+- **5 Locations per day** (configurable via `config/locations.yaml`)
 - **Default locations**:
   1. Liberty Bell (🔔)
   2. Independence Hall (🏛️)
@@ -114,7 +119,7 @@ score = 100 * (1 - (distance / MAX_DISTANCE))^1.5
 
 ## Location Configuration
 
-Locations are defined in `locations.yaml` file. The file supports:
+Locations are defined in `config/locations.yaml` file. The file supports:
 
 1. **Default locations**: Used when no specific date match is found
 2. **Date-specific locations**: Format `YYYY-MM-DD` as keys for specific dates
@@ -195,7 +200,7 @@ See `DEPLOYMENT.md` for detailed deployment instructions.
 ## Maintenance
 
 ### Updating Locations
-Edit `locations.yaml` file:
+Edit `config/locations.yaml` file:
 
 1. **Update default locations**: Modify the `default:` section
 2. **Add date-specific locations**: Add a new date key (YYYY-MM-DD format)
