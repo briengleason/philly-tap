@@ -25,25 +25,334 @@ default:
     coordinates: [39.9523, -75.1636]
     icon: 🏢
 
-# Example: Specific locations for a date
-# 2025-01-20:
-#   - id: 0
-#     name: Liberty Bell
-#     coordinates: [39.9496, -75.1503]
-#     icon: 🔔
-#   - id: 1
-#     name: Philadelphia Museum of Art
-#     coordinates: [39.9656, -75.1809]
-#     icon: 🎨
-#   - id: 2
-#     name: Reading Terminal Market
-#     coordinates: [39.9531, -75.1584]
-#     icon: 🍕
-#   - id: 3
-#     name: City Hall
-#     coordinates: [39.9523, -75.1636]
-#     icon: 🏢
-#   - id: 4
-#     name: Independence Hall
-#     coordinates: [39.9489, -75.1500]
-#     icon: 🏛️
+# Daily locations for January 2025
+
+2026-01-17:
+  - id: 0
+    name: Spruce Street Harbor Park
+    coordinates: [39.9486, -75.1431]
+    icon: 🏖️
+  - id: 1
+    name: Dirty Frank's
+    coordinates: [39.9492, -75.1681]
+    icon: 🍻
+  - id: 2
+    name: Franklin Institute
+    coordinates: [39.9577, -75.1722]
+    icon: 🔭
+  - id: 3
+    name: Powel House
+    coordinates: [39.9472, -75.1500]
+    icon: 🏠
+  - id: 4
+    name: Stenton Mansion
+    coordinates: [40.0197, -75.1578]
+    icon: 🏛️
+
+2025-01-18:
+  - id: 0
+    name: Rocky Steps
+    coordinates: [39.9653, -75.1809]
+    icon: 🏃
+  - id: 1
+    name: Monk's Cafe
+    coordinates: [39.9474, -75.1468]
+    icon: 🍺
+  - id: 2
+    name: Eastern State Penitentiary
+    coordinates: [39.9681, -75.1722]
+    icon: 👻
+  - id: 3
+    name: Laurel Hill Cemetery
+    coordinates: [39.9717, -75.1858]
+    icon: ⚰️
+  - id: 4
+    name: Wagner Free Institute of Science
+    coordinates: [39.9792, -75.1528]
+    icon: 🔬
+
+2025-01-19:
+  - id: 0
+    name: Love Park
+    coordinates: [39.9544, -75.1661]
+    icon: ❤️
+  - id: 1
+    name: Bob & Barbara's
+    coordinates: [39.9419, -75.1658]
+    icon: 🍻
+  - id: 2
+    name: Mutter Museum
+    coordinates: [39.9475, -75.1569]
+    icon: 🩺
+  - id: 3
+    name: Shofuso Japanese House
+    coordinates: [39.9769, -75.2117]
+    icon: 🏯
+  - id: 4
+    name: Bartram's Garden
+    coordinates: [39.9236, -75.2050]
+    icon: 🌸
+
+2025-01-20:
+  - id: 0
+    name: South Street
+    coordinates: [39.9419, -75.1536]
+    icon: 🎸
+  - id: 1
+    name: Jim's Steaks
+    coordinates: [39.9419, -75.1658]
+    icon: 🥩
+  - id: 2
+    name: Magic Gardens
+    coordinates: [39.9428, -75.1597]
+    icon: 🎨
+  - id: 3
+    name: Woodlands Cemetery
+    coordinates: [39.9486, -75.2047]
+    icon: 🌳
+  - id: 4
+    name: 30th Street Station
+    coordinates: [39.9556, -75.1819]
+    icon: 🚂
+
+2025-01-21:
+  - id: 0
+    name: Rittenhouse Square
+    coordinates: [39.9496, -75.1714]
+    icon: 🌳
+  - id: 1
+    name: McGillin's Olde Ale House
+    coordinates: [39.9523, -75.1622]
+    icon: 🍺
+  - id: 2
+    name: Franklin Institute
+    coordinates: [39.9577, -75.1722]
+    icon: 🔭
+  - id: 3
+    name: Barnes Foundation
+    coordinates: [39.9594, -75.1725]
+    icon: 🖼️
+  - id: 4
+    name: John Heinz Wildlife Refuge
+    coordinates: [39.8928, -75.2458]
+    icon: 🦅
+
+2025-01-22:
+  - id: 0
+    name: Ben Franklin Bridge
+    coordinates: [39.9531, -75.1375]
+    icon: 🌉
+  - id: 1
+    name: Tattooed Mom
+    coordinates: [39.9419, -75.1603]
+    icon: 💉
+  - id: 2
+    name: Please Touch Museum
+    coordinates: [39.9775, -75.2117]
+    icon: 🎪
+  - id: 3
+    name: Old City District
+    coordinates: [39.9503, -75.1458]
+    icon: 🏛️
+  - id: 4
+    name: Woodford Mansion
+    coordinates: [39.9814, -75.1761]
+    icon: 🏰
+
+2025-01-23:
+  - id: 0
+    name: Spruce Street Harbor Park
+    coordinates: [39.9486, -75.1431]
+    icon: 🏖️
+  - id: 1
+    name: Pat's King of Steaks
+    coordinates: [39.9333, -75.1594]
+    icon: 🥩
+  - id: 2
+    name: Elfreth's Alley
+    coordinates: [39.9525, -75.1414]
+    icon: 🏘️
+  - id: 3
+    name: Stenton Mansion
+    coordinates: [40.0197, -75.1578]
+    icon: 🏛️
+  - id: 4
+    name: John Bartram House
+    coordinates: [39.9231, -75.2064]
+    icon: 🏡
+
+2025-01-24:
+  - id: 0
+    name: Italian Market
+    coordinates: [39.9369, -75.1592]
+    icon: 🍝
+  - id: 1
+    name: Geno's Steaks
+    coordinates: [39.9331, -75.1592]
+    icon: 🥪
+  - id: 2
+    name: Rodin Museum
+    coordinates: [39.9642, -75.1725]
+    icon: 🗿
+  - id: 3
+    name: Powel House
+    coordinates: [39.9472, -75.1500]
+    icon: 🏠
+  - id: 4
+    name: Strawberry Mansion
+    coordinates: [39.9814, -75.1933]
+    icon: 🍓
+
+2025-01-25:
+  - id: 0
+    name: Washington Square
+    coordinates: [39.9472, -75.1531]
+    icon: 🌳
+  - id: 1
+    name: Franklin Fountain
+    coordinates: [39.9489, -75.1431]
+    icon: 🍦
+  - id: 2
+    name: Fairmount Water Works
+    coordinates: [39.9669, -75.1831]
+    icon: 💧
+  - id: 3
+    name: Cliveden
+    coordinates: [40.0383, -75.1875]
+    icon: 🏛️
+  - id: 4
+    name: Wissahickon Gorge
+    coordinates: [40.0175, -75.1944]
+    icon: 🏔️
+
+2025-01-26:
+  - id: 0
+    name: Boathouse Row
+    coordinates: [39.9692, -75.1917]
+    icon: 🚣
+  - id: 1
+    name: Dirty Frank's
+    coordinates: [39.9492, -75.1681]
+    icon: 🍻
+  - id: 2
+    name: Philadelphia Zoo
+    coordinates: [39.9761, -75.1953]
+    icon: 🦁
+  - id: 3
+    name: Laurel Hill East Cemetery
+    coordinates: [39.9717, -75.1858]
+    icon: ⚱️
+  - id: 4
+    name: Glen Foerd Mansion
+    coordinates: [40.0178, -75.0275]
+    icon: 🏰
+
+2025-01-27:
+  - id: 0
+    name: Convention Center
+    coordinates: [39.9531, -75.1594]
+    icon: 🏢
+  - id: 1
+    name: Oyster House
+    coordinates: [39.9514, -75.1653]
+    icon: 🦪
+  - id: 2
+    name: Betsy Ross House
+    coordinates: [39.9525, -75.1433]
+    icon: 🪡
+  - id: 3
+    name: Fort Mifflin
+    coordinates: [39.8744, -75.2175]
+    icon: 🏰
+  - id: 4
+    name: Manayunk Bridge
+    coordinates: [40.0247, -75.2167]
+    icon: 🌉
+
+2025-01-28:
+  - id: 0
+    name: Penn's Landing
+    coordinates: [39.9486, -75.1431]
+    icon: ⚓
+  - id: 1
+    name: Woody's
+    coordinates: [39.9492, -75.1675]
+    icon: 🏳️‍🌈
+  - id: 2
+    name: Academy of Natural Sciences
+    coordinates: [39.9575, -75.1725]
+    icon: 🦖
+  - id: 3
+    name: Grumblethorpe
+    coordinates: [39.9775, -75.1656]
+    icon: 🏠
+  - id: 4
+    name: Wissahickon Valley Park
+    coordinates: [40.0169, -75.1975]
+    icon: 🏞️
+
+2025-01-29:
+  - id: 0
+    name: Chinatown Gate
+    coordinates: [39.9542, -75.1556]
+    icon: 🚪
+  - id: 1
+    name: Nomad Pizza
+    coordinates: [39.9478, -75.1625]
+    icon: 🍕
+  - id: 2
+    name: Fabric Workshop & Museum
+    coordinates: [39.9528, -75.1597]
+    icon: 🧵
+  - id: 3
+    name: Morris Arboretum
+    coordinates: [40.0736, -75.2319]
+    icon: 🌲
+  - id: 4
+    name: La Salle University Art Museum
+    coordinates: [40.0372, -75.1569]
+    icon: 🎨
+
+2025-01-30:
+  - id: 0
+    name: Market East Station
+    coordinates: [39.9531, -75.1575]
+    icon: 🚇
+  - id: 1
+    name: Standard Tap
+    coordinates: [39.9667, -75.1358]
+    icon: 🍺
+  - id: 2
+    name: Christ Church
+    coordinates: [39.9508, -75.1444]
+    icon: ⛪
+  - id: 3
+    name: Germantown Friends Meeting
+    coordinates: [40.0317, -75.1731]
+    icon: 🙏
+  - id: 4
+    name: Mt. Moriah Cemetery
+    coordinates: [39.9203, -75.2261]
+    icon: ⚰️
+
+2025-01-31:
+  - id: 0
+    name: Dilworth Park
+    coordinates: [39.9523, -75.1636]
+    icon: ⛲
+  - id: 1
+    name: Ishkabibble's
+    coordinates: [39.9422, -75.1661]
+    icon: 🥙
+  - id: 2
+    name: Society Hill Playhouse
+    coordinates: [39.9447, -75.1489]
+    icon: 🎭
+  - id: 3
+    name: Arden Theatre
+    coordinates: [39.9533, -75.1600]
+    icon: 🎭
+  - id: 4
+    name: Curtis Institute of Music
+    coordinates: [39.9483, -75.1686]
+    icon: 🎼

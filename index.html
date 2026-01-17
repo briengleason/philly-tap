@@ -1116,8 +1116,17 @@
                 tapLatLng.lng
             );
             
-            // Calculate score
-            const score = calculateScore(distance);
+            // Calculate base score
+            let score = calculateScore(distance);
+            
+            // Apply multipliers for later locations
+            if (location.id === 2 || location.id === 3) {
+                // Locations 3 & 4 (ids 2 & 3) get x2 multiplier
+                score = Math.round(score * 2);
+            } else if (location.id === 4) {
+                // Location 5 (id 4) gets x3 multiplier
+                score = Math.round(score * 3);
+            }
             
             // Store guess (save latlng as plain object for JSON serialization)
             gameState.guesses[location.id] = {
