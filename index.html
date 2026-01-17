@@ -289,7 +289,7 @@
         #completion-message {
             font-size: 18px;
             color: #111827;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         #results-table {
@@ -323,6 +323,7 @@
         #results-table .location-icon {
             font-size: 18px;
             text-align: center;
+            width: 40px;
         }
         
         #results-table .location-name {
@@ -528,8 +529,8 @@
             markerZoomAnimation: true
         });
         
-        // Use colorful, fun map style - CartoDB Positron (colorful and clean)
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/positron/{z}/{x}/{y}{r}.png', {
+        // Use CartoDB light_nolabels - specifically designed to have no labels
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
             subdomains: 'abcd',
             maxZoom: 19,
@@ -546,20 +547,8 @@
                 display: none !important;
             }
             .leaflet-tile-pane {
-                filter: contrast(1.15) brightness(1.1) saturate(1.4) hue-rotate(5deg);
+                filter: contrast(1.1) brightness(0.95);
             }
-            
-            /* Add colorful background gradient */
-            .leaflet-container {
-                background: linear-gradient(135deg, #f093fb 0%, #4facfe 100%);
-            }
-            
-            /* Make map tiles more vibrant */
-            .leaflet-tile-container img {
-                mix-blend-mode: overlay;
-                opacity: 0.9;
-            }
-            
             /* Hide any text that might appear on tiles */
             .leaflet-tile-container {
                 font-size: 0 !important;
@@ -960,27 +949,6 @@
             document.getElementById('game-content').style.display = 'none';
             document.getElementById('completion-screen').classList.add('show');
             document.getElementById('final-score').textContent = gameState.totalScore;
-            
-            // Populate results table
-            const tableBody = document.getElementById('results-table-body');
-            tableBody.innerHTML = '';
-            
-            // Sort locations by their original order
-            const sortedLocations = locations.slice().sort((a, b) => a.id - b.id);
-            
-            sortedLocations.forEach(location => {
-                const guess = gameState.guesses[location.id];
-                if (guess) {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td class="location-icon">${location.icon}</td>
-                        <td class="location-name">${location.name}</td>
-                        <td class="distance">${formatDistance(guess.distance)}</td>
-                        <td class="score">${guess.score}</td>
-                    `;
-                    tableBody.appendChild(row);
-                }
-            });
         }
         
         // Make a guess for the current location
