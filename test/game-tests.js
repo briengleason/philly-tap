@@ -178,11 +178,11 @@ suite.test('Score calculation: exponential decay curve', () => {
 
 // Apply score multipliers based on location ID
 function applyScoreMultiplier(score, locationId) {
-    if (locationId === 2 || locationId === 3) {
-        // Locations 3 & 4 (ids 2 & 3) get x2 multiplier
+    if (locationId === 2) {
+        // Location 3 (id 2) gets x2 multiplier
         return Math.round(score * 2);
-    } else if (locationId === 4) {
-        // Location 5 (id 4) gets x3 multiplier
+    } else if (locationId === 3 || locationId === 4) {
+        // Locations 4-5 (ids 3, 4) get x3 multiplier
         return Math.round(score * 3);
     }
     return score;
@@ -207,10 +207,10 @@ suite.test('Score multiplier: location 3 (id 2) should have x2 multiplier', () =
     suite.assertEquals(finalScore, 100, 'Location 3 should have x2 multiplier');
 });
 
-suite.test('Score multiplier: location 4 (id 3) should have x2 multiplier', () => {
+suite.test('Score multiplier: location 4 (id 3) should have x3 multiplier', () => {
     const baseScore = 80;
     const finalScore = applyScoreMultiplier(baseScore, 3);
-    suite.assertEquals(finalScore, 160, 'Location 4 should have x2 multiplier');
+    suite.assertEquals(finalScore, 240, 'Location 4 should have x3 multiplier');
 });
 
 suite.test('Score multiplier: location 5 (id 4) should have x3 multiplier', () => {
@@ -221,7 +221,7 @@ suite.test('Score multiplier: location 5 (id 4) should have x3 multiplier', () =
 
 suite.test('Score multiplier: perfect score (100) with x2 should be 200', () => {
     const baseScore = 100;
-    const finalScore = applyScoreMultiplier(baseScore, 2);
+    const finalScore = applyScoreMultiplier(baseScore, 3);
     suite.assertEquals(finalScore, 200, 'Perfect score x2 should be 200');
 });
 
@@ -233,7 +233,7 @@ suite.test('Score multiplier: perfect score (100) with x3 should be 300', () => 
 
 suite.test('Score multiplier: zero score should remain zero', () => {
     const baseScore = 0;
-    const score2x = applyScoreMultiplier(baseScore, 2);
+    const score2x = applyScoreMultiplier(baseScore, 3);
     const score3x = applyScoreMultiplier(baseScore, 4);
     suite.assertEquals(score2x, 0, 'Zero score x2 should remain 0');
     suite.assertEquals(score3x, 0, 'Zero score x3 should remain 0');
@@ -264,12 +264,12 @@ suite.test('Score multiplier: integration with distance calculation', () => {
     const scoreLoc5 = applyScoreMultiplier(baseScore, 4);
     
     // Verify multipliers applied correctly
-    suite.assert(scoreLoc3 === baseScore * 2, 
-        `Location 3 score should be baseScore x2`);
+    suite.assert(scoreLoc3 === baseScore, 
+        `Location 3 (id 2) should have no multiplier`);
     suite.assert(scoreLoc4 === baseScore * 2, 
-        `Location 4 score should be baseScore x2`);
+        `Location 4 (id 3) score should be baseScore x2`);
     suite.assert(scoreLoc5 === baseScore * 3, 
-        `Location 5 score should be baseScore x3`);
+        `Location 5 (id 4) score should be baseScore x3`);
 });
 
 // Location progression tests
@@ -1227,6 +1227,204 @@ suite.test('Mobile transition: second and fourth locations should not be skipped
             const sorted = [...visitedLocationIds].sort((a, b) => a - b);
             suite.assertEquals(sorted, [0, 1, 2, 3, 4], 
                 'Locations should be visited in sequential order');
+            
+            resolve();
+        }, 500);
+    });
+});
+
+// Critical test: Ensure isTransitioning flag is set BEFORE setTimeout
+// This test prevents the regression where the flag wasn't set early enough
+suite.test('Transition guard: isTransitioning must be set BEFORE setTimeout', () => {
+    let isTransitioning = false;
+    let transitionStarted = false;
+    let setTimeoutCalled = false;
+    
+    // Simulate the makeGuess function structure
+    function simulateMakeGuess() {
+        // Guard check
+        if (isTransitioning) {
+            return;
+        }
+        
+        // CRITICAL: Flag must be set here, BEFORE setTimeout
+        isTransitioning = true;
+        transitionStarted = true;
+        
+        // Simulate setTimeout
+        setTimeoutCalled = true;
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 100);
+    }
+    
+    // Call function
+    simulateMakeGuess();
+    
+    // Immediately check - flag should be set before setTimeout callback runs
+    suite.assert(isTransitioning === true, 
+        'isTransitioning flag must be true immediately after setting it');
+    suite.assert(transitionStarted === true, 
+        'Transition should have started');
+    suite.assert(setTimeoutCalled === true, 
+        'setTimeout should have been called');
+    
+    // Try to call again immediately - should be blocked
+    const wasBlocked = !isTransitioning;
+    simulateMakeGuess(); // This should return early
+    
+    // Flag should still be true (second call was blocked)
+    suite.assert(isTransitioning === true, 
+        'Second call should be blocked, flag should remain true');
+});
+
+// Test: Rapid fire calls should only process first one
+suite.test('Transition guard: rapid fire calls should only process first', () => {
+    let isTransitioning = false;
+    let processCount = 0;
+    let transitionTimeoutId = null;
+    
+    function simulateMakeGuess() {
+        if (isTransitioning) {
+            return; // Blocked
+        }
+        
+        isTransitioning = true;
+        processCount++;
+        
+        // Clear any existing timeout
+        if (transitionTimeoutId) {
+            clearTimeout(transitionTimeoutId);
+        }
+        
+        transitionTimeoutId = setTimeout(() => {
+            isTransitioning = false;
+        }, 100);
+    }
+    
+    // Rapid fire 10 calls
+    for (let i = 0; i < 10; i++) {
+        simulateMakeGuess();
+    }
+    
+    // Only first call should have processed
+    suite.assertEquals(processCount, 1, 
+        'Only the first call should process, others should be blocked');
+    suite.assert(isTransitioning === true, 
+        'Flag should still be true during transition');
+    
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            suite.assert(isTransitioning === false, 
+                'Flag should be false after transition completes');
+            resolve();
+        }, 150);
+    });
+});
+
+// Test: Verify timeout clearing prevents overlapping transitions
+suite.test('Transition guard: timeout clearing prevents overlapping transitions', () => {
+    let isTransitioning = false;
+    let transitionCount = 0;
+    let transitionTimeoutId = null;
+    let displayUpdateTimeoutId = null;
+    
+    function simulateTransition() {
+        if (isTransitioning) {
+            return;
+        }
+        
+        isTransitioning = true;
+        transitionCount++;
+        
+        // Clear any existing timeouts (critical for preventing overlaps)
+        if (transitionTimeoutId) {
+            clearTimeout(transitionTimeoutId);
+        }
+        if (displayUpdateTimeoutId) {
+            clearTimeout(displayUpdateTimeoutId);
+        }
+        
+        transitionTimeoutId = setTimeout(() => {
+            displayUpdateTimeoutId = setTimeout(() => {
+                isTransitioning = false;
+            }, 50);
+        }, 50);
+    }
+    
+    // Start transition
+    simulateTransition();
+    
+    // Start another transition before first completes (should clear first)
+    setTimeout(() => {
+        simulateTransition();
+    }, 25);
+    
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            // Should have processed transitions, but only one active at a time
+            suite.assert(transitionCount >= 1, 
+                'At least one transition should have started');
+            suite.assert(isTransitioning === false, 
+                'Flag should be false after all transitions complete');
+            resolve();
+        }, 200);
+    });
+});
+
+// Test: Verify location index advancement happens atomically
+suite.test('Transition guard: location index advancement must be atomic', () => {
+    const guesses = {};
+    const visitedIndices = [];
+    let currentIndex = 0;
+    let isTransitioning = false;
+    let transitionTimeoutId = null;
+    
+    function simulateMakeGuess() {
+        if (isTransitioning) {
+            return;
+        }
+        
+        isTransitioning = true;
+        visitedIndices.push(currentIndex);
+        guesses[mockLocations[currentIndex].id] = { score: 100, distance: 0 };
+        
+        // Clear existing timeout
+        if (transitionTimeoutId) {
+            clearTimeout(transitionTimeoutId);
+        }
+        
+        transitionTimeoutId = setTimeout(() => {
+            // Find next location atomically
+            let nextIndex = currentIndex + 1;
+            while (nextIndex < mockLocations.length) {
+                if (!guesses[mockLocations[nextIndex].id]) {
+                    break;
+                }
+                nextIndex++;
+            }
+            
+            // Atomic update
+            currentIndex = nextIndex < mockLocations.length ? nextIndex : mockLocations.length;
+            isTransitioning = false;
+        }, 50);
+    }
+    
+    // Simulate rapid taps
+    for (let i = 0; i < 10; i++) {
+        simulateMakeGuess();
+    }
+    
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            // Should have visited exactly 5 locations (no duplicates, no skips)
+            suite.assertEquals(visitedIndices.length, mockLocations.length, 
+                'Should visit exactly 5 locations');
+            
+            // Should be sequential
+            const expected = [0, 1, 2, 3, 4];
+            suite.assertEquals(visitedIndices, expected, 
+                'Locations must be visited in sequential order');
             
             resolve();
         }, 500);

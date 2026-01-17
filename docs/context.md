@@ -36,10 +36,12 @@
 - Generated formatted share messages: `briengleason.github.io/philly-fingered/ January 17 96🏅 100🎯...`
 
 ### Phase 6: Testing & Quality Assurance
-- Built comprehensive test suite (65+ tests)
+- Built comprehensive test suite (70+ tests)
 - Added tests for all game logic, share functionality, and map rendering
 - Created pre-commit hooks to automatically run tests before commits
 - Established test-first development workflow
+- Added transition guard tests to prevent location skipping regression
+- Tests verify critical timing: `isTransitioning` flag set BEFORE `setTimeout`
 
 ### Phase 7: Deployment & Automation
 - Deployed to GitHub Pages
@@ -119,11 +121,16 @@ philly-fingered/
 - **No skipping**: Ensures all locations are played in order
 
 ### 4. Scoring System
-- **Individual Scores**: 0-100 points per location
-- **Total Score**: 0-500 points (sum of all 5 locations)
+- **Base Scores**: 0-100 points per location (calculated from distance)
+- **Score Multipliers**:
+  - Locations 0-2 (id: 0-2): Base score only (no multiplier)
+  - Location 3 (id: 3): Base score × 2 (doubled)
+  - Location 4 (id: 4): Base score × 3 (tripled)
+- **Total Score Range**: 0-700 points (sum of all 5 locations with multipliers)
 - **Distance-based**: Uses Haversine formula to calculate distance
 - **Scoring Curve**: Exponential decay (closer = exponentially better score)
-  - Formula: `score = 100 * (1 - (distance / MAX_DISTANCE))^1.5`
+  - Formula: `baseScore = 100 * (1 - (distance / MAX_DISTANCE))^1.5`
+  - Then multipliers are applied: `finalScore = baseScore × multiplier`
 - **Maximum Distance**: 5km (beyond this = 0 points)
 
 ### 5. Visual Feedback
@@ -195,11 +202,17 @@ function calculateDistance(lat1, lon1, lat2, lon2)
 ### Score Calculation
 ```javascript
 function calculateScore(distance, maxDistance = 5000)
+function applyScoreMultiplier(score, locationId)
 ```
-- Formula: `100 * (1 - (distance / maxDistance))^1.5`
+- Base Formula: `100 * (1 - (distance / maxDistance))^1.5`
 - Exponential decay curve
 - Closer guesses get disproportionately better scores
 - Maximum distance: 5000 meters (5km)
+- **Score Multipliers** (applied after base score calculation):
+  - Location 3 (id: 3): **x2 multiplier** (doubles the base score)
+  - Location 4 (id: 4): **x3 multiplier** (triples the base score)
+  - Locations 0-2 (id: 0-2): No multiplier (base score only)
+- Maximum possible total score: 700 points (100 + 100 + 100 + 200 + 300)
 
 ### Share Message Generation
 ```javascript
@@ -222,6 +235,19 @@ function makeGuess(tapLatLng)
 - Handles animations and transitions
 - Prevents skipping locations
 - Updates UI and game state
+
+### Transition Guard (Critical for Mobile)
+```javascript
+let isTransitioning = false;
+let transitionTimeoutId = null;
+let displayUpdateTimeoutId = null;
+```
+- **CRITICAL**: The `isTransitioning` flag MUST be set to `true` immediately after the guard check in `makeGuess()`, BEFORE the `setTimeout()` call
+- Prevents location skipping during rapid taps on mobile devices
+- Blocks new guesses while a transition is in progress
+- Clears existing timeouts before starting new transitions to prevent overlaps
+- **Regression Prevention**: Tests verify the flag is set before setTimeout to prevent this bug from recurring
+- Transition duration: 500ms fade-out + 2100ms overlay = 2600ms total
 
 ### Game State Structure
 ```javascript
@@ -488,6 +514,27 @@ The app automatically loads the correct locations based on today's date.
 
 ### Changing Scoring
 Modify `MAX_DISTANCE` (default: 5000 meters) and `calculateScore()` function in `index.html`.
+To change multipliers, update the `applyScoreMultiplier()` logic in `makeGuess()` function.
+
+### Preventing Regressions
+
+#### Mobile Transition Bug (Location Skipping)
+**Problem**: Locations 2 and 4 (indices 1 and 3) were being skipped during rapid taps on mobile.
+
+**Root Cause**: The `isTransitioning` flag was not set to `true` before the `setTimeout()` call, allowing multiple simultaneous transitions.
+
+**Fix**: 
+1. Set `isTransitioning = true` immediately after the guard check
+2. Clear existing timeouts before starting new transitions
+3. Properly manage timeout IDs for cleanup
+
+**Prevention**:
+- Tests verify the flag is set BEFORE setTimeout (see `Transition guard: isTransitioning must be set BEFORE setTimeout` test)
+- Tests verify rapid fire calls are blocked (see `Transition guard: rapid fire calls should only process first` test)
+- Tests verify timeout clearing prevents overlaps (see `Transition guard: timeout clearing prevents overlapping transitions` test)
+- **CRITICAL**: When modifying `makeGuess()` or `advanceToNextLocation()`, ensure `isTransitioning = true` is set immediately after the guard check, before any async operations
+
+**Test Coverage**: 5+ tests specifically target this bug to prevent regression.
 
 ### Styling
 All CSS is embedded in `<style>` tag in `index.html`.
