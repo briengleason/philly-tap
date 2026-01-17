@@ -289,23 +289,55 @@
         #completion-message {
             font-size: 18px;
             color: #111827;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
-        #play-again-btn {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 14px;
+        #results-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        
+        #results-table thead {
+            background: #f3f4f6;
+        }
+        
+        #results-table th {
+            padding: 10px 8px;
+            text-align: left;
             font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s ease;
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
         }
         
-        #play-again-btn:hover {
-            background: #1d4ed8;
+        #results-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        #results-table tbody tr:hover {
+            background: #f9fafb;
+        }
+        
+        #results-table .location-icon {
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        #results-table .location-name {
+            font-weight: 500;
+            color: #111827;
+        }
+        
+        #results-table .distance {
+            color: #6b7280;
+        }
+        
+        #results-table .score {
+            font-weight: 700;
+            color: #2563eb;
+            text-align: right;
         }
         
         /* Quick score popup */
@@ -437,7 +469,19 @@
             <div id="completion-message">🎉 All locations found! 🎉</div>
             <div id="final-score">0</div>
             <div id="running-score-label">Final Score</div>
-            <button id="play-again-btn" onclick="location.reload()">Play Again</button>
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th class="location-icon">📍</th>
+                        <th>Location</th>
+                        <th>Distance</th>
+                        <th class="score">Score</th>
+                    </tr>
+                </thead>
+                <tbody id="results-table-body">
+                    <!-- Will be populated by JavaScript -->
+                </tbody>
+            </table>
         </div>
     </div>
     <div id="next-location-overlay">
@@ -484,8 +528,8 @@
             markerZoomAnimation: true
         });
         
-        // Use CartoDB light_nolabels - specifically designed to have no labels
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+        // Use colorful, fun map style - CartoDB Positron (colorful and clean)
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/positron/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
             subdomains: 'abcd',
             maxZoom: 19,
@@ -904,6 +948,27 @@
             document.getElementById('game-content').style.display = 'none';
             document.getElementById('completion-screen').classList.add('show');
             document.getElementById('final-score').textContent = gameState.totalScore;
+            
+            // Populate results table
+            const tableBody = document.getElementById('results-table-body');
+            tableBody.innerHTML = '';
+            
+            // Sort locations by their original order
+            const sortedLocations = locations.slice().sort((a, b) => a.id - b.id);
+            
+            sortedLocations.forEach(location => {
+                const guess = gameState.guesses[location.id];
+                if (guess) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="location-icon">${location.icon}</td>
+                        <td class="location-name">${location.name}</td>
+                        <td class="distance">${formatDistance(guess.distance)}</td>
+                        <td class="score">${guess.score}</td>
+                    `;
+                    tableBody.appendChild(row);
+                }
+            });
         }
         
         // Make a guess for the current location
