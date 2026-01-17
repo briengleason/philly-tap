@@ -686,16 +686,25 @@
             totalScore: 0
         };
         
+        // Developer mode flag (set to true to enable reset functionality)
+        const DEV_MODE = false; // Change to true for development/testing
+        
         // Initialize game state from localStorage (for daily persistence)
         function loadGameState() {
             const today = new Date().toDateString();
             const saved = localStorage.getItem(`phillyGame_${today}`);
-            if (saved) {
-                gameState = JSON.parse(saved);
-            } else {
-                // Reset for new day
+            if (saved && !DEV_MODE) {
+                const parsed = JSON.parse(saved);
+                // Ensure currentLocationIndex exists (migration from old format)
                 gameState = {
-                    currentLocation: null,
+                    currentLocationIndex: parsed.currentLocationIndex !== undefined ? parsed.currentLocationIndex : 0,
+                    guesses: parsed.guesses || {},
+                    totalScore: parsed.totalScore || 0
+                };
+            } else {
+                // Reset for new day or dev mode
+                gameState = {
+                    currentLocationIndex: 0,
                     guesses: {},
                     totalScore: 0
                 };
@@ -704,12 +713,65 @@
         
         // Save game state to localStorage
         function saveGameState() {
+            if (!DEV_MODE) {
+                const today = new Date().toDateString();
+                localStorage.setItem(`phillyGame_${today}`, JSON.stringify(gameState));
+            }
+            // In dev mode, don't save so it resets on refresh
+        }
+        
+        // Reset game session (for development/testing)
+        function resetGameSession() {
             const today = new Date().toDateString();
-            localStorage.setItem(`phillyGame_${today}`, JSON.stringify(gameState));
+            localStorage.removeItem(`phillyGame_${today}`);
+            
+            // Clear all game state
+            gameState = {
+                currentLocationIndex: 0,
+                guesses: {},
+                totalScore: 0
+            };
+            
+            // Clear all markers
+            Object.keys(locationMarkers).forEach(locationId => {
+                clearLocationMarkers(parseInt(locationId));
+            });
+            locationMarkers = {};
+            
+            // Reset UI
+            updateCurrentLocationDisplay(false);
+            updateRunningScore();
+            
+            // Hide completion screen if shown
+            document.getElementById('completion-screen').classList.remove('show');
+            document.getElementById('game-content').style.display = 'block';
+            
+            // Restart pulse animation
+            setTimeout(() => {
+                const iconEl = document.getElementById('current-location-icon');
+                if (iconEl) {
+                    iconEl.classList.add('pulse');
+                }
+            }, 500);
+            
+            console.log('✅ Game session reset!');
         }
         
         // Load game state on page load
         loadGameState();
+        
+        // Keyboard shortcut for reset (Ctrl+Shift+R or Cmd+Shift+R)
+        document.addEventListener('keydown', (e) => {
+            // Only trigger if not already handling a map key event
+            if (e.target === document.body || e.target === document.documentElement) {
+                if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'R') {
+                    e.preventDefault();
+                    if (confirm('Reset game session? (This will clear all progress for today)')) {
+                        resetGameSession();
+                    }
+                }
+            }
+        });
         
         // Calculate distance between two lat/lng points using Haversine formula
         function calculateDistance(lat1, lon1, lat2, lon2) {
