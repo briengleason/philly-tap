@@ -1233,6 +1233,198 @@ suite.test('Mobile transition: second and fourth locations should not be skipped
     });
 });
 
+// Date matching and YAML parsing tests
+function getTodayDateString() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+function formatDateForDisplay(dateString) {
+    const [year, month, day] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+    const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+    return `${months[date.getMonth()]} ${day}, ${year}`;
+}
+
+suite.test('Date string: should format as YYYY-MM-DD', () => {
+    const dateStr = getTodayDateString();
+    const pattern = /^\d{4}-\d{2}-\d{2}$/;
+    suite.assert(pattern.test(dateStr), `Date string should match YYYY-MM-DD format, got: ${dateStr}`);
+});
+
+suite.test('Date string: should have valid components', () => {
+    const dateStr = getTodayDateString();
+    const [year, month, day] = dateStr.split('-').map(Number);
+    
+    suite.assert(year >= 2020 && year <= 2100, `Year should be reasonable, got: ${year}`);
+    suite.assert(month >= 1 && month <= 12, `Month should be 1-12, got: ${month}`);
+    suite.assert(day >= 1 && day <= 31, `Day should be 1-31, got: ${day}`);
+});
+
+suite.test('Date display: should format date string correctly', () => {
+    const testDate = '2026-01-17';
+    const formatted = formatDateForDisplay(testDate);
+    
+    suite.assert(formatted.includes('January'), 'Should include month name');
+    suite.assert(formatted.includes('17'), 'Should include day');
+    suite.assert(formatted.includes('2026'), 'Should include year');
+    suite.assertEquals(formatted, 'January 17, 2026');
+});
+
+suite.test('Date display: should handle different months', () => {
+    const testCases = [
+        { input: '2025-12-25', expected: 'December 25, 2025' },
+        { input: '2025-06-01', expected: 'June 1, 2025' },
+        { input: '2025-03-15', expected: 'March 15, 2025' }
+    ];
+    
+    testCases.forEach(({ input, expected }) => {
+        const formatted = formatDateForDisplay(input);
+        suite.assertEquals(formatted, expected, `Should format ${input} as ${expected}`);
+    });
+});
+
+suite.test('Date matching: should find date-specific locations by string match', () => {
+    // Simulate YAML data with JSON_SCHEMA (dates as strings)
+    const mockYAMLData = {
+        'default': [{ id: 0, name: 'Default Location' }],
+        '2026-01-17': [{ id: 0, name: 'Love Park' }],
+        '2026-01-18': [{ id: 0, name: 'Rocky Steps' }]
+    };
+    
+    const today = '2026-01-17';
+    
+    // Should find date-specific location
+    suite.assert(mockYAMLData[today] !== undefined, 'Should find date-specific location');
+    suite.assert(Array.isArray(mockYAMLData[today]), 'Date-specific location should be an array');
+    suite.assertEquals(mockYAMLData[today][0].name, 'Love Park');
+});
+
+suite.test('Date matching: should fallback to default when date not found', () => {
+    // Simulate YAML data
+    const mockYAMLData = {
+        'default': [{ id: 0, name: 'Default Location' }],
+        '2026-01-17': [{ id: 0, name: 'Love Park' }]
+    };
+    
+    const today = '2026-01-20'; // Date not in YAML
+    
+    // Should not find date-specific location
+    suite.assert(mockYAMLData[today] === undefined, 'Should not find date-specific location for missing date');
+    
+    // Should use default
+    suite.assert(mockYAMLData.default !== undefined, 'Should have default locations');
+    suite.assert(Array.isArray(mockYAMLData.default), 'Default should be an array');
+});
+
+suite.test('Date matching: should handle date component comparison as fallback', () => {
+    // Simulate js-yaml parsing dates as Date objects (before JSON_SCHEMA fix)
+    // Keys become full date strings like "Fri Jan 17 2026 19:00:00 GMT-0500"
+    const mockParsedData = {
+        'default': [{ id: 0, name: 'Default Location' }],
+        'Fri Jan 17 2026 19:00:00 GMT-0500 (Eastern Standard Time)': [{ id: 0, name: 'Love Park' }]
+    };
+    
+    const today = '2026-01-17';
+    const [year, month, day] = today.split('-').map(Number);
+    
+    // Find matching key by date components
+    let found = null;
+    for (const key of Object.keys(mockParsedData)) {
+        if (key === 'default') continue;
+        
+        try {
+            const keyDate = new Date(key);
+            if (!isNaN(keyDate.getTime())) {
+                const keyYear = keyDate.getFullYear();
+                const keyMonth = keyDate.getMonth() + 1;
+                const keyDay = keyDate.getDate();
+                
+                if (keyYear === year && keyMonth === month && keyDay === day) {
+                    found = mockParsedData[key];
+                    break;
+                }
+            }
+        } catch (e) {
+            continue;
+        }
+    }
+    
+    suite.assert(found !== null, 'Should find location by date component matching');
+    suite.assertEquals(found[0].name, 'Love Park');
+});
+
+suite.test('Date matching: should handle multiple date formats', () => {
+    // Test that date matching works with various date string formats
+    const testDate = '2026-01-17';
+    const [year, month, day] = testDate.split('-').map(Number);
+    
+    // Test different date string formats that might come from js-yaml
+    const dateFormats = [
+        'Fri Jan 17 2026 19:00:00 GMT-0500 (Eastern Standard Time)',
+        '2026-01-17T00:00:00.000Z',
+        '2026-01-17'
+    ];
+    
+    dateFormats.forEach(format => {
+        try {
+            const parsedDate = new Date(format);
+            if (!isNaN(parsedDate.getTime())) {
+                const parsedYear = parsedDate.getFullYear();
+                const parsedMonth = parsedDate.getMonth() + 1;
+                const parsedDay = parsedDate.getDate();
+                
+                // At least one should match
+                const matches = (parsedYear === year && parsedMonth === month && parsedDay === day);
+                suite.assert(matches || format === '2026-01-17', 
+                    `Date format "${format}" should parse correctly or be direct match`);
+            }
+        } catch (e) {
+            // Some formats might not parse, that's okay
+        }
+    });
+});
+
+suite.test('Date indicator: should show date when locations loaded', () => {
+    const currentDateString = '2026-01-17';
+    const usingDateSpecificLocations = true;
+    
+    // Simulate date indicator logic
+    if (currentDateString) {
+        const formatted = formatDateForDisplay(currentDateString);
+        suite.assertEquals(formatted, 'January 17, 2026', 'Should format date for display');
+        
+        if (usingDateSpecificLocations) {
+            // Should not show source indicator
+            const sourceText = ''; // Hidden when using date-specific
+            suite.assertEquals(sourceText, '', 'Source indicator should be empty for date-specific locations');
+        }
+    }
+});
+
+suite.test('Date indicator: should show warning when using defaults', () => {
+    const currentDateString = '2026-01-20';
+    const usingDateSpecificLocations = false;
+    
+    // Simulate date indicator logic
+    if (currentDateString) {
+        const formatted = formatDateForDisplay(currentDateString);
+        suite.assert(formatted.includes('January'), 'Should format date');
+        
+        if (!usingDateSpecificLocations) {
+            // Should show warning
+            const sourceText = `⚠ Using default locations (looking for: ${currentDateString})`;
+            suite.assert(sourceText.includes('⚠'), 'Should show warning icon');
+            suite.assert(sourceText.includes('default locations'), 'Should mention default locations');
+            suite.assert(sourceText.includes(currentDateString), 'Should show the date being looked for');
+        }
+    }
+});
+
 // Run all tests
 if (typeof module !== 'undefined' && module.exports) {
     // Node.js

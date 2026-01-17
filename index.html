@@ -120,6 +120,34 @@
             max-width: 320px;
         }
         
+        #date-indicator {
+            text-align: center;
+            font-size: 11px;
+            color: #9ca3af;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        #date-indicator .date-value {
+            font-weight: 600;
+            color: #6b7280;
+        }
+        
+        #date-indicator .location-source {
+            font-size: 10px;
+            color: #9ca3af;
+            margin-top: 2px;
+        }
+        
+        #date-indicator .location-source.using-default {
+            color: #f59e0b;
+        }
+        
+        #date-indicator .location-source.using-date-specific {
+            color: #10b981;
+        }
+        
         #progress-indicator {
             text-align: center;
             font-size: 12px;
@@ -433,6 +461,18 @@
                 font-size: 18px;
             }
             
+            #date-indicator {
+                font-size: 10px;
+            }
+            
+            #date-indicator .date-value {
+                font-size: 11px;
+            }
+            
+            #date-indicator .location-source {
+                font-size: 9px;
+            }
+            
             #running-score-value {
                 font-size: 32px;
             }
@@ -488,6 +528,10 @@
     <div id="map"></div>
     <div id="game-panel">
         <div id="game-content">
+            <div id="date-indicator">
+                <div class="date-value" id="date-display">Loading date...</div>
+                <div class="location-source" id="location-source-display"></div>
+            </div>
             <div id="progress-indicator">Location <span id="current-location-number">1</span> of <span id="total-locations">5</span></div>
             <div id="current-location">
                 <div id="current-location-icon">🔔</div>
@@ -678,6 +722,8 @@
         
         // Locations will be loaded from YAML file
         let locations = [];
+        let currentDateString = '';
+        let usingDateSpecificLocations = false;
         
         // Get today's date in YYYY-MM-DD format
         function getTodayDateString() {
@@ -688,21 +734,114 @@
             return `${year}-${month}-${day}`;
         }
         
+        // Format date for display (e.g., "January 17, 2026")
+        function formatDateForDisplay(dateString) {
+            const [year, month, day] = dateString.split('-').map(Number);
+            const date = new Date(year, month - 1, day);
+            const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            return `${months[date.getMonth()]} ${day}, ${year}`;
+        }
+        
+        // Update date indicator display
+        function updateDateIndicator() {
+            const dateDisplay = document.getElementById('date-display');
+            const sourceDisplay = document.getElementById('location-source-display');
+            
+            if (currentDateString) {
+                dateDisplay.textContent = formatDateForDisplay(currentDateString);
+                
+                if (usingDateSpecificLocations) {
+                    // Hide the source indicator when using date-specific locations
+                    sourceDisplay.textContent = '';
+                    sourceDisplay.className = 'location-source';
+                } else {
+                    // Only show warning when using default locations
+                    sourceDisplay.textContent = `⚠ Using default locations (looking for: ${currentDateString})`;
+                    sourceDisplay.className = 'location-source using-default';
+                }
+            } else {
+                dateDisplay.textContent = 'Date not loaded';
+                sourceDisplay.textContent = '';
+            }
+        }
+        
         // Load locations from YAML file
         async function loadLocations() {
             try {
                 const response = await fetch('config/locations.yaml');
                 const yamlText = await response.text();
-                const data = jsyaml.load(yamlText);
+                
+                // Use JSON schema to prevent js-yaml from auto-parsing dates
+                // This keeps YYYY-MM-DD strings as strings instead of Date objects
+                const data = jsyaml.load(yamlText, { schema: jsyaml.JSON_SCHEMA });
                 
                 const today = getTodayDateString();
+                currentDateString = today;
                 
-                // Check if there are specific locations for today
+                // With JSON_SCHEMA, date keys should remain as strings (e.g., "2026-01-17")
+                // First try direct string match
+                let foundLocations = null;
+                let matchedKey = null;
+                
+                console.log(`Looking for date: "${today}"`);
+                
+                // Method 1: Direct string match (should work with JSON_SCHEMA)
                 if (data[today] && Array.isArray(data[today])) {
-                    locations = data[today];
+                    foundLocations = data[today];
+                    matchedKey = today;
+                    console.log(`✓ Found locations using direct string match`);
+                } else {
+                    // Method 2: Fallback - iterate and compare (in case JSON_SCHEMA didn't work)
+                    const [year, month, day] = today.split('-').map(Number);
+                    
+                    for (const key of Object.keys(data)) {
+                        if (key === 'default') continue;
+                        
+                        // Try direct string comparison first
+                        if (key === today && Array.isArray(data[key])) {
+                            foundLocations = data[key];
+                            matchedKey = key;
+                            console.log(`✓ Found locations using key iteration (string match)`);
+                            break;
+                        }
+                        
+                        // Fallback: try parsing as date and comparing components
+                        try {
+                            const keyDate = new Date(key);
+                            if (!isNaN(keyDate.getTime())) {
+                                const keyYear = keyDate.getFullYear();
+                                const keyMonth = keyDate.getMonth() + 1;
+                                const keyDay = keyDate.getDate();
+                                
+                                if (keyYear === year && keyMonth === month && keyDay === day && Array.isArray(data[key])) {
+                                    foundLocations = data[key];
+                                    matchedKey = key;
+                                    console.log(`✓ Found locations using date component match (key: "${key}")`);
+                                    break;
+                                }
+                            }
+                        } catch (e) {
+                            continue;
+                        }
+                    }
+                }
+                
+                if (!foundLocations) {
+                    console.log(`✗ No match found for "${today}"`);
+                    console.log(`  Available keys:`, Object.keys(data).filter(k => k !== 'default').slice(0, 5).join(', '), '...');
+                }
+                
+                // Check if we found date-specific locations
+                if (foundLocations) {
+                    locations = foundLocations;
+                    usingDateSpecificLocations = true;
+                    console.log(`✓ Loaded ${locations.length} date-specific locations for ${today} (matched key: ${matchedKey})`);
                 } else if (data.default && Array.isArray(data.default)) {
                     // Use default locations
                     locations = data.default;
+                    usingDateSpecificLocations = false;
+                    console.log(`⚠ No date-specific locations found for ${today}, using default locations`);
                 } else {
                     throw new Error('No locations found in YAML file');
                 }
@@ -713,13 +852,16 @@
                     id: loc.id !== undefined ? loc.id : index
                 }));
                 
-                console.log(`Loaded ${locations.length} locations for ${today}`);
+                // Update date indicator
+                updateDateIndicator();
                 
                 // Initialize game after locations are loaded
                 initializeGame();
             } catch (error) {
                 console.error('Error loading locations:', error);
                 // Fallback to default locations if YAML fails
+                currentDateString = getTodayDateString();
+                usingDateSpecificLocations = false;
                 locations = [
                     {
                         id: 0,
@@ -752,6 +894,8 @@
                         icon: '🏢'
                     }
                 ];
+                // Update date indicator even on fallback
+                updateDateIndicator();
                 initializeGame();
             }
         }
