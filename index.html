@@ -1030,8 +1030,8 @@
                 
                 // Skip any already-guessed locations
                 while (nextIndex < locations.length) {
-                    const location = locations[nextIndex];
-                    if (!gameState.guesses[location.id]) {
+                    const testLocation = locations[nextIndex];
+                    if (!gameState.guesses[testLocation.id]) {
                         // Found next unguessed location
                         break;
                     }
@@ -1039,8 +1039,13 @@
                     nextIndex++;
                 }
                 
-                // Update the current location index
-                gameState.currentLocationIndex = nextIndex;
+                // Update the current location index only if we found a valid next location
+                if (nextIndex < locations.length) {
+                    gameState.currentLocationIndex = nextIndex;
+                } else {
+                    // All locations completed
+                    gameState.currentLocationIndex = locations.length;
+                }
                 
                 // If we've completed all locations, show completion screen
                 if (gameState.currentLocationIndex >= locations.length) {
