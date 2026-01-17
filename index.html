@@ -1190,7 +1190,7 @@
             if (score >= 83) return '🔥';
             if (score >= 82) return '💥';
             if (score >= 81) return '⚡';
-            if (score >= 80) return '⭐';
+            if (score >= 80) return '✨';
             if (score >= 79) return '💫';
             if (score >= 78) return '✨';
             if (score >= 77) return '🌟';
@@ -1550,11 +1550,17 @@
             // Restore game state - find first unguessed location
             if (hasValidGuesses) {
                 // Find first unguessed location
+                let foundUnguessed = false;
                 for (let i = 0; i < locations.length; i++) {
                     if (!gameState.guesses[locations[i].id]) {
                         gameState.currentLocationIndex = i;
+                        foundUnguessed = true;
                         break;
                     }
+                }
+                // If all locations are guessed, set index to locations.length
+                if (!foundUnguessed) {
+                    gameState.currentLocationIndex = locations.length;
                 }
                 // If all guessed, show completion
                 if (gameState.currentLocationIndex >= locations.length) {

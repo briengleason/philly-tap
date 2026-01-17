@@ -531,7 +531,7 @@ function getScoreEmoji(score) {
     if (score >= 83) return '🔥';
     if (score >= 82) return '💥';
     if (score >= 81) return '⚡';
-    if (score >= 80) return '⭐';
+    if (score >= 80) return '✨';
     if (score >= 79) return '💫';
     if (score >= 78) return '✨';
     if (score >= 77) return '🌟';
@@ -588,7 +588,7 @@ function formatShareDate() {
     return `${month} ${day}`;
 }
 
-function generateShareMessage(guesses, locations, totalScore, url = 'https://briengleason.github.io/philly-fingered/') {
+function generateShareMessage(guesses, locations, totalScore, url = 'https://briengleason.github.io/philly-tap/') {
     const date = formatShareDate();
     
     // Sort locations by their original order (by id)
@@ -617,36 +617,39 @@ suite.test('Share emoji: perfect score (100) should be 🎯', () => {
     suite.assertEquals(getScoreEmoji(100), '🎯');
 });
 
-suite.test('Share emoji: very high scores (97-99) should be ⭐', () => {
-    suite.assertEquals(getScoreEmoji(99), '⭐');
-    suite.assertEquals(getScoreEmoji(98), '⭐');
+suite.test('Share emoji: very high scores (98-99) should be 👑', () => {
+    suite.assertEquals(getScoreEmoji(99), '👑');
+    suite.assertEquals(getScoreEmoji(98), '👑');
+});
+
+suite.test('Share emoji: high scores (97) should be ⭐', () => {
     suite.assertEquals(getScoreEmoji(97), '⭐');
 });
 
-suite.test('Share emoji: excellent scores (95-96) should be 🏅', () => {
-    suite.assertEquals(getScoreEmoji(96), '🏅');
+suite.test('Share emoji: excellent scores (95-96) should vary', () => {
+    suite.assertEquals(getScoreEmoji(96), '💫');
     suite.assertEquals(getScoreEmoji(95), '🏅');
 });
 
-suite.test('Share emoji: great scores (93-94) should be 🥇', () => {
+suite.test('Share emoji: great scores (93-94) should vary', () => {
     suite.assertEquals(getScoreEmoji(94), '🥇');
-    suite.assertEquals(getScoreEmoji(93), '🥇');
+    suite.assertEquals(getScoreEmoji(93), '🏵️');
 });
 
-suite.test('Share emoji: high scores (90-92) should be 🏆', () => {
-    suite.assertEquals(getScoreEmoji(92), '🏆');
+suite.test('Share emoji: high scores (90-92) should vary', () => {
+    suite.assertEquals(getScoreEmoji(92), '🎖️');
+    suite.assertEquals(getScoreEmoji(91), '🏅');
     suite.assertEquals(getScoreEmoji(90), '🏆');
-    suite.assertEquals(getScoreEmoji(91), '🏆');
 });
 
-suite.test('Share emoji: good scores (87-89) should be 💎', () => {
+suite.test('Share emoji: good scores (87-89) should vary', () => {
     suite.assertEquals(getScoreEmoji(89), '💎');
-    suite.assertEquals(getScoreEmoji(87), '💎');
-    suite.assertEquals(getScoreEmoji(88), '💎');
+    suite.assertEquals(getScoreEmoji(88), '💍');
+    suite.assertEquals(getScoreEmoji(87), '✨');
 });
 
-suite.test('Share emoji: nice scores (85-86) should be 🎉', () => {
-    suite.assertEquals(getScoreEmoji(86), '🎉');
+suite.test('Share emoji: nice scores (85-86) should vary', () => {
+    suite.assertEquals(getScoreEmoji(86), '🌟');
     suite.assertEquals(getScoreEmoji(85), '🎉');
 });
 
@@ -695,7 +698,7 @@ suite.test('Share message: should include URL and date', () => {
     };
     const message = generateShareMessage(guesses, mockLocations.slice(0, 2), 180);
     
-    suite.assert(message.includes('https://briengleason.github.io/philly-fingered/'), 
+    suite.assert(message.includes('https://briengleason.github.io/philly-tap/'), 
         'Message should include URL');
     suite.assert(message.includes('Final score: 180'), 
         'Message should include final score');
@@ -727,11 +730,11 @@ suite.test('Share message: should format scores in correct order', () => {
     };
     const message = generateShareMessage(guesses, mockLocations.slice(0, 3), 240);
     
-    // Scores should appear in order: 100🎯 80✨ 60🙂
+    // Scores should appear in order: 100🎯 80✨ 60👌
     const scorePart = message.split('\n')[1];
     suite.assert(scorePart.includes('100🎯'), 'First score should be 100🎯');
     suite.assert(scorePart.includes('80✨'), 'Second score should be 80✨');
-    suite.assert(scorePart.includes('60🙂'), 'Third score should be 60🙂');
+    suite.assert(scorePart.includes('60👌'), 'Third score should be 60👌');
 });
 
 suite.test('Share message: should handle missing guesses', () => {
@@ -768,12 +771,12 @@ suite.test('Share message: should match example format', () => {
     suite.assert(lines[1].includes('96'), 'Second line should have scores');
     suite.assert(lines[2].includes('Final score:'), 'Third line should have final score');
     
-    // Check scores are present
-    suite.assert(lines[1].includes('96🏅'), 'Should have 96🏅');
+    // Check scores are present (matching original emoji variety)
+    suite.assert(lines[1].includes('96💫'), 'Should have 96💫');
     suite.assert(lines[1].includes('100🎯'), 'Should have 100🎯');
     suite.assert(lines[1].includes('95🏅'), 'Should have 95🏅');
-    suite.assert(lines[1].includes('87🎉'), 'Should have 87🎉');
-    suite.assert(lines[1].includes('89🎉'), 'Should have 89🎉');
+    suite.assert(lines[1].includes('87✨'), 'Should have 87✨');
+    suite.assert(lines[1].includes('89💎'), 'Should have 89💎');
 });
 
 suite.test('Share message: should handle all score ranges', () => {
@@ -788,8 +791,8 @@ suite.test('Share message: should handle all score ranges', () => {
     
     suite.assert(message.includes('100🎯'), 'Perfect score');
     suite.assert(message.includes('50🫣'), 'Low score');
-    suite.assert(message.includes('30😐'), 'Very low score');
-    suite.assert(message.includes('10😢'), 'Extremely low score');
+    suite.assert(message.includes('30😟'), 'Very low score');
+    suite.assert(message.includes('10😨'), 'Extremely low score');
     suite.assert(message.includes('0😭'), 'Zero score');
 });
 
