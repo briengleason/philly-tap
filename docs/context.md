@@ -88,6 +88,14 @@
 - Scripts load in correct dependency order
 - Fixed `formatDistance` threshold issue (now uses `meters < 1609` instead of `feet < 5280`)
 
+### Phase 11: Multiplier Visibility & Score Transparency
+- Added multiplier indicators to help users understand scoring system
+- Multiplier shown under "Location X of 5" progress indicator (displays "×2 points" or "×3 points" for applicable locations)
+- Final scorecard now shows base score, multiplier, and final score: "100 ×2 = 200" format
+- Locations without multipliers (1-2) show just the final score
+- Improved user understanding of why later locations are worth more points
+- Fixed game state persistence issue by adding `loadGameState()` call in `initializeGame()`
+
 ## Project Structure
 
 ```
@@ -754,10 +762,14 @@ All CSS is embedded in `<style>` tag in `index.html`.
 ## Last Updated
 
 **Generated**: 2026-01-17  
-**Last Updated**: 2026-01-17 - Code organization and refactoring  
+**Last Updated**: 2026-01-18 - Multiplier visibility and score transparency  
 **Last commit**: Check `git log` for latest changes
 
 **Recent Updates:**
+- **Multiplier Visibility (2026-01-18)**: Added multiplier indicators to help users understand scoring
+  - Multiplier shown under "Location X of 5" progress indicator during gameplay
+  - Final scorecard displays "baseScore × multiplier = finalScore" format for clarity
+  - Fixed game state persistence issue by ensuring `loadGameState()` is called on initialization
 - **Code Refactoring (2026-01-17)**: Organized codebase into modular structure
   - Extracted CSS to `css/styles.css` (858 lines)
   - Split JavaScript into 8 logical modules in `js/` directory

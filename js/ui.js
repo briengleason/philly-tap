@@ -56,6 +56,24 @@ function updateCurrentLocationDisplay(animate = true) {
     document.getElementById('current-location-number').textContent = gameState.currentLocationIndex + 1;
     document.getElementById('total-locations').textContent = locations.length;
     
+    // Get multiplier for this location
+    let multiplier = 1;
+    if (location.id === 2) {
+        multiplier = 2; // Location 3 (id 2) gets x2 multiplier
+    } else if (location.id === 3 || location.id === 4) {
+        multiplier = 3; // Locations 4-5 (ids 3, 4) get x3 multiplier
+    }
+    
+    // Update multiplier indicator
+    const multiplierEl = document.getElementById('multiplier-indicator');
+    if (multiplier > 1) {
+        multiplierEl.textContent = `×${multiplier} points`;
+        multiplierEl.style.display = 'block';
+    } else {
+        multiplierEl.textContent = '';
+        multiplierEl.style.display = 'none';
+    }
+    
     // Update current location display
     iconEl.textContent = location.icon;
     
@@ -277,12 +295,34 @@ function showCompletionScreen() {
     sortedLocations.forEach(location => {
         const guess = gameState.guesses[location.id];
         if (guess) {
+            // Get multiplier for this location
+            let multiplier = 1;
+            if (location.id === 2) {
+                multiplier = 2; // Location 3 (id 2) gets x2 multiplier
+            } else if (location.id === 3 || location.id === 4) {
+                multiplier = 3; // Locations 4-5 (ids 3, 4) get x3 multiplier
+            }
+            
+            // Get base score (before multiplier)
+            const baseScore = guess.baseScore !== undefined ? guess.baseScore : guess.score;
+            const finalScore = guess.score;
+            
+            // Format score display
+            let scoreDisplay;
+            if (multiplier > 1) {
+                // Show: baseScore × multiplier = finalScore
+                scoreDisplay = `${baseScore} <span class="multiplier">×${multiplier}</span> <span class="equals">=</span> ${finalScore}`;
+            } else {
+                // No multiplier, just show the score
+                scoreDisplay = `${finalScore}`;
+            }
+            
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td class="location-icon">${location.icon}</td>
                 <td class="location-name">${location.name}</td>
                 <td class="distance">${formatDistance(guess.distance)}</td>
-                <td class="score">${guess.score}</td>
+                <td class="score">${scoreDisplay}</td>
             `;
             
             // Make row clickable to show location info

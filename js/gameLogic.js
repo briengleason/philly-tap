@@ -260,6 +260,9 @@ function restoreMarkers() {
 
 // Initialize game (called after locations are loaded)
 function initializeGame() {
+    // Load game state from localStorage (must be called first to restore state)
+    loadGameState();
+    
     // Validate game state against current locations
     // Filter out any guesses for locations that don't exist in today's set
     const validLocationIds = new Set(locations.map(loc => loc.id));

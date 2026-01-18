@@ -45,7 +45,13 @@ function loadGameState() {
     cleanupOldGameState();
     
     const today = new Date().toDateString();
-    const saved = localStorage.getItem(`phillyGame_${today}`);
+    const key = `phillyGame_${today}`;
+    const saved = localStorage.getItem(key);
+    
+    console.log(`📂 Loading game state for ${today}...`);
+    console.log(`   Key: ${key}`);
+    console.log(`   Found saved state: ${saved ? 'Yes' : 'No'}`);
+    console.log(`   DEV_MODE: ${DEV_MODE}`);
     
     // Double-check the date matches today (in case the page was open across midnight)
     if (saved && !DEV_MODE) {
@@ -57,6 +63,11 @@ function loadGameState() {
                 guesses: parsed.guesses || {},
                 totalScore: parsed.totalScore || 0
             };
+            console.log(`✅ Loaded game state:`, {
+                currentLocationIndex: gameState.currentLocationIndex,
+                guessesCount: Object.keys(gameState.guesses).length,
+                totalScore: gameState.totalScore
+            });
         } catch (e) {
             // If parsing fails, reset state
             console.warn('Failed to parse saved game state, resetting:', e);
@@ -68,6 +79,7 @@ function loadGameState() {
         }
     } else {
         // Reset for new day or dev mode
+        console.log(`🆕 Starting fresh game (new day or dev mode)`);
         gameState = {
             currentLocationIndex: 0,
             guesses: {},
@@ -80,7 +92,17 @@ function loadGameState() {
 function saveGameState() {
     if (!DEV_MODE) {
         const today = new Date().toDateString();
-        localStorage.setItem(`phillyGame_${today}`, JSON.stringify(gameState));
+        const key = `phillyGame_${today}`;
+        const stateToSave = JSON.stringify(gameState);
+        localStorage.setItem(key, stateToSave);
+        console.log(`💾 Saved game state:`, {
+            key: key,
+            currentLocationIndex: gameState.currentLocationIndex,
+            guessesCount: Object.keys(gameState.guesses).length,
+            totalScore: gameState.totalScore
+        });
+    } else {
+        console.log(`🚫 Skipping save (DEV_MODE is true)`);
     }
     // In dev mode, don't save so it resets on refresh
 }

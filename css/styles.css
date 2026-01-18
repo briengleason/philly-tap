@@ -246,9 +246,18 @@ body, html {
     text-align: center;
     font-size: 12px;
     color: #6b7280;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+#multiplier-indicator {
+    text-align: center;
+    font-size: 11px;
+    color: #2563eb;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: none;
 }
 
 #current-location {
@@ -627,6 +636,20 @@ body, html {
     font-weight: 700;
     color: #2563eb;
     text-align: right;
+}
+
+#results-table .score .multiplier {
+    font-size: 9px;
+    color: #6b7280;
+    font-weight: 400;
+    margin: 0 2px;
+}
+
+#results-table .score .equals {
+    font-size: 9px;
+    color: #6b7280;
+    font-weight: 400;
+    margin: 0 2px;
 }
 
 #share-score-btn {
