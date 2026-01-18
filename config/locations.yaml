@@ -59,7 +59,7 @@ default:
     icon: 🌸
     description: Bartram's Garden is America's oldest surviving botanic garden, founded in 1728 by John Bartram. The historic site spans 46 acres along the Schuylkill River and includes the original 18th-century stone house, formal gardens, meadows, and tidal wetlands. It's a National Historic Landmark.
 
-2025-01-18:
+2026-01-18:
   - id: 0
     name: Rocky Steps
     coordinates: [39.9648, -75.1800]
@@ -86,7 +86,7 @@ default:
     icon: 🔬
     description: The Wagner Free Institute of Science is a rare 19th-century natural history museum that has remained virtually unchanged since 1865. Founded by William Wagner, it houses over 100,000 specimens including fossils, minerals, shells, and taxidermy animals displayed in beautiful Victorian glass cases. It's considered one of the best-preserved natural history collections in the world and offers free admission, staying true to Wagner's vision of free education for all.
 
-2025-01-19:
+2026-01-19:
   - id: 0
     name: Spruce Street Harbor Park
     coordinates: [39.9444, -75.1415]
@@ -113,7 +113,7 @@ default:
     icon: 🏛️
     description: Stenton Mansion is a preserved 18th-century country house built in 1723 by James Logan, William Penn's secretary. The mansion served as a headquarters during the Battle of Germantown in 1777 and hosted many founding fathers. It's one of the oldest surviving houses in Philadelphia and remains remarkably intact, with original woodwork, furnishings, and a beautiful formal garden that demonstrates colonial-era landscaping.
 
-2025-01-20:
+2026-01-20:
   - id: 0
     name: South Street
     coordinates: [39.9419, -75.1536]
@@ -140,7 +140,7 @@ default:
     icon: 🚂
     description: 30th Street Station is one of America's grandest railroad stations, opened in 1933. The monumental Beaux-Arts building features soaring 95-foot-high ceilings, ornate chandeliers, and a striking Art Deco design. The station serves as a major Amtrak hub connecting Philadelphia to the Northeast Corridor. During World War II, it was a primary troop movement center, and today it's the third-busiest Amtrak station in the country.
 
-2025-01-21:
+2026-01-21:
   - id: 0
     name: Rittenhouse Square
     coordinates: [39.9496, -75.1714]
@@ -167,7 +167,7 @@ default:
     icon: 🦅
     description: The John Heinz National Wildlife Refuge at Tinicum is America's first urban wildlife refuge, established in 1972. The 1,000-acre preserve protects one of the largest remaining freshwater tidal marshes in Pennsylvania, providing critical habitat for over 300 bird species and other wildlife. The refuge offers hiking trails, bird watching opportunities, and a chance to experience nature just minutes from downtown Philadelphia.
 
-2025-01-22:
+2026-01-22:
   - id: 0
     name: Ben Franklin Bridge
     coordinates: [39.9531, -75.1375]
@@ -194,7 +194,7 @@ default:
     icon: 🏰
     description: Woodford Mansion is one of the grandest Georgian mansions in Philadelphia, built in 1756 as a summer home for a wealthy Quaker merchant. The mansion features beautiful 18th-century furniture, artwork, and decorative arts, with original period rooms that showcase colonial-era life. The house is part of Fairmount Park's collection of historic mansions and offers a glimpse into the elegant lifestyle of Philadelphia's colonial elite.
 
-2025-01-23:
+2026-01-23:
   - id: 0
     name: Spruce Street Harbor Park
     coordinates: [39.9444, -75.1415]
@@ -221,7 +221,7 @@ default:
     icon: 🏡
     description: The John Bartram House is the 18th-century home of America's first botanist, John Bartram, who founded Bartram's Garden in 1728. The stone house, built in 1731, is a National Historic Landmark and showcases colonial-era architecture. Bartram corresponded with many European naturalists and was appointed "Royal Botanist" by King George III, helping establish America's scientific reputation.
 
-2025-01-24:
+2026-01-24:
   - id: 0
     name: Italian Market
     coordinates: [39.9369, -75.1592]
@@ -248,7 +248,7 @@ default:
     icon: 🍓
     description: Strawberry Mansion is a restored Federal-style mansion in Fairmount Park, built in 1789 as a summer home for wealthy merchant Judge William Lewis. The mansion is one of Philadelphia's grandest historic homes, featuring elegant period rooms, original furnishings, and beautiful gardens. It's part of Fairmount Park's collection of historic mansions and offers a glimpse into early 19th-century Philadelphia society.
 
-2025-01-25:
+2026-01-25:
   - id: 0
     name: Washington Square
     coordinates: [39.9472, -75.1531]
@@ -275,7 +275,7 @@ default:
     icon: 🏔️
     description: The Wissahickon Gorge is a beautiful natural area in Fairmount Park, featuring a 7-mile trail along the Wissahickon Creek. The gorge is home to diverse wildlife, waterfalls, historic stone bridges, and stunning rock formations. The area has been protected since 1868 and offers Philadelphia residents and visitors a chance to experience wilderness hiking just minutes from the city. It's considered one of Philadelphia's greatest natural treasures.
 
-2025-01-26:
+2026-01-26:
   - id: 0
     name: Boathouse Row
     coordinates: [39.9692, -75.1917]
@@ -302,7 +302,7 @@ default:
     icon: 🏰
     description: Glen Foerd Mansion is a magnificent Italianate villa built in 1850, located along the Delaware River. The mansion features beautiful period rooms, original furnishings, and stunning river views. The 18-acre estate includes formal gardens, meadows, and tidal wetlands. The mansion is open for tours and events, offering visitors a chance to experience 19th-century estate life on Philadelphia's waterfront.
 
-2025-01-27:
+2026-01-27:
   - id: 0
     name: Convention Center
     coordinates: [39.9550, -75.1602]
@@ -329,7 +329,7 @@ default:
     icon: 🌉
     description: The Manayunk Bridge is a historic railroad bridge spanning the Schuylkill River, opened in 1918. The bridge was converted to a pedestrian and bicycle path in 2015, connecting the Manayunk neighborhood to the Schuylkill River Trail. The bridge offers stunning views of the river and surrounding areas, and is part of Philadelphia's expanding network of trails for pedestrians and cyclists.
 
-2025-01-28:
+2026-01-28:
   - id: 0
     name: Penn's Landing
     coordinates: [39.9456, -75.1407]
@@ -356,7 +356,7 @@ default:
     icon: 🏞️
     description: Wissahickon Valley Park is a 1,800-acre natural area in Fairmount Park, featuring the Wissahickon Creek and miles of hiking and biking trails. The park has been protected since 1868 and offers Philadelphia residents and visitors a chance to experience wilderness just minutes from the city. The park features historic stone bridges, waterfalls, rock formations, and diverse wildlife, making it one of Philadelphia's greatest natural treasures.
 
-2025-01-29:
+2026-01-29:
   - id: 0
     name: Chinatown Gate
     coordinates: [39.9542, -75.1556]
@@ -383,7 +383,7 @@ default:
     icon: 🎨
     description: The La Salle University Art Museum is a small but distinguished art museum featuring European and American paintings, sculptures, and decorative arts. The collection includes works by artists such as Goya, Rubens, and Degas, spanning from the Middle Ages to the 20th century. The museum is housed in a beautiful historic building and offers free admission, making it an accessible cultural destination in Philadelphia.
 
-2025-01-30:
+2026-01-30:
   - id: 0
     name: Market East Station
     coordinates: [39.9531, -75.1575]
@@ -410,7 +410,7 @@ default:
     icon: ⚰️
     description: Mount Moriah Cemetery is a historic 380-acre cemetery in Southwest Philadelphia, opened in 1855. The cemetery is the final resting place of many notable Philadelphians including Betsy Ross, and features beautiful Victorian architecture and sculpture. The cemetery fell into disrepair in the late 20th century but has been restored by volunteers, showcasing Philadelphia's commitment to preserving its historic cemeteries.
 
-2025-01-31:
+2026-01-31:
   - id: 0
     name: Dilworth Park
     coordinates: [39.9523, -75.1636]
