@@ -4,7 +4,7 @@ Your repository is already connected to GitHub! Follow these steps to enable Git
 
 ## ✅ Step 1: Enable GitHub Pages
 
-1. Go to your repository on GitHub: https://github.com/briengleason/philly-fingered
+1. Go to your repository on GitHub: https://github.com/briengleason/philly-tap
 2. Click on **Settings** (top menu)
 3. Scroll down to **Pages** (left sidebar)
 4. Under **Source**, select:
@@ -16,11 +16,11 @@ Your repository is already connected to GitHub! Follow these steps to enable Git
 
 - GitHub Pages will build and deploy your site (usually takes 1-2 minutes)
 - You'll see a green checkmark when it's ready
-- Your site will be available at: **https://briengleason.github.io/philly-fingered/**
+- Your site will be available at: **https://briengleason.github.io/philly-tap/**
 
 ## ✅ Step 3: Verify It Works
 
-1. Visit: https://briengleason.github.io/philly-fingered/
+1. Visit: https://briengleason.github.io/philly-tap/
 2. You should see the interactive map
 3. Try selecting a location and tapping on the map!
 
@@ -67,4 +67,4 @@ If you want to use a custom domain:
 
 ---
 
-**Your site URL:** https://briengleason.github.io/philly-fingered/
+**Your site URL:** https://briengleason.github.io/philly-tap/

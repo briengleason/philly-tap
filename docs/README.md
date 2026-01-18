@@ -11,7 +11,7 @@ A daily location-guessing game for Philadelphia landmarks. Test your knowledge o
 
 ## 🌐 Live Site
 
-**Play now:** [https://briengleason.github.io/philly-fingered/](https://briengleason.github.io/philly-fingered/)
+**Play now:** [https://briengleason.github.io/philly-tap/](https://briengleason.github.io/philly-tap/)
 
 ## 🚀 Quick Start (Local)
 
@@ -26,7 +26,7 @@ python3 -m http.server 8000
 ## 📁 Project Structure
 
 ```
-philly-fingered/
+philly-tap/
 ├── index.html              # Main application (root - required for GitHub Pages)
 ├── config/
 │   └── locations.yaml      # Daily locations configuration

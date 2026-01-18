@@ -717,6 +717,62 @@
             color: #666;
         }
         
+        /* Guess confirmation button */
+        #confirm-guess-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+            z-index: 1002;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        #confirm-guess-btn.show {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+        
+        #confirm-guess-btn:hover {
+            background: #059669;
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.5);
+        }
+        
+        #confirm-guess-btn:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        @media (max-width: 767px) {
+            #confirm-guess-btn {
+                bottom: 20px;
+                padding: 14px 28px;
+                font-size: 16px;
+            }
+        }
+        
         @media (max-width: 767px) {
             #game-panel {
                 top: 10px;
@@ -789,6 +845,17 @@
             100% {
                 transform: translate(-50%, -50%) scale(2);
                 opacity: 0;
+            }
+        }
+        
+        @keyframes previewPulse {
+            0%, 100% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.9;
+                transform: scale(1.1);
             }
         }
         
@@ -870,6 +937,12 @@
         <div id="quick-score-label">Points</div>
     </div>
     
+    <!-- Guess confirmation button -->
+    <button id="confirm-guess-btn" onclick="confirmGuess()">
+        <span>✓</span>
+        <span>Confirm Guess</span>
+    </button>
+    
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
@@ -888,7 +961,7 @@
         const map = L.map('map', {
             center: [39.9526, -75.1652], // Philadelphia coordinates
             zoom: isMobile ? 12 : 13, // Slightly zoomed out on mobile for better overview
-            zoomControl: true,
+            zoomControl: false,
             scrollWheelZoom: !isMobile, // Disable scroll wheel zoom on mobile (use pinch instead)
             doubleClickZoom: true,
             boxZoom: !isMobile, // Box zoom only on desktop
@@ -1538,6 +1611,7 @@
         window.showLocationInfo = showLocationInfo;
         window.hideLocationInfo = hideLocationInfo;
         window.toggleMinimize = toggleMinimize;
+        window.confirmGuess = confirmGuess;
         
         // Show transition overlay for next location
         function showNextLocationTransition(nextLocation) {
@@ -1751,8 +1825,78 @@
             });
         }
         
-        // Make a guess for the current location
-        function makeGuess(tapLatLng) {
+        // Show preview of guess before confirmation
+        function showGuessPreview(tapLatLng) {
+            const location = getCurrentLocation();
+            
+            if (!location) {
+                return; // All locations completed
+            }
+            
+            if (gameState.guesses[location.id]) {
+                // Already guessed this location, advance to next
+                advanceToNextLocation();
+                return;
+            }
+            
+            // Clear any existing preview
+            clearPreview();
+            
+            // Store pending guess
+            pendingGuess = tapLatLng;
+            
+            // Create pin at tap location immediately (will be replaced by full markers on confirmation)
+            previewMarker = L.marker(tapLatLng, {
+                icon: createPinIcon('#2563eb', false)
+            }).addTo(map);
+            
+            // Show confirmation button
+            const confirmBtn = document.getElementById('confirm-guess-btn');
+            if (confirmBtn) {
+                confirmBtn.classList.add('show');
+            }
+        }
+        
+        // Clear preview marker and hide confirmation button
+        function clearPreview() {
+            if (previewMarker) {
+                map.removeLayer(previewMarker);
+                previewMarker = null;
+            }
+            pendingGuess = null;
+            
+            const confirmBtn = document.getElementById('confirm-guess-btn');
+            if (confirmBtn) {
+                confirmBtn.classList.remove('show');
+            }
+        }
+        
+        // Confirm the pending guess
+        function confirmGuess() {
+            if (!pendingGuess) {
+                return;
+            }
+            
+            const tapLatLng = pendingGuess;
+            // Keep the preview marker - it will become the tap marker
+            const existingPreviewMarker = previewMarker;
+            
+            // Clear preview state (marker is now owned by makeGuess)
+            pendingGuess = null;
+            previewMarker = null;
+            
+            // Hide confirmation button
+            const confirmBtn = document.getElementById('confirm-guess-btn');
+            if (confirmBtn) {
+                confirmBtn.classList.remove('show');
+            }
+            
+            // Make the guess (will create line and location marker, reusing preview pin)
+            makeGuess(tapLatLng, existingPreviewMarker);
+        }
+        
+        // Make a guess for the current location (called after confirmation)
+        function makeGuess(tapLatLng, existingTapMarker = null) {
             // Prevent processing during transition to avoid location skipping
             if (isTransitioning) {
                 return;
@@ -1802,8 +1946,8 @@
             // Update total score
             gameState.totalScore = Object.values(gameState.guesses).reduce((sum, g) => sum + g.score, 0);
             
-            // Create markers and line
-            createMarkersAndLine(location.id, tapLatLng, distance);
+            // Create markers and line (reuse existing tap marker if provided)
+            createMarkersAndLine(location.id, tapLatLng, distance, existingTapMarker);
             
             // Show quick score (show final multiplied score)
             showQuickScore(finalScore);
@@ -1920,6 +2064,8 @@
         
         // Store references to markers and lines for all locations
         let locationMarkers = {}; // { locationId: { tapMarker, locationMarker, line, label } }
+        let pendingGuess = null; // Store pending guess location before confirmation
+        let previewMarker = null; // Preview marker shown before confirmation
         
         // Restore markers for completed guesses
         function restoreMarkers() {
@@ -2100,17 +2246,22 @@
         }
         
         // Create markers and connecting line for a location
-        function createMarkersAndLine(locationId, tapLatLng, distance) {
+        function createMarkersAndLine(locationId, tapLatLng, distance, existingTapMarker = null) {
             const location = locations[locationId];
             if (!location) return;
             
             // Clear previous markers for this location
             clearLocationMarkers(locationId);
             
-            // Create pin at tap location (blue)
-            const tapMarker = L.marker(tapLatLng, {
+            // Use existing tap marker if provided, otherwise create new one
+            const tapMarker = existingTapMarker || L.marker(tapLatLng, {
                 icon: createPinIcon('#2563eb', false)
-            }).addTo(map);
+            });
+            
+            // Only add to map if it's a new marker
+            if (!existingTapMarker) {
+                tapMarker.addTo(map);
+            }
             
             // Create pin at actual location (red) - make it clickable to show description
             const locationMarker = L.marker(location.coordinates, {
@@ -2205,8 +2356,14 @@
                 return;
             }
             
+            // Don't process if clicking on confirmation button
+            if (e.originalEvent && e.originalEvent.target && 
+                e.originalEvent.target.closest('#confirm-guess-btn')) {
+                return;
+            }
+            
             const clickedLatLng = e.latlng;
-            makeGuess(clickedLatLng);
+            showGuessPreview(clickedLatLng);
         });
         
         // Handle touch events for mobile
@@ -2255,7 +2412,7 @@
             
             // Use the stored lat/lng from touchstart
             const clickedLatLng = touchStartLatLng;
-            makeGuess(clickedLatLng);
+            showGuessPreview(clickedLatLng);
             
             touchStartPos = null;
             touchStartLatLng = null;

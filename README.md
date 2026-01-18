@@ -4,7 +4,7 @@ A daily location-guessing game for Philadelphia landmarks.
 
 ## 🌐 Play Now
 
-**[https://briengleason.github.io/philly-fingered/](https://briengleason.github.io/philly-fingered/)**
+**[https://briengleason.github.io/philly-tap/](https://briengleason.github.io/philly-tap/)**
 
 ## 📚 Documentation
 
@@ -24,7 +24,7 @@ python3 -m http.server 8000
 ## 📁 Project Structure
 
 ```
-philly-fingered/
+philly-tap/
 ├── index.html              # Main application
 ├── config/
 │   └── locations.yaml      # Daily locations

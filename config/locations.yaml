@@ -415,19 +415,24 @@ default:
     name: Dilworth Park
     coordinates: [39.9523, -75.1636]
     icon: ⛲
+    description: Dilworth Park is a modern public plaza in front of City Hall, opened in 2014. The park features fountains, seating areas, a seasonal ice rink, and beautiful landscaping. The park serves as a gathering place for locals and visitors, hosting events, concerts, and festivals throughout the year. It transforms Philadelphia's most historic civic space into a vibrant modern park that connects City Hall to the surrounding neighborhood.
   - id: 1
     name: Ishkabibble's
     coordinates: [39.9414, -75.1484]
     icon: 🥙
+    description: Ishkabibble's is a South Street institution serving cheesesteaks and hoagies since 1979. The tiny shop is known for its classic Philly cheesesteaks, chicken cheesesteaks, and Italian hoagies. The shop's name comes from a slang term meaning "who knows?" and has become a beloved local spot, consistently ranked among Philadelphia's best cheesesteak shops despite its modest size and simple preparation.
   - id: 2
     name: Society Hill Playhouse
     coordinates: [39.9447, -75.1489]
     icon: 🎭
+    description: Society Hill Playhouse was a historic off-Broadway theater in Society Hill, operating from 1959 to 2014. The theater produced hundreds of plays and musicals over its 55-year history, including original works and classics. While the theater has closed, its legacy lives on in Philadelphia's theater community, and the building remains a landmark in the Society Hill neighborhood.
   - id: 3
     name: Arden Theatre
     coordinates: [39.9533, -75.1600]
     icon: 🎭
+    description: The Arden Theatre Company is a professional theater company in Old City, founded in 1988. The theater produces classical and contemporary plays, musicals, and new works in its two-theater complex. The Arden is known for its innovative productions, commitment to Philadelphia artists, and educational programs that serve thousands of students each year, making it one of Philadelphia's premier theater companies.
   - id: 4
     name: Curtis Institute of Music
     coordinates: [39.9483, -75.1686]
     icon: 🎼
+    description: The Curtis Institute of Music is one of the world's most prestigious music conservatories, founded in 1924. The school offers full-tuition scholarships to all students and has produced many of the world's greatest musicians including Leonard Bernstein, Samuel Barber, and Lang Lang. The institute is housed in beautiful historic buildings in Rittenhouse Square and maintains a reputation for excellence in classical music education.

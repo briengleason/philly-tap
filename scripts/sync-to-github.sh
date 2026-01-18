@@ -21,7 +21,7 @@ fi
 # Check if remote is set
 if ! git remote get-url origin &>/dev/null; then
     echo "⚠️  No GitHub remote configured."
-    echo "   Run: git remote add origin https://github.com/YOUR_USERNAME/philly-fingered.git"
+    echo "   Run: git remote add origin https://github.com/YOUR_USERNAME/philly-tap.git"
     exit 1
 fi
 

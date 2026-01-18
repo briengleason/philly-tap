@@ -12,13 +12,13 @@ This is a static website that can be deployed to various free hosting platforms.
 
 1. **Create a GitHub repository:**
    - Go to https://github.com/new
-   - Name it (e.g., `philly-fingered`)
+   - Name it (e.g., `philly-tap`)
    - Make it public (required for free GitHub Pages)
    - Don't initialize with README (you already have files)
 
 2. **Push your code to GitHub:**
    ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/philly-fingered.git
+   git remote add origin https://github.com/YOUR_USERNAME/philly-tap.git
    git branch -M main
    git push -u origin main
    ```
@@ -28,7 +28,7 @@ This is a static website that can be deployed to various free hosting platforms.
    - Click **Settings** → **Pages**
    - Under "Source", select **main** branch and **/ (root)** folder
    - Click **Save**
-   - Your site will be available at: `https://YOUR_USERNAME.github.io/philly-fingered/`
+   - Your site will be available at: `https://YOUR_USERNAME.github.io/philly-tap/`
 
 **Pros:** Free, easy, automatic HTTPS, custom domain support
 **Cons:** Repository must be public for free tier
@@ -75,7 +75,7 @@ This is a static website that can be deployed to various free hosting platforms.
    - Framework Preset: **Other**
    - Root Directory: `./`
    - Click **Deploy**
-   - Your site will be available at: `https://philly-fingered.vercel.app`
+   - Your site will be available at: `https://philly-tap.vercel.app`
 
 **Pros:** Free, automatic HTTPS, custom domain, fast CDN
 **Cons:** None really!
@@ -99,7 +99,7 @@ This is a static website that can be deployed to various free hosting platforms.
      - Build command: (leave empty)
      - Build output directory: `/`
    - Click **Save and Deploy**
-   - Your site will be available at: `https://philly-fingered.pages.dev`
+   - Your site will be available at: `https://philly-tap.pages.dev`
 
 **Pros:** Free, fast CDN, automatic HTTPS
 **Cons:** None really!
@@ -114,7 +114,7 @@ If you want the fastest deployment:
 # 1. Create repo on GitHub (via web interface)
 # 2. Then run these commands:
 
-git remote add origin https://github.com/YOUR_USERNAME/philly-fingered.git
+git remote add origin https://github.com/YOUR_USERNAME/philly-tap.git
 git branch -M main
 git push -u origin main
 
