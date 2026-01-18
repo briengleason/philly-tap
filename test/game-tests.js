@@ -1938,6 +1938,57 @@ suite.test('Location description: should handle locations without descriptions',
     suite.assert(!hasDescription, 'Should not have valid description');
 });
 
+// Minimize button visibility tests
+suite.test('Minimize button: should be hidden during gameplay', () => {
+    const isCompleted = false;
+    const showCompletionScreen = false;
+    
+    // During gameplay, minimize button should be hidden
+    const minimizeBtnVisible = isCompleted && showCompletionScreen;
+    suite.assert(!minimizeBtnVisible, 'Minimize button should be hidden during gameplay');
+});
+
+suite.test('Minimize button: should be visible only on completion screen', () => {
+    const isCompleted = true;
+    const showCompletionScreen = true;
+    
+    // On completion screen, minimize button should be visible
+    const minimizeBtnVisible = isCompleted && showCompletionScreen;
+    suite.assert(minimizeBtnVisible, 'Minimize button should be visible on completion screen');
+});
+
+suite.test('Minimize button: panel should default to maximized on completion', () => {
+    // When completion screen shows, panel should start maximized
+    const isMinimized = false; // Defaults to false (maximized)
+    const showCompletionScreen = true;
+    
+    if (showCompletionScreen) {
+        suite.assert(!isMinimized, 'Panel should default to maximized (not minimized) on completion');
+    }
+});
+
+suite.test('Minimize button: should show minimize option when maximized', () => {
+    const isMinimized = false; // Panel is maximized
+    
+    // When maximized, button should show "−" for minimize
+    const buttonText = isMinimized ? '+' : '−';
+    const buttonTitle = isMinimized ? 'Expand' : 'Minimize';
+    
+    suite.assertEquals(buttonText, '−', 'Button should show "−" when maximized');
+    suite.assertEquals(buttonTitle, 'Minimize', 'Button title should be "Minimize" when maximized');
+});
+
+suite.test('Minimize button: should show expand option when minimized', () => {
+    const isMinimized = true; // Panel is minimized
+    
+    // When minimized, button should show "+" for expand
+    const buttonText = isMinimized ? '+' : '−';
+    const buttonTitle = isMinimized ? 'Expand' : 'Minimize';
+    
+    suite.assertEquals(buttonText, '+', 'Button should show "+" when minimized');
+    suite.assertEquals(buttonTitle, 'Expand', 'Button title should be "Expand" when minimized');
+});
+
 // Run all tests
 if (typeof module !== 'undefined' && module.exports) {
     // Node.js

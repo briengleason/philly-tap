@@ -209,6 +209,18 @@
             color: #6b7280;
             z-index: 1001;
             transition: all 0.2s ease;
+            display: none; /* Hidden during gameplay */
+        }
+        
+        /* Show minimize button only when completion screen is visible */
+        #game-panel:has(#completion-screen.show) #minimize-btn {
+            display: block;
+        }
+        
+        /* Fallback for browsers that don't support :has() */
+        #completion-screen.show ~ #minimize-btn,
+        #game-panel.show-completion #minimize-btn {
+            display: block;
         }
         
         #minimize-btn:hover {
@@ -794,7 +806,7 @@
 </head>
 <body>
     <div id="map"></div>
-    <div id="game-panel" class="minimized">
+    <div id="game-panel">
         <button id="minimize-btn" onclick="toggleMinimize()" title="Expand">+</button>
         <div id="game-content">
             <div id="date-indicator">
@@ -1697,6 +1709,20 @@
             document.getElementById('completion-screen').classList.add('show');
             document.getElementById('final-score').textContent = gameState.totalScore;
             
+            // Show minimize button (panel defaults to maximized/expanded)
+            const minimizeBtn = document.getElementById('minimize-btn');
+            const gamePanel = document.getElementById('game-panel');
+            if (minimizeBtn) {
+                minimizeBtn.style.display = 'block';
+                // Set button to show minimize option (since panel is expanded)
+                minimizeBtn.textContent = '−';
+                minimizeBtn.title = 'Minimize';
+            }
+            // Ensure panel is not minimized (defaults to maximized)
+            if (gamePanel && gamePanel.classList.contains('minimized')) {
+                gamePanel.classList.remove('minimized');
+            }
+            
             // Populate results table
             const tableBody = document.getElementById('results-table-body');
             tableBody.innerHTML = '';
@@ -1954,10 +1980,29 @@
                 // If all guessed, show completion
                 if (gameState.currentLocationIndex >= locations.length) {
                     showCompletionScreen();
+                } else {
+                    // Game in progress - ensure panel is not minimized and button is hidden
+                    const gamePanel = document.getElementById('game-panel');
+                    const minimizeBtn = document.getElementById('minimize-btn');
+                    if (gamePanel) {
+                        gamePanel.classList.remove('minimized');
+                    }
+                    if (minimizeBtn) {
+                        minimizeBtn.style.display = 'none';
+                    }
                 }
             } else {
                 // No valid guesses, start fresh
                 gameState.currentLocationIndex = 0;
+                // Ensure panel is not minimized and button is hidden
+                const gamePanel = document.getElementById('game-panel');
+                const minimizeBtn = document.getElementById('minimize-btn');
+                if (gamePanel) {
+                    gamePanel.classList.remove('minimized');
+                }
+                if (minimizeBtn) {
+                    minimizeBtn.style.display = 'none';
+                }
             }
             
             // Save validated state

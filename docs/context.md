@@ -55,7 +55,9 @@
 - Made completion screen table rows clickable to view location info
 - Added transparent modal/bottom sheet for location information
 - Implemented minimized scorecard that shows score in top-right corner
-- Added minimize/expand functionality for scorecard
+- Added minimize/expand functionality for scorecard (only on completion screen)
+- Scorecard defaults to maximized when completion screen appears
+- Minimize button only appears on completion screen (hidden during gameplay)
 - Updated language from "finding locations" to "guessing locations"
 - Made all UI elements transparent to keep map as focal point
 - Reduced scorecard size and clutter
@@ -443,7 +445,7 @@ All coordinates are in [latitude, longitude] format:
 
 ### Test Suite Overview
 
-The project includes a comprehensive test suite with **75+ tests** covering:
+The project includes a comprehensive test suite with **80+ tests** covering:
 
 1. **Core Game Logic (25 tests)**
    - Distance calculations (3 tests)
@@ -467,12 +469,13 @@ The project includes a comprehensive test suite with **75+ tests** covering:
    - Viewport handling (2 tests)
    - Style checks (2 tests)
 
-4. **UI Features & Location Information (10 tests)**
+4. **UI Features & Location Information (15 tests)**
    - Location info modal functionality (3 tests)
    - Minimize/expand functionality (1 test)
    - Score display in minimized state (2 tests)
    - Description handling (2 tests)
    - Minimized state UI elements (2 tests)
+   - Minimize button visibility (5 tests)
 
 ### Test Execution
 
