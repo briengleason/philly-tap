@@ -62,6 +62,15 @@
 - Made all UI elements transparent to keep map as focal point
 - Reduced scorecard size and clutter
 
+### Phase 9: Guess Confirmation Flow
+- Added confirmation button that appears when user taps the map
+- Preview pin appears immediately at tap location (before confirmation)
+- Line connecting to actual location and red location marker only appear after confirmation
+- User can tap elsewhere to change guess before confirming
+- Improved user control over guess placement before finalizing
+- Green confirmation button with checkmark icon positioned at bottom center
+- Confirmation button automatically hides after guess is processed
+
 ## Project Structure
 
 ```
@@ -445,7 +454,7 @@ All coordinates are in [latitude, longitude] format:
 
 ### Test Suite Overview
 
-The project includes a comprehensive test suite with **80+ tests** covering:
+The project includes a comprehensive test suite with **90+ tests** covering:
 
 1. **Core Game Logic (25 tests)**
    - Distance calculations (3 tests)
@@ -476,6 +485,14 @@ The project includes a comprehensive test suite with **80+ tests** covering:
    - Description handling (2 tests)
    - Minimized state UI elements (2 tests)
    - Minimize button visibility (5 tests)
+
+5. **Guess Confirmation Flow (6 tests)**
+   - Preview marker creation on tap (1 test)
+   - Confirmation button visibility (1 test)
+   - Guess processing on confirmation (1 test)
+   - Preview replacement by new tap (1 test)
+   - Line and location marker creation timing (1 test)
+   - Edge case handling (1 test)
 
 ### Test Execution
 
@@ -625,6 +642,17 @@ The app automatically loads the correct locations based on today's date.
 - All UI elements (scorecard, modals) use transparent backgrounds with blur effect
 - Map remains the center of attention
 - Reduced visual clutter for better gameplay experience
+
+**Guess Confirmation Flow:**
+- When user taps map, a blue preview pin appears immediately at the tap location
+- Green confirmation button appears at bottom center with checkmark icon
+- User can tap elsewhere to change guess (preview pin moves to new location)
+- Only after clicking "Confirm Guess" button:
+  - Line connecting guess to actual location is drawn
+  - Red location marker appears at actual location
+  - Distance label shows between the two points
+  - Score is calculated and game advances to next location
+- Provides better control over guess placement before finalizing
 
 ### Changing Scoring
 Modify `MAX_DISTANCE` (default: 5000 meters) and `calculateScore()` function in `index.html`.

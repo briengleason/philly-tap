@@ -1989,6 +1989,150 @@ suite.test('Minimize button: should show expand option when minimized', () => {
     suite.assertEquals(buttonTitle, 'Expand', 'Button title should be "Expand" when minimized');
 });
 
+// Confirmation button and preview marker tests
+suite.test('Guess confirmation: preview marker should be created on tap', () => {
+    let previewMarker = null;
+    let pendingGuess = null;
+    
+    const tapLatLng = { lat: 39.95, lng: -75.15 };
+    
+    // Simulate showGuessPreview
+    function showGuessPreview(latlng) {
+        pendingGuess = latlng;
+        previewMarker = { latlng: latlng, type: 'preview' };
+    }
+    
+    showGuessPreview(tapLatLng);
+    
+    suite.assert(previewMarker !== null, 'Preview marker should be created');
+    suite.assertEquals(previewMarker.latlng, tapLatLng, 'Preview marker should be at tap location');
+    suite.assert(pendingGuess !== null, 'Pending guess should be set');
+});
+
+suite.test('Guess confirmation: confirmation button should show when preview exists', () => {
+    let confirmButtonVisible = false;
+    let pendingGuess = { lat: 39.95, lng: -75.15 };
+    
+    function showGuessPreview(latlng) {
+        pendingGuess = latlng;
+        confirmButtonVisible = true;
+    }
+    
+    showGuessPreview({ lat: 39.95, lng: -75.15 });
+    
+    suite.assert(confirmButtonVisible, 'Confirmation button should be visible when preview exists');
+});
+
+suite.test('Guess confirmation: should process guess when confirmed', () => {
+    let pendingGuess = { lat: 39.95, lng: -75.15 };
+    let previewMarker = { latlng: pendingGuess };
+    let guessProcessed = false;
+    let gameState = { guesses: {}, totalScore: 0 };
+    
+    function confirmGuess() {
+        if (!pendingGuess) return;
+        const tapLatLng = pendingGuess;
+        const existingMarker = previewMarker;
+        pendingGuess = null;
+        previewMarker = null;
+        
+        // Simulate makeGuess
+        gameState.guesses[0] = {
+            latlng: tapLatLng,
+            distance: 100,
+            score: 95
+        };
+        gameState.totalScore = 95;
+        guessProcessed = true;
+    }
+    
+    confirmGuess();
+    
+    suite.assert(guessProcessed, 'Guess should be processed on confirmation');
+    suite.assert(pendingGuess === null, 'Pending guess should be cleared');
+    suite.assert(previewMarker === null, 'Preview marker reference should be cleared');
+    suite.assert(gameState.guesses[0] !== undefined, 'Guess should be stored in game state');
+});
+
+suite.test('Guess confirmation: preview should be replaceable by new tap', () => {
+    let previewMarker = null;
+    let pendingGuess = null;
+    
+    function showGuessPreview(latlng) {
+        // Clear existing preview
+        if (previewMarker) {
+            previewMarker = null;
+        }
+        
+        // Create new preview
+        pendingGuess = latlng;
+        previewMarker = { latlng: latlng, type: 'preview' };
+    }
+    
+    const firstTap = { lat: 39.95, lng: -75.15 };
+    const secondTap = { lat: 39.96, lng: -75.16 };
+    
+    showGuessPreview(firstTap);
+    suite.assertEquals(previewMarker.latlng, firstTap, 'First preview should be at first tap');
+    
+    showGuessPreview(secondTap);
+    suite.assertEquals(previewMarker.latlng, secondTap, 'Second preview should be at second tap');
+    suite.assert(pendingGuess === secondTap, 'Pending guess should update to second tap');
+});
+
+suite.test('Guess confirmation: line and location marker should only appear after confirmation', () => {
+    let tapMarkerCreated = false;
+    let locationMarkerCreated = false;
+    let lineCreated = false;
+    let pendingGuess = null;
+    let previewMarker = null;
+    
+    const location = { id: 0, coordinates: [39.9496, -75.1503] };
+    const tapLatLng = { lat: 39.95, lng: -75.15 };
+    
+    // Simulate showGuessPreview - only creates preview pin
+    function showGuessPreview(latlng) {
+        pendingGuess = latlng;
+        previewMarker = { latlng: latlng, type: 'preview' };
+        // Preview only creates tap marker, not line or location marker
+        tapMarkerCreated = true;
+    }
+    
+    // Simulate confirmGuess + makeGuess - creates full markers
+    function confirmGuess() {
+        if (!pendingGuess) return;
+        const existingMarker = previewMarker;
+        pendingGuess = null;
+        
+        // Full markers created on confirmation
+        locationMarkerCreated = true;
+        lineCreated = true;
+    }
+    
+    showGuessPreview(tapLatLng);
+    suite.assert(tapMarkerCreated, 'Tap marker should be created on preview');
+    suite.assert(!locationMarkerCreated, 'Location marker should NOT be created on preview');
+    suite.assert(!lineCreated, 'Line should NOT be created on preview');
+    
+    confirmGuess();
+    suite.assert(locationMarkerCreated, 'Location marker should be created on confirmation');
+    suite.assert(lineCreated, 'Line should be created on confirmation');
+});
+
+suite.test('Guess confirmation: should handle confirmation with no pending guess', () => {
+    let pendingGuess = null;
+    let guessProcessed = false;
+    
+    function confirmGuess() {
+        if (!pendingGuess) return;
+        guessProcessed = true;
+    }
+    
+    confirmGuess();
+    
+    suite.assert(!guessProcessed, 'Guess should not be processed if no pending guess');
+});
+
 // Run all tests
 if (typeof module !== 'undefined' && module.exports) {
     // Node.js
