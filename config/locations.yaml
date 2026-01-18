@@ -76,13 +76,13 @@ default:
     icon: 👻
     description: Eastern State Penitentiary was once the most famous and expensive prison in the world. Operating from 1829 until 1971, it was designed as a radical experiment in rehabilitation through solitary confinement. Today it's a historic site and museum, known for its haunting architecture and its annual Terror Behind the Walls Halloween attraction.
   - id: 3
-    name: Laurel Hill Cemetery
-    coordinates: [39.9717, -75.1858]
-    icon: ⚰️
-    description: Laurel Hill Cemetery is one of America's few remaining rural cemeteries, opened in 1836. It was the first cemetery in the country to be designated a National Historic Landmark. The cemetery is the final resting place of many notable Philadelphians including David Rittenhouse, Horace Binney, and dozens of Civil War generals. Its beautiful Victorian architecture and sculpture make it both a cemetery and an outdoor museum.
+    name: John's Roast Pork
+    coordinates: [39.9231, -75.1574]
+    icon: 🥪
+    description: John's Roast Pork is an iconic South Philadelphia sandwich shop serving legendary roast pork and cheesesteaks since 1930. Located at 14 E Snyder Avenue, it's consistently ranked among Philadelphia's best sandwich shops. The tiny stand features classic Philly roast pork sandwiches with broccoli rabe and sharp provolone, along with cheesesteaks, making it a beloved neighborhood institution and a must-visit destination for authentic Philadelphia food.
   - id: 4
     name: Wagner Free Institute of Science
-    coordinates: [39.9792, -75.1528]
+    coordinates: [40.0011, -75.1604]
     icon: 🔬
     description: The Wagner Free Institute of Science is a rare 19th-century natural history museum that has remained virtually unchanged since 1865. Founded by William Wagner, it houses over 100,000 specimens including fossils, minerals, shells, and taxidermy animals displayed in beautiful Victorian glass cases. It's considered one of the best-preserved natural history collections in the world and offers free admission, staying true to Wagner's vision of free education for all.
 
