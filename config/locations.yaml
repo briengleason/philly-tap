@@ -89,36 +89,36 @@ default:
 2026-01-19:
   - id: 0
     name: Spruce Street Harbor Park
-    coordinates: [39.9444, -75.1415]
+    coordinates: [39.9444, -75.1440582]
     icon: 🏖️
     description: Spruce Street Harbor Park is a seasonal urban beach park on the Delaware River waterfront. Opened in 2014, it features hammocks, colorful LED-lit trees, food vendors, and a beer garden. The park was created as a temporary pop-up but became so popular it's now a permanent summer destination. It transforms Philadelphia's waterfront into a vibrant social space with views of the Ben Franklin Bridge.
   - id: 1
-    name: Dirty Frank's
-    coordinates: [39.9499, -75.1590]
-    icon: 🍻
-    description: Dirty Frank's is a legendary Philadelphia dive bar that's been serving drinks since 1973. Known for its eclectic decor covered in dollar bills and its famously cheap beer, it's a beloved neighborhood institution. The bar was named after a former bartender, not the politician, and has become a favorite spot for journalists, artists, and locals seeking an authentic Philly bar experience.
-  - id: 2
     name: Franklin Institute
-    coordinates: [39.9577, -75.1722]
+    coordinates: [39.9577, -75.1757096]
     icon: 🔭
     description: The Franklin Institute is one of America's oldest and premier centers of science education. Founded in 1824 and named after Benjamin Franklin, it houses a 60-foot walk-through model of the human heart, a massive Foucault pendulum, and an observatory. The institute's iconic 20-foot tall statue of Benjamin Franklin sitting in the rotunda is one of Philadelphia's most recognizable sculptures.
+  - id: 2
+    name: Dirty Frank's
+    coordinates: [39.9453747, -75.1653872]
+    icon: 🍻
+    description: Dirty Frank's is a legendary Philadelphia dive bar that's been serving drinks since 1973. Known for its eclectic decor covered in dollar bills and its famously cheap beer, it's a beloved neighborhood institution. The bar was named after a former bartender, not the politician, and has become a favorite spot for journalists, artists, and locals seeking an authentic Philly bar experience.
   - id: 3
-    name: Powel House
-    coordinates: [39.9472, -75.1500]
+    name: Philadelphia's Tallest Residential Apartment Building
+    coordinates: [39.9506014, -75.1727323]
     icon: 🏠
-    description: The Powel House is a magnificent Georgian townhouse built in 1765 and home to Samuel Powel, Philadelphia's last colonial mayor and first post-colonial mayor. George Washington, Benjamin Franklin, and John Adams were frequent guests at lavish parties here. The house is considered one of the finest examples of 18th-century architecture in America and showcases the elegant lifestyle of Philadelphia's colonial elite.
+    description: The Laurel at 1911 Walnut St is the city's tallest residential building. It is known for its $25 million penthouse listing, setting a new record for price per square foot in the region. The condos feature kitchens with rare "tribal makasar" wood, which has been touted as the most expensive in the world.
   - id: 4
     name: Stenton Mansion
-    coordinates: [40.0197, -75.1578]
+    coordinates: [40.025, -75.1536111]
     icon: 🏛️
     description: Stenton Mansion is a preserved 18th-century country house built in 1723 by James Logan, William Penn's secretary. The mansion served as a headquarters during the Battle of Germantown in 1777 and hosted many founding fathers. It's one of the oldest surviving houses in Philadelphia and remains remarkably intact, with original woodwork, furnishings, and a beautiful formal garden that demonstrates colonial-era landscaping.
 
 2026-01-20:
   - id: 0
-    name: South Street
-    coordinates: [39.9419, -75.1536]
-    icon: 🎸
-    description: South Street is Philadelphia's legendary entertainment and shopping district, known as "The Hippest Street in Town" since the 1960s. The street became famous for its counterculture scene, quirky shops, live music venues, and eclectic atmosphere. From its punk rock roots to today's mix of vintage stores, restaurants, and nightlife, South Street remains one of Philadelphia's most vibrant and iconic thoroughfares.
+    name: 30th Street Station
+    coordinates: [39.9558, -75.1832]
+    icon: 🚂
+    description: 30th Street Station is one of America's grandest railroad stations, opened in 1933. The monumental Beaux-Arts building features soaring 95-foot-high ceilings, ornate chandeliers, and a striking Art Deco design. The station serves as a major Amtrak hub connecting Philadelphia to the Northeast Corridor. During World War II, it was a primary troop movement center, and today it's the third-busiest Amtrak station in the country.
   - id: 1
     name: Jim's Steaks
     coordinates: [39.9415, -75.1493]
@@ -130,16 +130,16 @@ default:
     icon: 🎨
     description: Philadelphia's Magic Gardens is a unique art environment created by mosaic artist Isaiah Zagar over 14 years. The immersive space features intricate mosaics made from tiles, bottles, bicycle wheels, mirrors, and other found objects covering walls, ceilings, and walkways. Zagar's "outsider art" installation spans half a block and includes indoor galleries, outdoor sculpture, and labyrinthine passages that celebrate community, creativity, and transformation.
   - id: 3
-    name: Woodlands Cemetery
-    coordinates: [39.9486, -75.2047]
+    name: The Northernmost Home Depot in Philadelphia  
+    coordinates: [40.0295861, -75.222702]
     icon: 🌳
-    description: The Woodlands Cemetery is a historic rural cemetery founded in 1840, designed as an arboretum and garden. It's the final resting place of many notable Philadelphians including artist Thomas Eakins and publisher Curtis Bok. The cemetery's Victorian Gothic gatehouse and carefully planned landscape make it both a burial ground and a beautiful park. It was one of the first rural cemeteries in America, designed to be a place for both mourning and recreation.
+    description: This Home Depot located near Tacony Creek Park is the most northern Home Depot in Philadelhpia. It is a 22 minute drive from City Hall.
   - id: 4
-    name: 30th Street Station
-    coordinates: [39.9558, -75.1832]
+    name: Grace Kelly's childhood home
+    coordinates: [40.018142, -75.1891421]
     icon: 🚂
-    description: 30th Street Station is one of America's grandest railroad stations, opened in 1933. The monumental Beaux-Arts building features soaring 95-foot-high ceilings, ornate chandeliers, and a striking Art Deco design. The station serves as a major Amtrak hub connecting Philadelphia to the Northeast Corridor. During World War II, it was a primary troop movement center, and today it's the third-busiest Amtrak station in the country.
-
+    description: The Kelly Family Home belonged to the famous Kelly family of Philadelphia who lived in the East Falls section of the city.  The Kelly house was built by John B. Kelly, Sr. (October 4, 1889 – June 20, 1960), who was affectionately known as Jack.  Jack was a very successful businessman in bricklaying and construction, and he was also active in Philadelphia politics. Jack was a 3-time Olympic Gold Medalist in the 1920s for rowing, winning 2 Gold Medals in Antwerp, Belgium in 1920 and one Gold Medal in Paris, France in 1924.
+    
 2026-01-21:
   - id: 0
     name: Rittenhouse Square
@@ -152,15 +152,15 @@ default:
     icon: 🍺
     description: McGillin's Olde Ale House is Philadelphia's oldest continuously operating tavern, opened in 1860. The bar has survived Prohibition, two world wars, and changing neighborhoods while maintaining its Victorian charm and character. The multi-story building is filled with historical artifacts, photos of famous patrons, and a cozy atmosphere that makes it a beloved Philadelphia institution and a favorite among locals and tourists alike.
   - id: 2
-    name: Franklin Institute
-    coordinates: [39.9577, -75.1722]
-    icon: 🔭
-    description: The Franklin Institute is one of America's oldest and premier centers of science education. Founded in 1824 and named after Benjamin Franklin, it houses a 60-foot walk-through model of the human heart, a massive Foucault pendulum, and an observatory. The institute's iconic 20-foot tall statue of Benjamin Franklin sitting in the rotunda is one of Philadelphia's most recognizable sculptures.
-  - id: 3
     name: Barnes Foundation
     coordinates: [39.9594, -75.1725]
     icon: 🖼️
     description: The Barnes Foundation houses one of the world's greatest collections of Impressionist, Post-Impressionist, and early Modern paintings. Dr. Albert C. Barnes assembled the collection including 181 Renoirs, 69 Cézannes, 59 Matisses, and dozens of Picassos. The museum is famous for Barnes's unconventional hanging method, mixing paintings with metalwork and furniture to create what he called "ensembles." The collection moved from Merion to Philadelphia in 2012 in a controversial relocation.
+  - id: 3
+    name: Philly Chicken Man Pier
+    coordinates: [39.92586, -75.1412429]
+    icon: 🖼️
+    description: The Philly Rotisserie Chicken Guy, Alexander Tominsky, gained viral fame in 2022 for eating a rotisserie chicken every day for 40 days, culminating in a public event on a South Philly pier that drew hundreds of cheering onlookers. Documenting his feat on social media, he completed the challenge, ending with triumphant shouts and Springsteen's "Streets of Philadelphia," using the attention to promote city causes. 
   - id: 4
     name: John Heinz Wildlife Refuge
     coordinates: [39.8928, -75.2458]
