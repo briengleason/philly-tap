@@ -125,6 +125,9 @@ function makeGuess(tapLatLng, existingTapMarker = null) {
     // Update total score
     gameState.totalScore = Object.values(gameState.guesses).reduce((sum, g) => sum + g.score, 0);
     
+    // Track location guess (for difficulty analysis)
+    trackLocationGuess(location.id, location.name, distance, finalScore);
+    
     // Create markers and line (reuse existing tap marker if provided)
     createMarkersAndLine(location.id, tapLatLng, distance, existingTapMarker);
     

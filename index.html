@@ -13,6 +13,19 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css" />
+    
+    <!-- Google Analytics -->
+    <!-- Replace YOUR_GA_ID with your Google Analytics 4 Measurement ID (G-XXXXXXXXXX) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C4NS99ES13"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-C4NS99ES13', {
+        anonymize_ip: true,
+        cookie_flags: 'SameSite=None;Secure'
+      });
+    </script>
 </head>
 <body>
     <div id="map"></div>
@@ -97,6 +110,7 @@
     <!-- Application JavaScript modules (load in dependency order) -->
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/analytics.js"></script>
     <script src="js/gameState.js"></script>
     <script src="js/locations.js"></script>
     <script src="js/map.js"></script>

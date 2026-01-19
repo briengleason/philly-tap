@@ -122,6 +122,7 @@ async function loadLocations() {
         initializeGame();
     } catch (error) {
         console.error('Error loading locations:', error);
+        trackError('location_load_failed', error.message);
         // Fallback to default locations if YAML fails
         currentDateString = getTodayDateString();
         usingDateSpecificLocations = false;

@@ -251,6 +251,9 @@ async function shareScore() {
             document.body.removeChild(textArea);
         }
         
+        // Track share button click
+        trackShareClick(gameState.totalScore, getTodayDateString());
+        
         // Show feedback
         const feedback = document.getElementById('share-feedback');
         feedback.classList.add('show');
@@ -261,6 +264,7 @@ async function shareScore() {
         
     } catch (error) {
         console.error('Failed to copy to clipboard:', error);
+        trackError('share_failed', error.message);
         alert('Failed to copy. Please copy manually:\n\n' + generateShareMessage());
     }
 }
@@ -270,6 +274,13 @@ function showCompletionScreen() {
     document.getElementById('game-content').style.display = 'none';
     document.getElementById('completion-screen').classList.add('show');
     document.getElementById('final-score').textContent = gameState.totalScore;
+    
+    // Track game completion
+    trackGameCompleted(
+        gameState.totalScore,
+        Object.keys(gameState.guesses).length,
+        getTodayDateString()
+    );
     
     // Show minimize button (panel defaults to maximized/expanded)
     const minimizeBtn = document.getElementById('minimize-btn');

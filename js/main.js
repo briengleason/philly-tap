@@ -50,6 +50,9 @@ map.on('mousemove', () => {
 });
 
 map.on('click', (e) => {
+    // Track daily active user on first interaction
+    trackDailyActive();
+    
     // Only process if it's a click, not a drag
     const clickDuration = Date.now() - dragStartTime;
     if (isDragging || clickDuration > 200) {
@@ -117,6 +120,9 @@ map.getContainer().addEventListener('touchend', (e) => {
         return;
     }
     
+    // Track daily active user on first interaction
+    trackDailyActive();
+    
     // Use the stored lat/lng from touchstart
     const clickedLatLng = touchStartLatLng;
     showGuessPreview(clickedLatLng);
@@ -124,6 +130,11 @@ map.getContainer().addEventListener('touchend', (e) => {
     touchStartPos = null;
     touchStartLatLng = null;
 }, { passive: true });
+
+// Track page view on load
+document.addEventListener('DOMContentLoaded', () => {
+    trackPageView();
+});
 
 // Start loading locations when page loads
 loadLocations();
