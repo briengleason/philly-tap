@@ -117,6 +117,7 @@ body, html {
 
 #game-panel.minimized #completion-screen #results-table,
 #game-panel.minimized #completion-screen #share-feedback,
+#game-panel.minimized #completion-screen #scorecard-hint,
 #game-panel.minimized #game-content > *:not(#minimize-btn):not(#running-score) {
     display: none;
 }
