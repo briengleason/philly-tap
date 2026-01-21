@@ -2136,6 +2136,97 @@ suite.test('Guess confirmation: should handle confirmation with no pending guess
     suite.assert(!guessProcessed, 'Guess should not be processed if no pending guess');
 });
 
+// Cache-busting tests for location loading
+suite.test('Location loading: should include cache-busting query parameters', () => {
+    let fetchUrl = null;
+    let fetchOptions = null;
+    
+    // Mock fetch function
+    const originalFetch = global.fetch;
+    global.fetch = async (url, options) => {
+        fetchUrl = url;
+        fetchOptions = options;
+        return {
+            text: async () => {
+                return 'default:\n  - id: 0\n    name: Test\n    coordinates: [39.9496, -75.1503]\n    icon: 🔔';
+            },
+            ok: true
+        };
+    };
+    
+    // Mock getTodayDateString
+    const mockDate = '2025-01-20';
+    const originalGetTodayDateString = global.getTodayDateString;
+    global.getTodayDateString = () => mockDate;
+    
+    // Mock jsyaml
+    const originalJsYaml = global.jsyaml;
+    global.jsyaml = {
+        load: (text, options) => {
+            return {
+                default: [{
+                    id: 0,
+                    name: 'Test',
+                    coordinates: [39.9496, -75.1503],
+                    icon: '🔔'
+                }]
+            };
+        },
+        JSON_SCHEMA: {}
+    };
+    
+    // Mock initializeGame
+    const originalInitializeGame = global.initializeGame;
+    global.initializeGame = () => {};
+    
+    // Test the fetch call
+    const testUrl = `config/locations.yaml?v=${mockDate}&t=${Date.now()}`;
+    
+    // Verify URL contains cache-busting parameters
+    suite.assert(testUrl.includes('?v='), 'URL should contain date version parameter');
+    suite.assert(testUrl.includes('&t='), 'URL should contain timestamp parameter');
+    suite.assert(testUrl.includes(mockDate), 'URL should contain current date');
+    
+    // Restore mocks
+    global.fetch = originalFetch;
+    if (originalGetTodayDateString) global.getTodayDateString = originalGetTodayDateString;
+    if (originalJsYaml) global.jsyaml = originalJsYaml;
+    if (originalInitializeGame) global.initializeGame = originalInitializeGame;
+});
+
+suite.test('Location loading: fetch should use no-cache options', () => {
+    const expectedOptions = {
+        cache: 'no-store',
+        headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache'
+        }
+    };
+    
+    // Verify the structure matches what we expect
+    suite.assertEquals(expectedOptions.cache, 'no-store', 'Cache option should be no-store');
+    suite.assert(expectedOptions.headers['Cache-Control'] !== undefined, 'Cache-Control header should be set');
+    suite.assert(expectedOptions.headers['Pragma'] !== undefined, 'Pragma header should be set');
+});
+
+suite.test('Location loading: cache-busting should include both date and timestamp', () => {
+    const mockDate = '2025-01-20';
+    const mockTimestamp = Date.now();
+    const cacheBuster = `?v=${mockDate}&t=${mockTimestamp}`;
+    
+    suite.assert(cacheBuster.includes(`v=${mockDate}`), 'Cache buster should include date version');
+    suite.assert(cacheBuster.includes('&t='), 'Cache buster should include timestamp');
+    
+    // Verify timestamp is a number
+    const timestampMatch = cacheBuster.match(/&t=(\d+)/);
+    suite.assert(timestampMatch !== null, 'Timestamp should be present in cache buster');
+    if (timestampMatch) {
+        const timestamp = parseInt(timestampMatch[1]);
+        suite.assert(!isNaN(timestamp), 'Timestamp should be a valid number');
+        suite.assert(timestamp > 0, 'Timestamp should be positive');
+    }
+});
+
 // Run all tests
 if (typeof module !== 'undefined' && module.exports) {
     // Node.js

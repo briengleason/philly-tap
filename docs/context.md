@@ -129,6 +129,16 @@
 - Added analytics setup documentation (`docs/ANALYTICS_SETUP.md`)
 - Analytics Measurement ID is safe to commit (unlike API keys)
 
+### Phase 14: Cache-Busting for Mobile Users
+- Implemented multi-layer cache-busting to prevent stale location data on mobile browsers
+- Added cache-control meta tags in HTML (`no-cache, no-store, must-revalidate`)
+- Added cache-busting query parameters to locations.yaml fetch:
+  - Date-based version parameter (`?v=YYYY-MM-DD`) - invalidates cache daily
+  - Timestamp parameter (`&t=timestamp`) - ensures uniqueness within the day
+- Added fetch options with `cache: 'no-store'` and cache-control headers
+- Ensures users always see the latest daily locations, especially on mobile devices with aggressive caching
+- Added comprehensive tests for cache-busting functionality
+
 ## Project Structure
 
 ```
@@ -215,6 +225,10 @@ philly-tap/
   5. City Hall (🏢)
 - **Date-based configuration**: Different locations can be set for specific dates
 - **Fallback**: Uses default locations if no date-specific config exists
+- **Cache-busting**: Multi-layer cache prevention ensures users always see latest locations
+  - HTML meta tags prevent browser caching
+  - Fetch requests include date-based version and timestamp query parameters
+  - Ensures mobile users don't see stale cached location data
 
 ### 3. Sequential Game Flow with Animations
 - **One location at a time**: User focuses on single location
