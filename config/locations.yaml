@@ -147,20 +147,20 @@ default:
     icon: 🌳
     description: Rittenhouse Square is one of Philadelphia's five original public squares laid out by William Penn in 1682. The park became a fashionable address in the 19th century and remains one of the city's most prestigious neighborhoods. The square features beautiful landscaping, sculptures, a fountain, and is a popular gathering place for locals, dog walkers, and visitors seeking a peaceful urban oasis.
   - id: 1
-    name: McGillin's Olde Ale House
-    coordinates: [39.950176, -75.162613]
+    name: Pat's King of Steaks
+    coordinates: [39.933200, -75.159241]
     icon: 🍺
-    description: McGillin's Olde Ale House is Philadelphia's oldest continuously operating tavern, opened in 1860. The bar has survived Prohibition, two world wars, and changing neighborhoods while maintaining its Victorian charm and character. The multi-story building is filled with historical artifacts, photos of famous patrons, and a cozy atmosphere that makes it a beloved Philadelphia institution and a favorite among locals and tourists alike.
+    description: The former owner of Pat's King of Steaks in South Philadelphia passed away on Sunday. Frank Olivieri Sr., 87, was the son of Harry Olivieri and the nephew of Pat Olivieri - the brothers who were the original owners of Pat's. He started working at the shop in the late 1950s and became the co-owner in 1968, helping carry forward the family legacy for decades.
   - id: 2
-    name: Barnes Foundation
+    name: Mueseum with the largest collection of Renoir Paintings in the world
     coordinates: [39.960643, -75.172807]
     icon: 🖼️
     description: The Barnes Foundation houses one of the world's greatest collections of Impressionist, Post-Impressionist, and early Modern paintings. Dr. Albert C. Barnes assembled the collection including 181 Renoirs, 69 Cézannes, 59 Matisses, and dozens of Picassos. The museum is famous for Barnes's unconventional hanging method, mixing paintings with metalwork and furniture to create what he called "ensembles." The collection moved from Merion to Philadelphia in 2012 in a controversial relocation.
   - id: 3
-    name: Philly Chicken Man Pier
-    coordinates: [39.928514, -75.139829]
-    icon: 🍗
-    description: The Philly Rotisserie Chicken Guy, Alexander Tominsky, gained viral fame in 2022 for eating a rotisserie chicken every day for 40 days, culminating in a public event on a South Philly pier that drew hundreds of cheering onlookers. Documenting his feat on social media, he completed the challenge, ending with triumphant shouts and Springsteen's "Streets of Philadelphia," using the attention to promote city causes.
+    name: Graffiti Pier
+    coordinates: [39.972010, -75.113810]
+    icon: 🎨
+    description: Graffiti Pier in Philadelphia is a former coal dock on the Delaware River (Pier 124) that became an iconic, unofficial hub for street artists, photographers, and explorers due to its vast, ever-changing graffiti, but it faces development plans to transform it into a public park.
   - id: 4
     name: Brewery Site of America's First Lager
     coordinates: [39.964629, -75.141587]
@@ -171,23 +171,23 @@ default:
   - id: 0
     name: Liberty Bell
     coordinates: [39.949610, -75.150282]
-    icon: 🌉
-    description: The Benjamin Franklin Bridge is a magnificent suspension bridge spanning the Delaware River, connecting Philadelphia to Camden, New Jersey. Opened in 1926, it was the longest suspension bridge in the world at the time of its completion. The bridge features distinctive neo-classical pylons and elegant Art Deco detailing. It's named after Benjamin Franklin and offers pedestrian walkways with stunning views of both cities.
+    icon: 🔔
+    description: The Liberty Bell in Philadelphia is an iconic symbol of American freedom, famous for its large crack and biblical inscription, originally cast for the Pennsylvania State House (now Independence Hall) and later adopted by abolitionists as a powerful emblem of liberty, inspiring movements for civil rights and independence. It symbolizes the nation's enduring struggle for liberty, though its famous crack ended its ringing days in 1846, making it a revered historical artifact visited by millions.
   - id: 1
-    name: Tattooed Mom
-    coordinates: [39.941880, -75.151834]
-    icon: 💉
-    description: Tattooed Mom is a beloved South Street dive bar and art gallery known for its vibrant street art, eclectic decor, and alternative music scene. The bar features colorful murals, retro furniture, and a laid-back atmosphere that attracts artists, musicians, and creatives. Famous for its "Upstairs at Mom's" events and its role in Philadelphia's counterculture scene, it's a true local institution.
+    name: McGillin's Olde Ale House
+    coordinates: [39.950176, -75.162613]
+    icon: 🍺
+    description: McGillin's Olde Ale House is Philadelphia's oldest continuously operating tavern, opened in 1860. The bar has survived Prohibition, two world wars, and changing neighborhoods while maintaining its Victorian charm and character. The multi-story building is filled with historical artifacts, photos of famous patrons, and a cozy atmosphere that makes it a beloved Philadelphia institution and a favorite among locals and tourists alike.
   - id: 2
-    name: Please Touch Museum
-    coordinates: [39.979496, -75.209147]
-    icon: 🎪
-    description: The Please Touch Museum is a children's museum in Fairmount Park focused on hands-on learning through play. Housed in the historic Memorial Hall from the 1876 Centennial Exposition, the museum features interactive exhibits, a historic carousel from 1908, and educational programs. The museum's motto "Learning through play" reflects its mission to make learning fun and accessible for children and families.
+    name: Largest Restaurant in Philadelphia (by square foot)
+    coordinates: [39.945796, -75.140583]
+    icon: 🍺
+    description: Philadelphia's largest restaurant is Liberty Point, a massive outdoor waterfront venue at Penn's Landing with seating for up to 1,400 guests across three levels, featuring five bars, entertainment, and panoramic views of the Delaware River.
   - id: 3
-    name: Northernmost Home Depot in Philadelphia
-    coordinates: [39.992480, -75.091472]
-    icon: 🌳
-    description: This Home Depot located near Tacony Creek Park is the most northern Home Depot in Philadelhpia. It is a 22 minute drive from City Hall.
+    name: Edgar Allan Pоe National Historic Site
+    coordinates: [39.961935, -75.149940]
+    icon: 📝
+    description: The Edgar Allan Poe National Historic Site is a preserved home once rented by American author Edgar Allan Poe, located at 532 N. 7th Street, in the Spring Garden neighborhood of Philadelphia, Pennsylvania. Though Poe lived in many houses over several years in Philadelphia (1838 to 1844), it is the only one which still survives.
   - id: 4
     name: First Skyscraper in Philadelphia
     coordinates: [39.951599, -75.160267]
@@ -196,57 +196,65 @@ default:
 
 2026-01-23:
   - id: 0
-    name: Spruce Street Harbor Park
-    coordinates: [39.9444, -75.1415]
-    icon: 🏖️
-    description: Spruce Street Harbor Park is a seasonal urban beach park on the Delaware River waterfront. Opened in 2014, it features hammocks, colorful LED-lit trees, food vendors, and a beer garden. The park was created as a temporary pop-up but became so popular it's now a permanent summer destination. It transforms Philadelphia's waterfront into a vibrant social space with views of the Ben Franklin Bridge.
+    name: Love Park
+    coordinates: [39.954132, -75.165640]
+    icon: ❤️
+    description: Love Park (officially John F. Kennedy Plaza) is a public park in Center City Philadelphia. It's famous for the iconic LOVE sculpture created by artist Robert Indiana in 1976. The sculpture has become one of Philadelphia's most recognizable symbols and a popular spot for photos.
+
   - id: 1
-    name: Pat's King of Steaks
-    coordinates: [39.9333, -75.1594]
-    icon: 🥩
-    description: Pat's King of Steaks claims to be the birthplace of the cheesesteak, invented by Pat Olivieri in 1930. The legendary stand is located at the intersection with Geno's Steaks across the street, creating one of Philadelphia's most famous food rivalries. Pat's original location and classic preparation have made it a must-visit destination for cheesesteak lovers from around the world.
+    name: Johnny Brenda's
+    coordinates: [39.969037, -75.134323]
+    icon: 🍻
+    description: Johnny Brenda’s is a bar, restaurant, and independent venue located in the heart of Fishtown, specializing in the best of local beer, food, and music for over 15 years.
+
   - id: 2
-    name: Elfreth's Alley
-    coordinates: [39.9527, -75.1424]
+    name: Oldest Residential Street in America
+    coordinates: [39.952718, -75.142439]
     icon: 🏘️
     description: Elfreth's Alley is America's oldest residential street, with houses dating from 1728 to 1836. The charming cobblestone alley features 32 houses that have been continuously inhabited for over 300 years. Named after blacksmith and property owner Jeremiah Elfreth, it's a National Historic Landmark and offers a rare glimpse into 18th-century urban life in America.
+
   - id: 3
-    name: Stenton Mansion
-    coordinates: [40.0197, -75.1578]
-    icon: 🏛️
-    description: Stenton Mansion is a preserved 18th-century country house built in 1723 by James Logan, William Penn's secretary. The mansion served as a headquarters during the Battle of Germantown in 1777 and hosted many founding fathers. It's one of the oldest surviving houses in Philadelphia and remains remarkably intact, with original woodwork, furnishings, and a beautiful formal garden that demonstrates colonial-era landscaping.
+    name: Swann Memorial Fountain
+    coordinates: [39.957938, -75.170587]
+    icon: ⛲
+    description: The center of Logan Square belongs to a popular fountain sculpture by Alexander Stirling Calder, son of the City Hall artist. Designed with architect Wilson Eyre, Swann Memorial Fountain memorializes Dr. Wilson Cary Swann, founder of the Philadelphia Fountain Society. Adapting the tradition of “river god” sculpture, Calder created large Native American figures to symbolize the area’s major local waterways: the Delaware River (a man), the Schuylkill River (a woman) and Wissahickon Creek (a girl). Frogs, turtles, a fish and two swans — puns on the name of Dr. Wilson Cary Swann — complete the group.
+
   - id: 4
-    name: John Bartram House
-    coordinates: [39.9231, -75.2064]
-    icon: 🏡
-    description: The John Bartram House is the 18th-century home of America's first botanist, John Bartram, who founded Bartram's Garden in 1728. The stone house, built in 1731, is a National Historic Landmark and showcases colonial-era architecture. Bartram corresponded with many European naturalists and was appointed "Royal Botanist" by King George III, helping establish America's scientific reputation.
+    name: The First Girl Scout Cookie Booth
+    coordinates: [39.954676, -75.163367]
+    icon: 🍪
+    description: Way to go Philly for realizing that people will always fall victim to buying a $5 box of sweets. On Nov. 11, 1932 the local Girl Scout chapter sold cookies out of the windows of Philadelphia Gas & Electric Co. at Broad and Arch streets. Four years later the national organization adopted the idea.
 
 2026-01-24:
   - id: 0
-    name: Italian Market
-    coordinates: [39.9369, -75.1592]
-    icon: 🍝
-    description: The Italian Market is America's oldest continuously operating outdoor market, dating back to the 1880s. Spanning several blocks on 9th Street, it features dozens of vendors selling fresh produce, meats, cheeses, spices, and specialty Italian foods. The market has been a cultural hub for Philadelphia's Italian-American community for over a century and remains one of the city's most vibrant and authentic food destinations.
+    name: City Hall
+    coordinates: [39.952386, -75.163608]
+    icon: 🏛️
+    description: This is the Philly Tap equivalent of a free space! City Hall at one point was the largest government building in all of the US. The WIlliam Penn statue at the top is over 37 feet tall, making it the largest statue on top of a building in the world.
+
   - id: 1
-    name: Geno's Steaks
-    coordinates: [39.9331, -75.1592]
+    name: Franklin Field
+    coordinates: [39.950216, -75.190109]
     icon: 🥪
-    description: Geno's Steaks is one of Philadelphia's most famous cheesesteak joints, opened in 1966 across the street from Pat's King of Steaks. The rivalry between the two stands has become legendary, with locals fiercely debating which serves the better cheesesteak. Geno's neon-lit exterior, 24-hour service, and classic preparation have made it an iconic Philadelphia destination featured in countless films and TV shows.
+    description: Named after Penn's founder, Benjamin Franklin, Franklin Field is the home stadium for the Penn Relays, and the university's venue for football, track and field, and lacrosse. It was home to the Philadelphia Eagles from 1958-1970.
+
   - id: 2
-    name: Rodin Museum
-    coordinates: [39.9642, -75.1725]
-    icon: 🗿
-    description: The Rodin Museum houses one of the largest collections of Auguste Rodin's sculptures outside of France. Opened in 1929, the museum was a gift from movie theater magnate Jules Mastbaum, who collected Rodin's works and commissioned architect Paul Cret to design the beautiful Beaux-Arts building. The museum features 150 bronze, marble, and plaster works including "The Thinker" and "The Gates of Hell."
+    name: Friday Saturday Sunday
+    coordinates: [39.948945, -75.175967]
+    icon: 🥙
+    description: Friday Saturday Sunday is a restaurant near Rittenhouse Square. In November 2025, it was one of the first three restaurants in Philadelphia to earn a Michelin star.
+
   - id: 3
-    name: Powel House
-    coordinates: [39.9472, -75.1500]
-    icon: 🏠
-    description: The Powel House is a magnificent Georgian townhouse built in 1765 and home to Samuel Powel, Philadelphia's last colonial mayor and first post-colonial mayor. George Washington, Benjamin Franklin, and John Adams were frequent guests at lavish parties here. The house is considered one of the finest examples of 18th-century architecture in America and showcases the elegant lifestyle of Philadelphia's colonial elite.
+    name: Fort Mifflin
+    coordinates: [39.875229, -75.213143]
+    icon: 🏰
+    description: Fort Mifflin is a preserved 18th-century fort on the Delaware River, built in 1771 to protect Philadelphia. The fort played a crucial role in the Revolutionary War, holding off the British Navy for six weeks in 1777 to allow Washington's army to escape. The fort is one of the only intact Revolutionary War forts in America and offers living history programs, ghost tours, and a chance to experience America's military history firsthand.
+
   - id: 4
-    name: Strawberry Mansion
-    coordinates: [39.9814, -75.1933]
+    name: Will Smith's Childhood Home
+    coordinates: [39.986925, -75.243067]
     icon: 🍓
-    description: Strawberry Mansion is a restored Federal-style mansion in Fairmount Park, built in 1789 as a summer home for wealthy merchant Judge William Lewis. The mansion is one of Philadelphia's grandest historic homes, featuring elegant period rooms, original furnishings, and beautiful gardens. It's part of Fairmount Park's collection of historic mansions and offers a glimpse into early 19th-century Philadelphia society.
+    description: West Philadelphia, born & raised! The 2000 block of North 59th Street is now called "Will Smith Way". Will Smith was born to a middle-class family in the Wynnefield neighborhood of Philadelphia.
 
 2026-01-25:
   - id: 0
