@@ -97,6 +97,37 @@
 - Fixed game state persistence issue by adding `loadGameState()` call in `initializeGame()`
 - Added hint message "Tap any location to learn more" below share button on scorecard
 - Styled hint message to match "FINAL SCORE" label (uppercase, same font size/color)
+- Hint message hidden when scorecard is minimized
+
+### Phase 12: Admin Portal & Location Management
+- Created web-based admin interface (`admin/admin.html`) for managing daily locations
+- Google Places API integration for location search and auto-fill coordinates
+- Visual map preview with markers for validation
+- Date selector with "Load Existing" functionality to edit existing dates
+- Real-time validation (coordinates, required fields, Philadelphia bounds)
+- YAML export with copy-to-clipboard functionality
+- Organized admin tools into `admin/` directory:
+  - `admin/admin.html` - Main admin interface (gitignored - contains API keys)
+  - `admin/admin.html.example` - Template without API keys
+  - `admin/setup-api-key.sh` - Script to add Google Maps API key
+  - `admin/GET_API_KEY.md` - Quick guide to get API key
+  - `admin/SETUP.md` - Detailed setup instructions
+  - `admin/README.md` - Admin portal overview
+- Created validation script (`scripts/validate-locations.js`) to check YAML file for errors
+- Updated documentation with location management guide (`docs/LOCATION_MANAGEMENT.md`)
+- Sticky map preview on admin interface (map stays visible while scrolling locations)
+
+### Phase 13: Analytics Tracking
+- Integrated Google Analytics 4 (GA4) for game metrics tracking
+- Created `js/analytics.js` module for centralized event tracking
+- Tracks daily active users (on first interaction)
+- Tracks game completions with scores and date
+- Tracks location guesses for difficulty analysis (location_id, distance, score)
+- Tracks share button clicks
+- Tracks errors for error rate monitoring
+- Privacy-focused implementation (IP anonymization enabled)
+- Added analytics setup documentation (`docs/ANALYTICS_SETUP.md`)
+- Analytics Measurement ID is safe to commit (unlike API keys)
 
 ## Project Structure
 
@@ -108,6 +139,7 @@ philly-tap/
 ├── js/
 │   ├── config.js              # Configuration constants (device detection, MAX_DISTANCE)
 │   ├── utils.js               # Utility functions (distance, score, formatting, emoji)
+│   ├── analytics.js           # Analytics tracking (Google Analytics 4)
 │   ├── gameState.js           # Game state management (localStorage, save/load)
 │   ├── locations.js           # Location loading from YAML and date management
 │   ├── map.js                 # Map initialization, pin icons, marker management
@@ -116,15 +148,26 @@ philly-tap/
 │   └── main.js                # Initialization and event handlers setup
 ├── config/
 │   └── locations.yaml         # Daily locations configuration (YAML format)
+├── admin/                     # Admin portal for location management
+│   ├── admin.html             # Admin interface (gitignored - contains API keys)
+│   ├── admin.html.example     # Template without API keys
+│   ├── setup-api-key.sh       # Script to add Google Maps API key
+│   ├── GET_API_KEY.md         # Quick guide to get API key
+│   ├── SETUP.md               # Detailed setup instructions
+│   └── README.md              # Admin portal overview
 ├── docs/
 │   ├── README.md              # User-facing documentation
 │   ├── DEPLOYMENT.md          # Deployment instructions
 │   ├── GITHUB_PAGES_SETUP.md  # GitHub Pages specific setup
 │   ├── DEVELOPMENT.md         # Developer guide (testing, reset methods)
 │   ├── TESTING.md             # Testing guidelines and workflow
+│   ├── LOCATION_MANAGEMENT.md # Location management guide
+│   ├── ANALYTICS_SETUP.md     # Analytics setup guide
+│   ├── USAGE_TRACKING.md      # Usage tracking guide
 │   └── context.md             # This file - project context and history
 ├── scripts/
-│   └── sync-to-github.sh      # Manual GitHub sync script
+│   ├── sync-to-github.sh      # Manual GitHub sync script
+│   └── validate-locations.js  # YAML validation script
 ├── test/
 │   ├── game-tests.js          # Comprehensive test suite (119+ tests)
 │   ├── run-tests-automated.html  # Browser test runner (auto-run)
@@ -493,7 +536,7 @@ All coordinates are in [latitude, longitude] format:
 
 ### Test Suite Overview
 
-The project includes a comprehensive test suite with **90+ tests** covering:
+The project includes a comprehensive test suite with **119+ tests** covering:
 
 1. **Core Game Logic (25 tests)**
    - Distance calculations (3 tests)
@@ -764,10 +807,30 @@ All CSS is embedded in `<style>` tag in `index.html`.
 ## Last Updated
 
 **Generated**: 2026-01-17  
-**Last Updated**: 2026-01-18 - Multiplier visibility and UI improvements  
+**Last Updated**: 2026-01-19 - Scoring system improvements  
 **Last commit**: Check `git log` for latest changes
 
 **Recent Updates:**
+- **Scoring Improvements (2026-01-19)**: Updated scoring system to reduce zero scores
+  - Increased MAX_DISTANCE from 5000m to 10000m (~6.2 miles)
+  - More forgiving scoring curve (exponent 1.2 vs 1.5)
+  - Quick score popup now shows base score before multipliers
+  - Score examples: 5000m = 44 points (was 0), 8000m = 14 points, 9000m = 6 points
+- **Analytics Tracking (2026-01-19)**: Integrated Google Analytics 4 for game metrics
+  - Added `js/analytics.js` module for centralized event tracking
+  - Tracks daily active users, game completions, location difficulty, share clicks, and errors
+  - Privacy-focused implementation with IP anonymization
+  - Analytics Measurement ID safe to commit (unlike API keys)
+  - Setup documentation in `docs/ANALYTICS_SETUP.md`
+- **Admin Portal (2026-01-19)**: Created web-based admin interface for location management
+  - Web interface (`admin/admin.html`) with Google Places API integration
+  - Location search and auto-fill coordinates
+  - Visual map preview with sticky layout
+  - YAML export with copy-to-clipboard
+  - Load existing dates from `config/locations.yaml`
+  - Validation script (`scripts/validate-locations.js`) for YAML file
+  - Admin files organized in `admin/` directory
+  - Setup documentation and scripts included
 - **UI Improvements (2026-01-18)**: Added hint message to scorecard and adjusted location card sizing
   - Added "Tap any location to learn more" hint below share button on scorecard
   - Styled hint to match "FINAL SCORE" label styling (uppercase, same font)
