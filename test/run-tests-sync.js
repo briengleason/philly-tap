@@ -27,6 +27,18 @@ if (typeof window === 'undefined') {
         clipboard: undefined,
         share: undefined
     };
+    // Mock fetch for Node.js (if not available)
+    if (typeof global.fetch === 'undefined') {
+        global.fetch = async () => ({
+            text: async () => '',
+            ok: true
+        });
+    }
+    // Mock jsyaml
+    global.jsyaml = {
+        load: () => ({}),
+        JSON_SCHEMA: {}
+    };
 }
 
 // Load test suite
