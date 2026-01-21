@@ -131,8 +131,8 @@ function makeGuess(tapLatLng, existingTapMarker = null) {
     // Create markers and line (reuse existing tap marker if provided)
     createMarkersAndLine(location.id, tapLatLng, distance, existingTapMarker);
     
-    // Show quick score (show final multiplied score)
-    showQuickScore(finalScore);
+    // Show quick score (show base score before multipliers)
+    showQuickScore(baseScore);
     
     // Save state
     saveGameState();

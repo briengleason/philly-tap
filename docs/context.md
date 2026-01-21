@@ -807,10 +807,15 @@ All CSS is embedded in `<style>` tag in `index.html`.
 ## Last Updated
 
 **Generated**: 2026-01-17  
-**Last Updated**: 2026-01-19 - Admin portal and analytics tracking  
+**Last Updated**: 2026-01-19 - Scoring system improvements  
 **Last commit**: Check `git log` for latest changes
 
 **Recent Updates:**
+- **Scoring Improvements (2026-01-19)**: Updated scoring system to reduce zero scores
+  - Increased MAX_DISTANCE from 5000m to 10000m (~6.2 miles)
+  - More forgiving scoring curve (exponent 1.2 vs 1.5)
+  - Quick score popup now shows base score before multipliers
+  - Score examples: 5000m = 44 points (was 0), 8000m = 14 points, 9000m = 6 points
 - **Analytics Tracking (2026-01-19)**: Integrated Google Analytics 4 for game metrics
   - Added `js/analytics.js` module for centralized event tracking
   - Tracks daily active users, game completions, location difficulty, share clicks, and errors
