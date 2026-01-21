@@ -83,11 +83,12 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 }
 
 // Calculate score based on distance (0-100)
-function calculateScore(distance, maxDistance = 5000) {
+// Updated to match production: MAX_DISTANCE = 10000, exponent = 1.2
+function calculateScore(distance, maxDistance = 8000) {
     if (distance >= maxDistance) {
         return 0;
     }
-    const score = 100 * Math.pow(1 - (distance / maxDistance), 1.5);
+    const score = 100 * Math.pow(1 - (distance / maxDistance), 1.2);
     return Math.round(Math.max(0, Math.min(100, score)));
 }
 
@@ -192,18 +193,18 @@ suite.test('Score calculation: perfect guess (0m) should be 100', () => {
     suite.assertEquals(score, 100);
 });
 
-suite.test('Score calculation: max distance (5000m) should be 0', () => {
-    const score = calculateScore(5000);
+suite.test('Score calculation: max distance (10000m) should be 0', () => {
+    const score = calculateScore(8000);
     suite.assertEquals(score, 0);
 });
 
 suite.test('Score calculation: beyond max distance should be 0', () => {
-    const score = calculateScore(6000);
+    const score = calculateScore(9000);
     suite.assertEquals(score, 0);
 });
 
-suite.test('Score calculation: halfway (2500m) should be positive', () => {
-    const score = calculateScore(2500);
+suite.test('Score calculation: halfway (5000m) should be positive', () => {
+    const score = calculateScore(4000);
     suite.assert(score > 0 && score < 100, `Score should be between 0-100, got ${score}`);
 });
 
@@ -213,14 +214,14 @@ suite.test('Score calculation: close guess should have high score', () => {
 });
 
 suite.test('Score calculation: far guess should have low score', () => {
-    const score = calculateScore(4000);
+    const score = calculateScore(8000);
     suite.assert(score < 30, `Far guess should score < 30, got ${score}`);
 });
 
 suite.test('Score calculation: exponential decay curve', () => {
     const close = calculateScore(500);
-    const medium = calculateScore(2500);
-    const far = calculateScore(4000);
+    const medium = calculateScore(4000);
+    const far = calculateScore(7000);
     
     // Score should decrease non-linearly
     suite.assert(close > medium, 'Close should score higher than medium');
@@ -842,7 +843,7 @@ suite.test('Share message: should handle all score ranges', () => {
         1: { score: 50, distance: 2500 },
         2: { score: 30, distance: 3500 },
         3: { score: 10, distance: 4500 },
-        4: { score: 0, distance: 5000 }
+        4: { score: 0, distance: 10000 } // Updated to max distance (10000m)
     };
     const message = generateShareMessage(guesses, mockLocations, 190);
     

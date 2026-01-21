@@ -10,7 +10,8 @@ const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/
 const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 // Maximum distance for scoring (in meters) - beyond this gives 0 points
-const MAX_DISTANCE = 5000;
+// Increased from 5000 to 10000 to reduce zero scores (covers ~6 miles radius)
+const MAX_DISTANCE = 8000;
 
 // Developer mode flag (set to true to enable reset functionality)
 const DEV_MODE = false; // Change to true for development/testing

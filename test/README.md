@@ -31,7 +31,7 @@ node test/game-tests.js
 
 ### Score Calculations
 - ✅ Perfect guess (0m) = 100 points
-- ✅ Max distance (5000m) = 0 points
+- ✅ Max distance (8000m) = 0 points
 - ✅ Exponential decay curve verified
 - ✅ Edge cases (negative, very large distances)
 
