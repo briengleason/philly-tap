@@ -200,25 +200,21 @@ default:
     coordinates: [39.954132, -75.165640]
     icon: ❤️
     description: Love Park (officially John F. Kennedy Plaza) is a public park in Center City Philadelphia. It's famous for the iconic LOVE sculpture created by artist Robert Indiana in 1976. The sculpture has become one of Philadelphia's most recognizable symbols and a popular spot for photos.
-
   - id: 1
     name: Johnny Brenda's
     coordinates: [39.969037, -75.134323]
     icon: 🍻
     description: Johnny Brenda’s is a bar, restaurant, and independent venue located in the heart of Fishtown, specializing in the best of local beer, food, and music for over 15 years.
-
   - id: 2
     name: Oldest Residential Street in America
     coordinates: [39.952718, -75.142439]
     icon: 🏘️
     description: Elfreth's Alley is America's oldest residential street, with houses dating from 1728 to 1836. The charming cobblestone alley features 32 houses that have been continuously inhabited for over 300 years. Named after blacksmith and property owner Jeremiah Elfreth, it's a National Historic Landmark and offers a rare glimpse into 18th-century urban life in America.
-
   - id: 3
     name: Swann Memorial Fountain
     coordinates: [39.957938, -75.170587]
     icon: ⛲
-    description: The center of Logan Square belongs to a popular fountain sculpture by Alexander Stirling Calder, son of the City Hall artist. Designed with architect Wilson Eyre, Swann Memorial Fountain memorializes Dr. Wilson Cary Swann, founder of the Philadelphia Fountain Society. Adapting the tradition of “river god” sculpture, Calder created large Native American figures to symbolize the area’s major local waterways: the Delaware River (a man), the Schuylkill River (a woman) and Wissahickon Creek (a girl). Frogs, turtles, a fish and two swans — puns on the name of Dr. Wilson Cary Swann — complete the group.
-
+    description: The center of Logan Square belongs to a popular fountain sculpture by Alexander Stirling Calder, son of the City Hall artist. Designed with architect Wilson Eyre, Swann Memorial Fountain memorializes Dr. Wilson Cary Swann, founder of the Philadelphia Fountain Society. Adapting the tradition of “river god” sculpture, Calder created large Native American figures to symbolize the areas major local waterways - the Delaware River (a man), the Schuylkill River (a woman) and Wissahickon Creek (a girl). Frogs, turtles, a fish and two swans — puns on the name of Dr. Wilson Cary Swann — complete the group.
   - id: 4
     name: The First Girl Scout Cookie Booth
     coordinates: [39.954676, -75.163367]
@@ -231,25 +227,21 @@ default:
     coordinates: [39.952386, -75.163608]
     icon: 🏛️
     description: This is the Philly Tap equivalent of a free space! City Hall at one point was the largest government building in all of the US. The WIlliam Penn statue at the top is over 37 feet tall, making it the largest statue on top of a building in the world.
-
   - id: 1
     name: Franklin Field
     coordinates: [39.950216, -75.190109]
     icon: 🥪
     description: Named after Penn's founder, Benjamin Franklin, Franklin Field is the home stadium for the Penn Relays, and the university's venue for football, track and field, and lacrosse. It was home to the Philadelphia Eagles from 1958-1970.
-
   - id: 2
     name: Friday Saturday Sunday
     coordinates: [39.948945, -75.175967]
     icon: 🥙
     description: Friday Saturday Sunday is a restaurant near Rittenhouse Square. In November 2025, it was one of the first three restaurants in Philadelphia to earn a Michelin star.
-
   - id: 3
     name: Fort Mifflin
     coordinates: [39.875229, -75.213143]
     icon: 🏰
     description: Fort Mifflin is a preserved 18th-century fort on the Delaware River, built in 1771 to protect Philadelphia. The fort played a crucial role in the Revolutionary War, holding off the British Navy for six weeks in 1777 to allow Washington's army to escape. The fort is one of the only intact Revolutionary War forts in America and offers living history programs, ghost tours, and a chance to experience America's military history firsthand.
-
   - id: 4
     name: Will Smith's Childhood Home
     coordinates: [39.986925, -75.243067]
