@@ -34,13 +34,23 @@ function updateDateIndicator() {
 // Load locations from YAML file
 async function loadLocations() {
     try {
-        const response = await fetch('config/locations.yaml');
+        // Add cache-busting query parameter to ensure fresh data
+        // Uses current date to invalidate cache at least once per day
+        const today = getTodayDateString();
+        const cacheBuster = `?v=${today}&t=${Date.now()}`;
+        const response = await fetch(`config/locations.yaml${cacheBuster}`, {
+            cache: 'no-store',
+            headers: {
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache'
+            }
+        });
         const yamlText = await response.text();
         
         // Use JSON schema to prevent js-yaml from auto-parsing dates
         const data = jsyaml.load(yamlText, { schema: jsyaml.JSON_SCHEMA });
         
-        const today = getTodayDateString();
+        // today was already set above for cache-busting
         currentDateString = today;
         
         // First try direct string match

@@ -259,29 +259,33 @@ default:
 2026-01-25:
   - id: 0
     name: Washington Square
-    coordinates: [39.9472, -75.1531]
+    coordinates: [39.947037, -75.152394]
     icon: 🌳
     description: Washington Square is one of Philadelphia's five original public squares laid out by William Penn in 1682. The park served as a burial ground during colonial times and is home to the Tomb of the Unknown Revolutionary War Soldier, honoring fallen soldiers. The square features beautiful landscaping, benches, and is a peaceful oasis in the heart of Old City, perfect for reflection and relaxation.
+
   - id: 1
-    name: Franklin Fountain
-    coordinates: [39.9496, -75.1429]
-    icon: 🍦
-    description: Franklin Fountain is an authentic Victorian-style ice cream parlor in Old City, opened in 2004. The shop features beautiful tin ceilings, period-appropriate fixtures, and classic American sodas made with house-made syrups. The fountain serves traditional ice cream flavors, sundaes, milkshakes, and phosphates, recreating the experience of a 1920s ice cream parlor with modern attention to quality and detail.
+    name: Angelo's
+    coordinates: [39.940657, -75.157675]
+    icon: 🍕
+    description: Some people say it's the best Pizza and Cheesesteak in the city - what do you think??
+
   - id: 2
-    name: Fairmount Water Works
-    coordinates: [39.9669, -75.1831]
-    icon: 💧
-    description: The Fairmount Water Works was one of America's first municipal water treatment facilities, operating from 1815 to 1909. The Greek Revival buildings on the Schuylkill River were an engineering marvel and a major tourist attraction in the 19th century, drawing visitors from around the world. Today, the complex houses an interpretive center, restaurant, and serves as a beautiful backdrop for Philadelphia's riverfront.
-  - id: 3
-    name: Cliveden
-    coordinates: [40.0383, -75.1875]
+    name: Top Attraction in Philadelphia on Trip Advisor
+    coordinates: [39.968336, -75.172665]
     icon: 🏛️
-    description: Cliveden is a grand Georgian mansion built in 1763 by Benjamin Chew, Chief Justice of Pennsylvania. The house was the site of the Battle of Germantown in 1777, where it served as a British stronghold and still bears bullet holes from the fighting. The mansion is one of Philadelphia's finest examples of colonial architecture and houses an impressive collection of 18th-century furnishings and decorative arts.
+    description: I did not expect this to be the top attraction in Philadelphia! Eastern State Penitentiary Historic Site was once the most famous and expensive prison in the world, but stands today in ruin, a haunting world of crumbling cellblocks and empty guard towers. Known for its grand architecture and strict discipline, this was the world’s first true “penitentiary,” a prison designed to inspire penitence, or true regret, in the hearts of convicts. Tours today include the cellblocks, solitary punishment cells, Al Capone’s Cell, and Death Row.
+
+  - id: 3
+    name: La Salle University (click as close to center of campus as possible)
+    coordinates: [40.039040, -75.155818]
+    icon: 🏛️
+    description: La Salle University is a private Catholic university in Philadelphia, Pennsylvania, grounded in the Lasallian tradition of providing accessible, holistic education for the common good.
+
   - id: 4
-    name: Wissahickon Gorge
-    coordinates: [40.0175, -75.1944]
-    icon: 🏔️
-    description: The Wissahickon Gorge is a beautiful natural area in Fairmount Park, featuring a 7-mile trail along the Wissahickon Creek. The gorge is home to diverse wildlife, waterfalls, historic stone bridges, and stunning rock formations. The area has been protected since 1868 and offers Philadelphia residents and visitors a chance to experience wilderness hiking just minutes from the city. It's considered one of Philadelphia's greatest natural treasures.
+    name: Real-life Location featured as "Adrian's Restaurant" in the Rocky Movies
+    coordinates: [39.931630, -75.166315]
+    icon: 🍝
+    description: The restaurant featured in Rocky Balboa, Creed, and Creed II, known as Adrian's Restaurant in the films, is actually The Victor Café in South Philadelphia, an authentic Italian spot famous for its live opera singers performing throughout dinner, offering a real taste of Philly movie magic.
 
 2026-01-26:
   - id: 0
