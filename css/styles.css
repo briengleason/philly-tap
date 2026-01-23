@@ -345,6 +345,7 @@ body, html {
     align-items: center;
     justify-content: center;
     gap: 6px;
+    flex-wrap: wrap; /* Allow wrapping if needed */
 }
 
 #location-info-btn {
@@ -577,10 +578,15 @@ body, html {
 #running-score {
     text-align: right;
     flex-shrink: 0;
+    flex-grow: 0;
     min-width: 70px;
     padding-left: 16px;
     border-left: 1px solid #d1d5db;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
 }
 
 /* Add a subtle shadow/glow to the divider for depth */
@@ -605,6 +611,8 @@ body, html {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 2px;
+    white-space: nowrap;
+    line-height: 1.2;
 }
 
 #running-score-value {
@@ -868,9 +876,13 @@ body, html {
     }
     
     .location-and-score-container {
-        gap: 12px;
+        gap: 10px;
         margin-bottom: 0;
         padding-bottom: 0;
+    }
+    
+    #current-location {
+        padding-right: 10px;
     }
     
     #current-location-icon {
@@ -881,6 +893,7 @@ body, html {
     #current-location-name {
         font-size: 16px;
         margin-bottom: 3px;
+        flex-wrap: wrap;
     }
     
     #current-location-instruction {
@@ -891,7 +904,17 @@ body, html {
     
     #running-score {
         min-width: 60px;
-        padding-left: 12px;
+        padding-left: 10px;
+        flex-shrink: 0;
+        flex-grow: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    
+    #running-score-label {
+        font-size: 8px;
+        line-height: 1.2;
     }
     
     #running-score-label {
