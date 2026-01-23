@@ -1,8 +1,0 @@
-# HTTP Headers for GitHub Pages (via Netlify or similar)
-# Note: GitHub Pages doesn't support custom headers directly
-# This file is for reference if using Netlify or other platforms
-
-/config/locations.yaml
-  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
-  Pragma: no-cache
-  Expires: 0
