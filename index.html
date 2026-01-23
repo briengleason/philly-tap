@@ -42,18 +42,20 @@
             </div>
             <div id="progress-indicator">Location <span id="current-location-number">1</span> of <span id="total-locations">5</span></div>
             <div id="multiplier-indicator"></div>
-            <div id="current-location">
-                <div id="current-location-icon">🔔</div>
-                <div id="current-location-name">
-                    <span>Loading...</span>
-                    <span id="location-info-btn" style="display: none;" onclick="showLocationInfo()" title="Learn more">ℹ️</span>
+            <div class="location-and-score-container">
+                <div id="current-location">
+                    <div id="current-location-icon">🔔</div>
+                    <div id="current-location-name">
+                        <span>Loading...</span>
+                        <span id="location-info-btn" style="display: none;" onclick="showLocationInfo()" title="Learn more">ℹ️</span>
+                    </div>
                 </div>
-                <div id="current-location-instruction">Tap the location on the map</div>
+                <div id="running-score">
+                    <div id="running-score-label">Running Total</div>
+                    <div id="running-score-value">0</div>
+                </div>
             </div>
-            <div id="running-score">
-                <div id="running-score-label">Running Total</div>
-                <div id="running-score-value">0</div>
-            </div>
+            <div id="current-location-instruction">Tap the location on the map</div>
         </div>
         <div id="completion-screen">
             <div id="final-score">0</div>

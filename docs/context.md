@@ -139,6 +139,17 @@
 - Ensures users always see the latest daily locations, especially on mobile devices with aggressive caching
 - Added comprehensive tests for cache-busting functionality
 
+### Phase 15: Compact Location Card Layout
+- Redesigned location card to be more compact and take up less screen space
+- Location and running score now displayed side-by-side instead of stacked
+- Added vertical divider between location and running score for visual separation
+- Reduced font sizes and spacing throughout the card for better mobile experience
+- Location card centered on screen (instead of right-aligned) for better visibility
+- Minimized final score card remains right-aligned for consistency
+- Instruction text moved to span full width of card and centered
+- Updated instruction text to "Tap the location on the map" for clarity
+- Significantly reduced card height, especially on mobile devices
+
 ## Project Structure
 
 ```

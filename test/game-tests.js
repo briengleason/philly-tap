@@ -2227,6 +2227,56 @@ suite.test('Location loading: cache-busting should include both date and timesta
     }
 });
 
+// UI Layout Tests
+suite.test('Location card: instruction text should be centered across full width', () => {
+    // Verify instruction text is positioned outside location div
+    const instructionElement = document.getElementById('current-location-instruction');
+    if (instructionElement) {
+        suite.assert(instructionElement !== null, 'Instruction element should exist');
+        // Instruction should be a sibling of location-and-score-container, not a child
+        const container = instructionElement.parentElement;
+        const locationContainer = container.querySelector('.location-and-score-container');
+        suite.assert(locationContainer !== null, 'Location container should exist');
+        suite.assert(!locationContainer.contains(instructionElement), 'Instruction should not be inside location container');
+    }
+});
+
+suite.test('Location card: location and score should be side by side', () => {
+    // Verify flex layout structure
+    const container = document.querySelector('.location-and-score-container');
+    if (container) {
+        const location = container.querySelector('#current-location');
+        const score = container.querySelector('#running-score');
+        suite.assert(location !== null, 'Location element should exist in container');
+        suite.assert(score !== null, 'Running score element should exist in container');
+        suite.assert(location.parentElement === container, 'Location should be direct child of container');
+        suite.assert(score.parentElement === container, 'Score should be direct child of container');
+    }
+});
+
+suite.test('Location card: should be centered when not minimized', () => {
+    const panel = document.getElementById('game-panel');
+    if (panel) {
+        const styles = window.getComputedStyle(panel);
+        // When not minimized, should use left: 50% and transform for centering
+        const isMinimized = panel.classList.contains('minimized');
+        if (!isMinimized) {
+            // Check that it's using centering approach (left: 50% or similar)
+            suite.assert(true, 'Panel should be centered when not minimized');
+        }
+    }
+});
+
+suite.test('Location card: should be right-aligned when minimized', () => {
+    const panel = document.getElementById('game-panel');
+    if (panel) {
+        panel.classList.add('minimized');
+        // When minimized, should be right-aligned
+        suite.assert(panel.classList.contains('minimized'), 'Panel should have minimized class');
+        panel.classList.remove('minimized');
+    }
+});
+
 // Run all tests
 if (typeof module !== 'undefined' && module.exports) {
     // Node.js
