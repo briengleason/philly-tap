@@ -19,6 +19,7 @@ if (typeof window === 'undefined') {
     };
     global.document = {
         getElementById: () => null,
+        querySelector: () => null,
         createElement: () => ({ style: {} }),
         head: { appendChild: () => {} }
     };

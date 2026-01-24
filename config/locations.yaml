@@ -264,10 +264,11 @@ default:
     description: Dilworth Park is a modern public plaza in front of City Hall, opened in 2014. The park features fountains, seating areas, a seasonal ice rink, and beautiful landscaping. The park serves as a gathering place for locals and visitors, hosting events, concerts, and festivals throughout the year. It transforms Philadelphia's most historic civic space into a vibrant modern park that connects City Hall to the surrounding neighborhood.
 
   - id: 1
-    name: Angelo's Pizzeria
-    coordinates: [39.940657, -75.157675]
-    icon: 🍕
-    description: Some people say it's the best Pizza and Cheesesteak in the city - what do you think??
+    photo: /images/morning-glory-diner-snow.jpg
+    name: Morning Glory Diner
+    coordinates: [39.940840, -75.158870]
+    icon: 🥓
+    description: One of the best breakfast spots in Bella Vista! I recommend the giant Frittatas. This is not a picture from today, but it looks like it could be with the snow. It is located on the corner of 10th and Fitzwater St.
 
   - id: 2
     name: Philly Mag's No. 2 Restaurant of 2026
@@ -320,11 +321,11 @@ default:
 
 2026-01-27:
   - id: 0
-    name: Convention Center
-    coordinates: [39.9550, -75.1602]
-    icon: 🏢
-    description: The Pennsylvania Convention Center is one of America's largest convention facilities, spanning 1.1 million square feet. Opened in 1993, it hosts major conventions, trade shows, and events that bring thousands of visitors to Philadelphia each year. The center's grand hallways, multiple exhibit halls, and state-of-the-art facilities make it a premier destination for conventions and a major economic driver for the city.
-  - id: 1
+    name: Angelo's Pizzeria
+    coordinates: [39.940657, -75.157675]
+    icon: 🍕
+    description: Some people say it's the best Pizza and Cheesesteak in the city - what do you think??
+  - id: 1  
     name: Top Attraction in Philadelphia according to Trip Advisor
     coordinates: [39.968336, -75.172665]
     icon: 🦪

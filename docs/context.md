@@ -939,6 +939,33 @@ All CSS is embedded in `<style>` tag in `index.html`.
 
 ---
 
+## Mobile Transition Race Condition Fix (2026-01-24)
+
+**Issue**: Rapid mobile taps could cause locations to be skipped due to a race condition in the transition guard.
+
+**Root Cause**: The `isTransitioning` flag was set AFTER processing the guess, allowing multiple rapid taps to pass the guard check before the flag was set.
+
+**Fix Implemented**:
+- Moved `isTransitioning = true` to the START of `makeGuess()` function (before processing)
+- This prevents race conditions where rapid taps could both pass the guard check
+- Added proper flag reset in early return cases (no location, already guessed)
+- Updated all mobile transition tests to properly handle async transitions
+
+**Code Changes**:
+- `js/gameLogic.js`: Set `isTransitioning = true` immediately at function start (line 86)
+- Removed duplicate flag setting later in the function
+- Added flag reset in early return paths
+
+**Tests Fixed**:
+- Fixed 6 mobile transition tests to properly wait for async transitions
+- Tests now process locations sequentially, waiting for each transition to complete
+- Added `querySelector` to Node.js mock DOM to fix UI layout test
+- All 143 tests now passing (was 142/143)
+
+**Impact**: Prevents location skipping on mobile devices when users tap rapidly, ensuring all 5 locations are always visited in order.
+
+---
+
 ## Development Philosophy
 
 This project follows a **test-first development** approach:

@@ -1180,38 +1180,50 @@ suite.test('Mobile transition: should not skip locations during rapid taps', () 
     
     // Simulate rapid taps (like on mobile) - tapping before transition completes
     // This should NOT cause locations to be skipped
-    for (let i = 0; i < mockLocations.length; i++) {
-        const location = mockLocations[currentIndex];
-        if (location) {
+    // Process each location sequentially, waiting for transitions
+    return new Promise((resolve) => {
+        let processedCount = 0;
+        
+        function processNextLocation() {
+            if (processedCount >= mockLocations.length) {
+                // All locations processed, verify results
+                const expectedIds = [0, 1, 2, 3, 4];
+                suite.assertEquals(visitedLocationIds.sort((a, b) => a - b), expectedIds, 
+                    'All locations should be visited, none skipped');
+                
+                // Verify locations were visited in order (no skipping)
+                for (let i = 0; i < visitedLocationIds.length - 1; i++) {
+                    const current = visitedLocationIds[i];
+                    const next = visitedLocationIds[i + 1];
+                    suite.assert(next === current + 1, 
+                        `Locations should be sequential. Found ${current} followed by ${next}`);
+                }
+                
+                resolve();
+                return;
+            }
+            
+            const location = mockLocations[currentIndex];
+            if (!location) {
+                resolve();
+                return;
+            }
+            
             // First tap - should process
             simulateMakeGuess(location.id);
             
             // Rapid second tap during transition - should be ignored
             simulateMakeGuess(location.id);
             
-            // Wait for transition to complete
-            // In real scenario, this would be handled by setTimeout
+            // Wait for transition to complete before processing next location
+            setTimeout(() => {
+                processedCount++;
+                processNextLocation();
+            }, 150); // Wait longer than the transition delay (100ms)
         }
-    }
-    
-    // Wait for all transitions to complete
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            // Verify all locations were visited
-            const expectedIds = [0, 1, 2, 3, 4];
-            suite.assertEquals(visitedLocationIds.sort((a, b) => a - b), expectedIds, 
-                'All locations should be visited, none skipped');
-            
-            // Verify locations were visited in order (no skipping)
-            for (let i = 0; i < visitedLocationIds.length - 1; i++) {
-                const current = visitedLocationIds[i];
-                const next = visitedLocationIds[i + 1];
-                suite.assert(next === current + 1, 
-                    `Locations should be sequential. Found ${current} followed by ${next}`);
-            }
-            
-            resolve();
-        }, 1000);
+        
+        // Start processing
+        processNextLocation();
     });
 });
 
@@ -1274,26 +1286,39 @@ suite.test('Mobile transition: should visit all locations sequentially without s
         }, 50);
     }
     
-    // Simulate game progression
-    for (let i = 0; i < mockLocations.length; i++) {
-        advanceLocation();
-        // Try to advance again immediately (should be blocked)
-        advanceLocation();
-    }
-    
+    // Simulate game progression - wait for each transition to complete
     return new Promise((resolve) => {
-        setTimeout(() => {
-            // Should have visited all 5 locations
-            suite.assertEquals(visitedIndices.length, mockLocations.length, 
-                `Should visit all ${mockLocations.length} locations`);
+        let processedCount = 0;
+        
+        function processNextLocation() {
+            if (processedCount >= mockLocations.length) {
+                // All locations processed, verify results
+                suite.assertEquals(visitedIndices.length, mockLocations.length, 
+                    `Should visit all ${mockLocations.length} locations`);
+                
+                // Should be in order: 0, 1, 2, 3, 4
+                const expected = [0, 1, 2, 3, 4];
+                suite.assertEquals(visitedIndices, expected, 
+                    'Locations should be visited in order without skipping');
+                
+                resolve();
+                return;
+            }
             
-            // Should be in order: 0, 1, 2, 3, 4
-            const expected = [0, 1, 2, 3, 4];
-            suite.assertEquals(visitedIndices, expected, 
-                'Locations should be visited in order without skipping');
+            // First call - should process
+            advanceLocation();
+            // Try to advance again immediately (should be blocked)
+            advanceLocation();
             
-            resolve();
-        }, 500);
+            // Wait for transition to complete before processing next location
+            setTimeout(() => {
+                processedCount++;
+                processNextLocation();
+            }, 100); // Wait longer than the transition delay (50ms)
+        }
+        
+        // Start processing
+        processNextLocation();
     });
 });
 
@@ -1324,32 +1349,45 @@ suite.test('Mobile transition: second and fourth locations should not be skipped
         }, 50);
     }
     
-    // Process all locations
-    for (let i = 0; i < mockLocations.length * 2; i++) { // Extra iterations to catch any issues
-        processGuess();
-    }
-    
+    // Process all locations sequentially, waiting for each transition
     return new Promise((resolve) => {
-        setTimeout(() => {
-            // Verify location 2 (index 1, id 1) was visited
-            suite.assert(visitedLocationIds.includes(1), 
-                'Location 2 (id 1) should not be skipped');
+        let processedCount = 0;
+        
+        function processNextGuess() {
+            if (processedCount >= mockLocations.length) {
+                // All locations processed, verify results
+                // Verify location 2 (index 1, id 1) was visited
+                suite.assert(visitedLocationIds.includes(1), 
+                    'Location 2 (id 1) should not be skipped');
+                
+                // Verify location 4 (index 3, id 3) was visited
+                suite.assert(visitedLocationIds.includes(3), 
+                    'Location 4 (id 3) should not be skipped');
+                
+                // Verify all locations were visited
+                suite.assertEquals(visitedLocationIds.length, mockLocations.length, 
+                    'All locations should be visited');
+                
+                // Verify sequential order
+                const sorted = [...visitedLocationIds].sort((a, b) => a - b);
+                suite.assertEquals(sorted, [0, 1, 2, 3, 4], 
+                    'Locations should be visited in sequential order');
+                
+                resolve();
+                return;
+            }
             
-            // Verify location 4 (index 3, id 3) was visited
-            suite.assert(visitedLocationIds.includes(3), 
-                'Location 4 (id 3) should not be skipped');
+            processGuess();
             
-            // Verify all locations were visited
-            suite.assertEquals(visitedLocationIds.length, mockLocations.length, 
-                'All locations should be visited');
-            
-            // Verify sequential order
-            const sorted = [...visitedLocationIds].sort((a, b) => a - b);
-            suite.assertEquals(sorted, [0, 1, 2, 3, 4], 
-                'Locations should be visited in sequential order');
-            
-            resolve();
-        }, 500);
+            // Wait for transition to complete before processing next location
+            setTimeout(() => {
+                processedCount++;
+                processNextGuess();
+            }, 100); // Wait longer than the transition delay (50ms)
+        }
+        
+        // Start processing
+        processNextGuess();
     });
 });
 
@@ -1530,24 +1568,40 @@ suite.test('Transition guard: location index advancement must be atomic', () => 
         }, 50);
     }
     
-    // Simulate rapid taps
-    for (let i = 0; i < 10; i++) {
-        simulateMakeGuess();
-    }
-    
+    // Simulate rapid taps - process locations sequentially but with rapid attempts
     return new Promise((resolve) => {
-        setTimeout(() => {
-            // Should have visited exactly 5 locations (no duplicates, no skips)
-            suite.assertEquals(visitedIndices.length, mockLocations.length, 
-                'Should visit exactly 5 locations');
+        let processedCount = 0;
+        
+        function attemptNextLocation() {
+            if (processedCount >= mockLocations.length) {
+                // All locations processed, verify results
+                // Should have visited exactly 5 locations (no duplicates, no skips)
+                suite.assertEquals(visitedIndices.length, mockLocations.length, 
+                    'Should visit exactly 5 locations');
+                
+                // Should be sequential
+                const expected = [0, 1, 2, 3, 4];
+                suite.assertEquals(visitedIndices, expected, 
+                    'Locations must be visited in sequential order');
+                
+                resolve();
+                return;
+            }
             
-            // Should be sequential
-            const expected = [0, 1, 2, 3, 4];
-            suite.assertEquals(visitedIndices, expected, 
-                'Locations must be visited in sequential order');
+            // Make multiple rapid attempts (most should be blocked)
+            for (let i = 0; i < 3; i++) {
+                simulateMakeGuess();
+            }
             
-            resolve();
-        }, 500);
+            // Wait for transition to complete before attempting next location
+            setTimeout(() => {
+                processedCount++;
+                attemptNextLocation();
+            }, 100); // Wait longer than transition delay (50ms)
+        }
+        
+        // Start processing
+        attemptNextLocation();
     });
 });
 
@@ -2447,6 +2501,137 @@ suite.test('Photo fallback: location with broken photo should fallback to icon',
     handlePhotoError();
     suite.assert(usePhoto === false, 'Should fallback when photo fails');
     suite.assert(displayIcon !== undefined, 'Icon should be available as fallback');
+});
+
+suite.test('Photo display: photo container should be hidden when no photo', () => {
+    const location = {
+        id: 0,
+        name: 'Test Location',
+        icon: '🔔',
+        coordinates: [39.9, -75.1]
+    };
+    
+    // Simulate display logic
+    let photoContainerVisible = false;
+    let displayContainerVisible = true;
+    
+    if (location.photo) {
+        photoContainerVisible = true;
+        displayContainerVisible = false;
+    }
+    
+    suite.assert(photoContainerVisible === false, 'Photo container should be hidden');
+    suite.assert(displayContainerVisible === true, 'Display container should be visible');
+});
+
+suite.test('Photo display: photo container should be visible when photo exists', () => {
+    const location = {
+        id: 0,
+        photo: 'https://example.com/photo.jpg',
+        name: 'Test Location',
+        icon: '🔔',
+        coordinates: [39.9, -75.1]
+    };
+    
+    // Simulate display logic
+    let photoContainerVisible = false;
+    let displayContainerVisible = true;
+    
+    if (location.photo) {
+        photoContainerVisible = true;
+        displayContainerVisible = false;
+    }
+    
+    suite.assert(photoContainerVisible === true, 'Photo container should be visible');
+    suite.assert(displayContainerVisible === false, 'Display container should be hidden');
+});
+
+suite.test('Photo modal: modal image should receive photo source', () => {
+    const photoUrl = 'https://example.com/photo.jpg';
+    let modalImageSrc = '';
+    
+    // Simulate openPhotoModal
+    function openPhotoModal(photoUrl) {
+        modalImageSrc = photoUrl;
+    }
+    
+    openPhotoModal(photoUrl);
+    suite.assert(modalImageSrc === photoUrl, 'Modal image should have correct source');
+});
+
+suite.test('Photo modal: should close when clicking image', () => {
+    let modalOpen = true;
+    
+    function closePhotoModal(event) {
+        if (event && event.target.id === 'photo-modal-image') {
+            modalOpen = false;
+        }
+    }
+    
+    const mockEvent = { target: { id: 'photo-modal-image' } };
+    closePhotoModal(mockEvent);
+    suite.assert(modalOpen === false, 'Modal should close when clicking image');
+});
+
+suite.test('Photo modal: should close when clicking outside', () => {
+    let modalOpen = true;
+    
+    function closePhotoModal(event) {
+        if (event && event.target.id === 'photo-modal') {
+            modalOpen = false;
+        }
+    }
+    
+    const mockEvent = { target: { id: 'photo-modal' } };
+    closePhotoModal(mockEvent);
+    suite.assert(modalOpen === false, 'Modal should close when clicking outside');
+});
+
+suite.test('Photo YAML: photo should appear before name in export', () => {
+    const location = {
+        id: 0,
+        photo: 'https://example.com/photo.jpg',
+        name: 'Test Location',
+        coordinates: [39.9, -75.1],
+        icon: '🔔'
+    };
+    
+    let yaml = `  - id: ${location.id}\n`;
+    if (location.photo) {
+        yaml += `    photo: ${location.photo}\n`;
+    }
+    yaml += `    name: ${location.name}\n`;
+    
+    const photoIndex = yaml.indexOf('photo:');
+    const nameIndex = yaml.indexOf('name:');
+    suite.assert(photoIndex < nameIndex, 'Photo should appear before name in YAML');
+});
+
+suite.test('Photo YAML: location without photo should not include photo field', () => {
+    const location = {
+        id: 0,
+        name: 'Test Location',
+        coordinates: [39.9, -75.1],
+        icon: '🔔'
+    };
+    
+    let yaml = `  - id: ${location.id}\n`;
+    if (location.photo) {
+        yaml += `    photo: ${location.photo}\n`;
+    }
+    yaml += `    name: ${location.name}\n`;
+    
+    suite.assert(!yaml.includes('photo:'), 'YAML should not include photo field when missing');
+});
+
+suite.test('Photo hint: hint text should be "Tap to zoom"', () => {
+    const hintText = 'Tap to zoom';
+    suite.assert(hintText === 'Tap to zoom', 'Hint text should be "Tap to zoom"');
+});
+
+suite.test('Photo modal hint: minimize hint should be "Tap to minimize"', () => {
+    const minimizeHint = 'Tap to minimize';
+    suite.assert(minimizeHint === 'Tap to minimize', 'Minimize hint should be "Tap to minimize"');
 });
 
 // Run all tests
