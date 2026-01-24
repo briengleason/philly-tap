@@ -229,7 +229,6 @@ default:
   - id: 0
     name: Franklin Field
     icon: 🏃
-    photo: /images/franklin-field.jpg
     coordinates: [39.950216, -75.190109]
     description: Named after Penn's founder, Benjamin Franklin, Franklin Field is the home stadium for the Penn Relays, and the university's venue for football, track and field, and lacrosse. It was home to the Philadelphia Eagles from 1958-1970.
 
