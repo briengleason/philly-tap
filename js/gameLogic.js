@@ -77,18 +77,26 @@ function confirmGuess() {
 // Make a guess for the current location (called after confirmation)
 function makeGuess(tapLatLng, existingTapMarker = null) {
     // Prevent processing during transition to avoid location skipping
+    // Set flag IMMEDIATELY to prevent race conditions from rapid taps
     if (isTransitioning) {
         return;
     }
     
+    // Set transitioning flag BEFORE processing to prevent rapid taps
+    isTransitioning = true;
+    
     const location = getCurrentLocation();
     
     if (!location) {
-        return; // All locations completed
+        // All locations completed - reset flag and return
+        isTransitioning = false;
+        return;
     }
     
     if (gameState.guesses[location.id]) {
         // Already guessed this location, advance to next
+        // advanceToNextLocation will set its own transition flag
+        isTransitioning = false;
         advanceToNextLocation();
         return;
     }
@@ -139,9 +147,6 @@ function makeGuess(tapLatLng, existingTapMarker = null) {
     
     // Update UI
     updateRunningScore();
-    
-    // Set transitioning flag to prevent multiple simultaneous transitions
-    isTransitioning = true;
     
     // Clear any existing transition timeouts
     if (transitionTimeoutId) {

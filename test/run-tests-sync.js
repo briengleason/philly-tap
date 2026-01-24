@@ -18,44 +18,50 @@ if (typeof window === 'undefined') {
         })
     };
     global.document = {
-        getElementById: () => null, // Map container won't exist in headless
+        getElementById: () => null,
+        querySelector: () => null,
         createElement: () => ({ style: {} }),
         head: { appendChild: () => {} }
     };
-    global.L = undefined; // Leaflet not available in Node
+    global.L = undefined;
     global.navigator = {
         clipboard: undefined,
         share: undefined
     };
 }
 
-// Load test suite
+// Load and run tests
 const fs = require('fs');
 const path = require('path');
+
+// Read the test file
 const testFile = fs.readFileSync(path.join(__dirname, 'game-tests.js'), 'utf8');
 
-// Execute test file to define suite
-eval(testFile);
-
-// Override console.log to capture output but still show it
-const originalLog = console.log;
-const originalError = console.error;
-let output = [];
-
-console.log = function(...args) {
-    const msg = args.join(' ');
-    output.push(msg);
-    originalLog.apply(console, args);
-};
-
-console.error = function(...args) {
-    const msg = args.join(' ');
-    output.push('ERROR: ' + msg);
-    originalError.apply(console, args);
-};
-
-// Run tests
-if (typeof suite !== 'undefined' && suite.tests.length > 0) {
+// Function to run the tests
+function runTests() {
+    let suite;
+    
+    // Execute test file in a controlled scope
+    const testCode = `
+    (function() {
+        ${testFile}
+        return suite;
+    })()
+    `;
+    
+    try {
+        suite = eval(testCode);
+    } catch(e) {
+        console.error('Error loading tests:', e.message);
+        process.exit(1);
+    }
+    
+    if (!suite || !suite.tests || suite.tests.length === 0) {
+        console.error('Test suite not found or has no tests');
+        process.exit(1);
+    }
+    
+    // Run the tests
     suite.run().then(success => {
         const passed = suite.passed;
         const failed = suite.failed;
@@ -64,17 +70,17 @@ if (typeof suite !== 'undefined' && suite.tests.length > 0) {
         console.log(`\n📊 Test Summary: ${passed}/${total} passed, ${failed} failed`);
         
         if (success) {
-            originalLog('\n✅ All tests passed!');
+            console.log('\n✅ All tests passed!');
             process.exit(0);
         } else {
-            originalError('\n❌ Some tests failed. Commit blocked.');
+            console.log('\n❌ Some tests failed. Commit blocked.');
             process.exit(1);
         }
     }).catch(err => {
-        originalError('Test runner error:', err);
+        console.error('Test runner error:', err);
         process.exit(1);
     });
-} else {
-    originalError('Test suite not found');
-    process.exit(1);
 }
+
+// Run the tests
+runTests();

@@ -891,6 +891,81 @@ All CSS is embedded in `<style>` tag in `index.html`.
 
 ---
 
+## Photo Support Feature (2026-01-24)
+
+**Overview**: Added support for displaying location photos in the game, replacing icon/name when a photo is available.
+
+**YAML Structure**: 
+```yaml
+2026-01-24:
+  - id: 0
+    photo: https://example.com/photo.jpg    # Optional photo URL
+    name: Liberty Bell
+    coordinates: [39.9496, -75.1503]
+    icon: 🔔
+    description: Optional description
+```
+
+**Features Implemented**:
+- **Photo Display**: When a location has a `photo` field, it displays in the location card instead of icon/name
+- **Responsive Sizing**: Photo container 120px × 100px (desktop), 100px × 80px (mobile)
+- **Tap to Enlarge**: Tap photo opens full-screen modal viewer
+- **Close Modal**: Tap the enlarged photo again or tap outside to minimize
+- **Visual Hints**: "Tap to zoom" label below photo, "Tap photo to minimize" text at bottom of modal
+- **Fallback to Icon/Name**: If photo URL fails to load, automatically shows icon/name instead
+- **Smooth Animations**: Fade-in animation for modal, hover zoom effect on photo
+- **Admin Support**: Admin console updated with photo URL input field and parsing
+
+**UI/UX Improvements**:
+- Photo card displays in same location as icon/name (left side of card)
+- Running total remains on right side with vertical divider
+- Photo has hover effect (slight zoom) to indicate interactivity
+- Full-screen modal with dark background (rgba(0,0,0,0.9)) for focus
+- "Tap photo to minimize" hint appears at bottom of enlarged photo
+
+**Files Modified**:
+- `index.html`: Added photo container HTML and modal structure
+- `css/styles.css`: Added 95+ lines for photo styling, modal, and animations
+- `js/ui.js`: Added `openPhotoModal()` and `closePhotoModal()` functions, updated `updateCurrentLocationDisplay()`
+- `admin/admin.html`: Added photo URL input field, updated YAML export logic, parse photo from existing locations
+- `test/game-tests.js`: Added 5 new tests for photo functionality
+
+**Tests Added**:
+- Photo display: location with photo displays photo instead of icon
+- Photo display: location without photo uses icon
+- Photo modal: modal toggles correctly on tap
+- Photo YAML export: photo field included in export
+- Photo fallback: broken photo fails over to icon
+
+---
+
+## Mobile Transition Race Condition Fix (2026-01-24)
+
+**Issue**: Rapid mobile taps could cause locations to be skipped due to a race condition in the transition guard.
+
+**Root Cause**: The `isTransitioning` flag was set AFTER processing the guess, allowing multiple rapid taps to pass the guard check before the flag was set.
+
+**Fix Implemented**:
+- Moved `isTransitioning = true` to the START of `makeGuess()` function (before processing)
+- This prevents race conditions where rapid taps could both pass the guard check
+- Added proper flag reset in early return cases (no location, already guessed)
+- Updated all mobile transition tests to properly handle async transitions
+
+**Code Changes**:
+- `js/gameLogic.js`: Set `isTransitioning = true` immediately at function start (line 86)
+- Removed duplicate flag setting later in the function
+- Added flag reset in early return paths
+
+**Tests Fixed**:
+- Fixed 6 mobile transition tests to properly wait for async transitions
+- Tests now process locations sequentially, waiting for each transition to complete
+- Added `querySelector` to Node.js mock DOM to fix UI layout test
+- All 143 tests now passing (was 142/143)
+
+**Impact**: Prevents location skipping on mobile devices when users tap rapidly, ensuring all 5 locations are always visited in order.
+
+---
+
 ## Development Philosophy
 
 This project follows a **test-first development** approach:

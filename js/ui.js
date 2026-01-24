@@ -74,8 +74,27 @@ function updateCurrentLocationDisplay(animate = true) {
         multiplierEl.style.display = 'none';
     }
     
-    // Update current location display
-    iconEl.textContent = location.icon;
+    // Update current location display - check if photo exists
+    const photoContainer = document.getElementById('current-location-photo-container');
+    const photoImg = document.getElementById('current-location-photo');
+    const displayContainer = document.getElementById('current-location-display');
+    
+    if (location.photo) {
+        // Show photo, hide icon/name display
+        photoImg.src = location.photo;
+        photoImg.onerror = () => {
+            // If photo fails to load, show icon/name instead
+            photoContainer.style.display = 'none';
+            displayContainer.style.display = 'flex';
+        };
+        photoContainer.style.display = 'flex';
+        displayContainer.style.display = 'none';
+    } else {
+        // Show icon and name
+        photoContainer.style.display = 'none';
+        displayContainer.style.display = 'flex';
+        iconEl.textContent = location.icon;
+    }
     
     // Update location name with info button
     const locationNameEl = document.getElementById('current-location-name');
@@ -184,12 +203,25 @@ function toggleMinimize() {
 function showNextLocationTransition(nextLocation) {
     const overlay = document.getElementById('next-location-overlay');
     const message = document.getElementById('next-location-message');
+    const photoContainer = document.getElementById('next-location-photo-container');
+    const photoImg = document.getElementById('next-location-photo');
+    const displayContainer = document.getElementById('next-location-display');
     const icon = document.getElementById('next-location-icon');
     const name = document.getElementById('next-location-name');
     
-    // Update overlay content
-    icon.textContent = nextLocation.icon;
-    name.textContent = nextLocation.name;
+    // Check if location has a photo
+    if (nextLocation.photo) {
+        // Show photo, hide icon/name
+        photoImg.src = nextLocation.photo;
+        photoContainer.style.display = 'block';
+        displayContainer.style.display = 'none';
+    } else {
+        // Show icon and name, hide photo
+        photoContainer.style.display = 'none';
+        displayContainer.style.display = 'block';
+        icon.textContent = nextLocation.icon;
+        name.textContent = nextLocation.name;
+    }
     
     // Show overlay
     overlay.classList.add('show');
@@ -365,4 +397,28 @@ function showCompletionScreen() {
             tableBody.appendChild(row);
         }
     });
+}
+
+// Photo modal functions
+function openPhotoModal() {
+    const modal = document.getElementById('photo-modal');
+    const modalImage = document.getElementById('photo-modal-image');
+    const photoImg = document.getElementById('current-location-photo');
+    
+    if (photoImg.src) {
+        modalImage.src = photoImg.src;
+        modal.classList.add('show');
+    }
+}
+
+function closePhotoModal(event) {
+    // Close modal when:
+    // 1. Clicking the image itself
+    // 2. Clicking outside the content area
+    if (event && event.target.id !== 'photo-modal' && event.target.id !== 'photo-modal-image') {
+        return;
+    }
+    
+    const modal = document.getElementById('photo-modal');
+    modal.classList.remove('show');
 }

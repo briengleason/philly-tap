@@ -548,6 +548,7 @@ body, html {
 #next-location-icon {
     font-size: 64px;
     margin-bottom: 10px;
+    text-align: center;
     animation: bounceIn 0.6s ease 0.2s both;
 }
 
@@ -555,7 +556,35 @@ body, html {
     color: white;
     font-size: 24px;
     font-weight: 600;
+    text-align: center;
     animation: bounceIn 0.6s ease 0.4s both;
+}
+
+#next-location-photo-container {
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: bounceIn 0.6s ease 0.2s both;
+}
+
+#next-location-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#next-location-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 @keyframes bounceIn {
@@ -855,6 +884,11 @@ body, html {
         padding: 14px 28px;
         font-size: 16px;
     }
+    
+    #next-location-photo-container {
+        width: 150px;
+        height: 150px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -1004,4 +1038,140 @@ body, html {
 .distance-label {
     background: transparent !important;
     border: none !important;
+}
+/* Photo display and modal styles */
+#current-location-photo-container {
+    width: 100%;
+    max-width: 120px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #f0f0f0;
+    position: relative;
+    margin-bottom: 8px;
+}
+
+#current-location-photo {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+#current-location-photo:hover {
+    transform: scale(1.05);
+}
+
+#photo-tap-hint {
+    font-size: 10px;
+    color: #666;
+    margin-top: 3px;
+    font-weight: 500;
+    text-align: center;
+    width: 100%;
+    padding: 0 2px;
+}
+
+#current-location-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.photo-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.photo-modal.show {
+    display: flex;
+}
+
+.photo-modal-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+#photo-modal-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+#photo-minimize-hint {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    pointer-events: none;
+    animation: fadeInUp 0.4s ease-in-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Adjust location card layout for photos */
+#current-location {
+    flex: 1;
+    padding-right: 16px;
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+@media (max-width: 767px) {
+    #current-location-photo-container {
+        max-width: 100px;
+        height: 80px;
+    }
+    
+    #current-location-photo {
+        height: 65px;
+    }
+    
+    #photo-tap-hint {
+        font-size: 9px;
+        margin-top: 2px;
+    }
+    
+    #current-location {
+        padding-right: 10px;
+    }
 }
