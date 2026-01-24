@@ -258,61 +258,65 @@ default:
 
 2026-01-25:
   - id: 0
-    name: Washington Square
-    coordinates: [39.947037, -75.152394]
-    icon: 🌳
-    description: Washington Square is one of Philadelphia's five original public squares laid out by William Penn in 1682. The park served as a burial ground during colonial times and is home to the Tomb of the Unknown Revolutionary War Soldier, honoring fallen soldiers. The square features beautiful landscaping, benches, and is a peaceful oasis in the heart of Old City, perfect for reflection and relaxation.
+    name: Dilworth Park
+    coordinates: [39.953036, -75.164684]
+    icon: ⛲
+    description: Dilworth Park is a modern public plaza in front of City Hall, opened in 2014. The park features fountains, seating areas, a seasonal ice rink, and beautiful landscaping. The park serves as a gathering place for locals and visitors, hosting events, concerts, and festivals throughout the year. It transforms Philadelphia's most historic civic space into a vibrant modern park that connects City Hall to the surrounding neighborhood.
 
   - id: 1
-    name: Angelo's
+    name: Angelo's Pizzeria
     coordinates: [39.940657, -75.157675]
     icon: 🍕
     description: Some people say it's the best Pizza and Cheesesteak in the city - what do you think??
 
   - id: 2
-    name: Top Attraction in Philadelphia on Trip Advisor
-    coordinates: [39.968336, -75.172665]
-    icon: 🏛️
-    description: I did not expect this to be the top attraction in Philadelphia! Eastern State Penitentiary Historic Site was once the most famous and expensive prison in the world, but stands today in ruin, a haunting world of crumbling cellblocks and empty guard towers. Known for its grand architecture and strict discipline, this was the world’s first true “penitentiary,” a prison designed to inspire penitence, or true regret, in the hearts of convicts. Tours today include the cellblocks, solitary punishment cells, Al Capone’s Cell, and Death Row.
+    name: Philly Mag's No. 2 Restaurant of 2026
+    coordinates: [39.964536, -75.160642]
+    icon: 🍯
+    description: Honeysuckle located at 631 North Broad St is Philly Mag's number 2 restaurant of 2026. They describe themselves as "An Afro-centric experience" and "on a mission to reclaim Black food traditions"
 
   - id: 3
     name: La Salle University (click as close to center of campus as possible)
     coordinates: [40.039040, -75.155818]
-    icon: 🏛️
+    icon: 👩‍🎓
     description: La Salle University is a private Catholic university in Philadelphia, Pennsylvania, grounded in the Lasallian tradition of providing accessible, holistic education for the common good.
+
+  - id: 4
+    name: Philadelphia's Original National Weather Service Office
+    coordinates: [39.947404, -75.146115]
+    icon: 📡
+    description: Philadelphia's first official National Weather Service station was established in December 1870 by the U.S. Army Signal Service. Located initially in the Board of Trade building, it was among the first national weather-monitoring offices created by Congress under President Ulysses S. Grant to track storms.
+
+2026-01-26:
+  - id: 0
+    name: Philadelphia Zoo
+    coordinates: [39.971496, -75.195538]
+    icon: 🦁
+    description: The Philadelphia Zoo is America's first zoo, opened in 1874. The zoo is home to over 1,300 animals, including rare and endangered species. It was the first zoo in the world to develop a modern zoo design, and continues to innovate with its Zoo360 animal exploration trail system, allowing animals to roam above visitor pathways. The zoo's Victorian-era architecture and beautiful gardens make it both a conservation center and a historic landmark.
+
+  - id: 1
+    name: The Met
+    coordinates: [39.969850, -75.160037]
+    icon: 🎭
+    description: The Met Philadelphia is a comprehensively restored, historic opera house on North Broad Street that now serves as a premier 3,800-capacity concert and event venue. Originally built in 1908 by Oscar Hammerstein, this stunning venue combines ornate, classic architecture with modern amenities, hosting diverse performances, galas, and corporate events.
+
+  - id: 2
+    name: Chinatown Friendship Arch
+    coordinates: [39.953725, -75.156262]
+    icon: 🥠
+    description: The Met Philadelphia is a comprehensively restored, historic opera house on North Broad Street that now serves as a premier 3,800-capacity concert and event venue. Originally built in 1908 by Oscar Hammerstein, this stunning venue combines ornate, classic architecture with modern amenities, hosting diverse performances, galas, and corporate events.
+
+  - id: 3
+    name: Original Chickie's & Pete's Location
+    coordinates: [40.027329, -75.060032]
+    icon: 🦀
+    description: The original Chickie’s & Pete’s is located at 4010 Robbins Avenue in the Mayfair neighborhood of Northeast Philadelphia. Founded in 1977 by Peter and Henrietta "Chickie" Ciarrocchi, this location originally operated as a taproom before becoming the flagship for their famous crabfries and seafood-focused sports bar chain.
 
   - id: 4
     name: Real-life Location featured as "Adrian's Restaurant" in the Rocky Movies
     coordinates: [39.931630, -75.166315]
     icon: 🍝
     description: The restaurant featured in Rocky Balboa, Creed, and Creed II, known as Adrian's Restaurant in the films, is actually The Victor Café in South Philadelphia, an authentic Italian spot famous for its live opera singers performing throughout dinner, offering a real taste of Philly movie magic.
-
-2026-01-26:
-  - id: 0
-    name: Boathouse Row
-    coordinates: [39.9692, -75.1917]
-    icon: 🚣
-    description: Boathouse Row is a series of 15 historic boathouses along the Schuylkill River, home to Philadelphia's rowing clubs since the 1850s. The Victorian-era boathouses are illuminated with thousands of lights each night, creating one of Philadelphia's most iconic and beautiful sights. The row clubs here have produced numerous Olympic champions and continue to be a center of competitive rowing in America.
-  - id: 1
-    name: Dirty Frank's
-    coordinates: [39.9499, -75.1590]
-    icon: 🍻
-    description: Dirty Frank's is a legendary Philadelphia dive bar that's been serving drinks since 1973. Known for its eclectic decor covered in dollar bills and its famously cheap beer, it's a beloved neighborhood institution. The bar was named after a former bartender, not the politician, and has become a favorite spot for journalists, artists, and locals seeking an authentic Philly bar experience.
-  - id: 2
-    name: Philadelphia Zoo
-    coordinates: [39.9717, -75.1960]
-    icon: 🦁
-    description: The Philadelphia Zoo is America's first zoo, opened in 1874. The zoo is home to over 1,300 animals, including rare and endangered species. It was the first zoo in the world to develop a modern zoo design, and continues to innovate with its Zoo360 animal exploration trail system, allowing animals to roam above visitor pathways. The zoo's Victorian-era architecture and beautiful gardens make it both a conservation center and a historic landmark.
-  - id: 3
-    name: Laurel Hill East Cemetery
-    coordinates: [40.0048, -75.1902]
-    icon: ⚱️
-    description: Laurel Hill East Cemetery is the eastern section of the Laurel Hill Cemetery complex, opened in 1861. The cemetery is the final resting place of many notable Philadelphians and features beautiful Victorian architecture and sculpture. As one of America's few remaining rural cemeteries, it serves as both a burial ground and an outdoor museum, showcasing 19th-century funerary art and landscaping.
-  - id: 4
-    name: Glen Foerd Mansion
-    coordinates: [40.0178, -75.0275]
-    icon: 🏰
-    description: Glen Foerd Mansion is a magnificent Italianate villa built in 1850, located along the Delaware River. The mansion features beautiful period rooms, original furnishings, and stunning river views. The 18-acre estate includes formal gardens, meadows, and tidal wetlands. The mansion is open for tours and events, offering visitors a chance to experience 19th-century estate life on Philadelphia's waterfront.
 
 2026-01-27:
   - id: 0
@@ -321,10 +325,10 @@ default:
     icon: 🏢
     description: The Pennsylvania Convention Center is one of America's largest convention facilities, spanning 1.1 million square feet. Opened in 1993, it hosts major conventions, trade shows, and events that bring thousands of visitors to Philadelphia each year. The center's grand hallways, multiple exhibit halls, and state-of-the-art facilities make it a premier destination for conventions and a major economic driver for the city.
   - id: 1
-    name: Oyster House
-    coordinates: [39.9503, -75.1665]
+    name: Top Attraction in Philadelphia according to Trip Advisor
+    coordinates: [39.968336, -75.172665]
     icon: 🦪
-    description: Oyster House is a classic Philadelphia seafood restaurant, opened in 1947. The restaurant serves fresh oysters, seafood, and classic American dishes in a traditional setting. The restaurant has been a Philadelphia institution for over 75 years, serving locals and visitors in the heart of Center City and maintaining its reputation for quality seafood and hospitality.
+    description: I did not expect this to be the top attraction in Philadelphia! Eastern State Penitentiary Historic Site was once the most famous and expensive prison in the world, but stands today in ruin, a haunting world of crumbling cellblocks and empty guard towers. Known for its grand architecture and strict discipline, this was the world’s first true “penitentiary,” a prison designed to inspire penitence, or true regret, in the hearts of convicts. Tours today include the cellblocks, solitary punishment cells, Al Capone’s Cell, and Death Row.
   - id: 2
     name: Betsy Ross House
     coordinates: [39.9525, -75.1433]
