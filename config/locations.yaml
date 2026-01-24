@@ -233,11 +233,10 @@ default:
     description: Named after Penn's founder, Benjamin Franklin, Franklin Field is the home stadium for the Penn Relays, and the university's venue for football, track and field, and lacrosse. It was home to the Philadelphia Eagles from 1958-1970.
 
   - id: 1
-    photo: images/morning-glory-diner-snow.jpg
-    name: Morning Glory Diner
-    coordinates: [39.940840, -75.158870]
-    icon: 🥓
-    description: One of the best breakfast spots in Bella Vista! I recommend the giant Frittatas. This is not a picture from today, but it looks like it could be with the snow. It is located on the corner of 10th and Fitzwater St.
+    name: Jewelers' Row
+    coordinates: [39.948705, -75.153356]
+    icon: 💎
+    description: Located in Center City, Philadelphia, Jewelers' Row is the oldest diamond district in America, dating back to 1851. Situated primarily on Sansom and 8th Streets, this historic area features hundreds of family-owned businesses, jewelers, and craftsmen, making it a major, bustling hub for jewelry shopping.
 
   - id: 2
     name: Philly Mag's Top Restaurant of 2026
