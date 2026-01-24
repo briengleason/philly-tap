@@ -203,12 +203,25 @@ function toggleMinimize() {
 function showNextLocationTransition(nextLocation) {
     const overlay = document.getElementById('next-location-overlay');
     const message = document.getElementById('next-location-message');
+    const photoContainer = document.getElementById('next-location-photo-container');
+    const photoImg = document.getElementById('next-location-photo');
+    const displayContainer = document.getElementById('next-location-display');
     const icon = document.getElementById('next-location-icon');
     const name = document.getElementById('next-location-name');
     
-    // Update overlay content
-    icon.textContent = nextLocation.icon;
-    name.textContent = nextLocation.name;
+    // Check if location has a photo
+    if (nextLocation.photo) {
+        // Show photo, hide icon/name
+        photoImg.src = nextLocation.photo;
+        photoContainer.style.display = 'block';
+        displayContainer.style.display = 'none';
+    } else {
+        // Show icon and name, hide photo
+        photoContainer.style.display = 'none';
+        displayContainer.style.display = 'block';
+        icon.textContent = nextLocation.icon;
+        name.textContent = nextLocation.name;
+    }
     
     // Show overlay
     overlay.classList.add('show');
