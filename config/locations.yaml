@@ -277,7 +277,7 @@ default:
     description: Honeysuckle located at 631 North Broad St is Philly Mag's number 2 restaurant of 2026. They describe themselves as "An Afro-centric experience" and "on a mission to reclaim Black food traditions"
 
   - id: 3
-    name: La Salle University (click as close to center of campus as possible)
+    name: La Salle University (center of campus)
     coordinates: [40.039040, -75.155818]
     icon: 👩‍🎓
     description: La Salle University is a private Catholic university in Philadelphia, Pennsylvania, grounded in the Lasallian tradition of providing accessible, holistic education for the common good.
