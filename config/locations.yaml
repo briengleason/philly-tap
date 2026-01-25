@@ -296,22 +296,24 @@ default:
     description: The Philadelphia Zoo is America's first zoo, opened in 1874. The zoo is home to over 1,300 animals, including rare and endangered species. It was the first zoo in the world to develop a modern zoo design, and continues to innovate with its Zoo360 animal exploration trail system, allowing animals to roam above visitor pathways. The zoo's Victorian-era architecture and beautiful gardens make it both a conservation center and a historic landmark.
 
   - id: 1
-    name: The Met
-    coordinates: [39.969850, -75.160037]
-    icon: 🎭
-    description: The Met Philadelphia is a comprehensively restored, historic opera house on North Broad Street that now serves as a premier 3,800-capacity concert and event venue. Originally built in 1908 by Oscar Hammerstein, this stunning venue combines ornate, classic architecture with modern amenities, hosting diverse performances, galas, and corporate events.
+    photo: images/art-museum-sledding.jpg
+    name: Sledding on Art Museum Steps
+    coordinates: [39.964805, -75.179878]
+    icon: 🎨
+    description: Iconic sledding spot in Philadelphia! Seems like the steps would be bumpy to me
 
   - id: 2
     name: Chinatown Friendship Arch
     coordinates: [39.953725, -75.156262]
     icon: 🥠
-    description: The Met Philadelphia is a comprehensively restored, historic opera house on North Broad Street that now serves as a premier 3,800-capacity concert and event venue. Originally built in 1908 by Oscar Hammerstein, this stunning venue combines ornate, classic architecture with modern amenities, hosting diverse performances, galas, and corporate events.
+    description: Completed in 1986, the Friendship Archway in Washington, D.C.'s Chinatown was built as a symbol of sister-city ties with Beijing, featuring traditional Chinese, Paifang-style architecture with 7,000 glazed tiles and seven roofs. Designed by Alfred H. Liu, the 47-foot-tall structure was restored in 1993 and 2020 to remain an enduring landmark of the neighborhood's cultural heritage.
 
   - id: 3
-    name: Original Chickie's & Pete's Location
-    coordinates: [40.027329, -75.060032]
-    icon: 🦀
-    description: The original Chickie’s & Pete’s is located at 4010 Robbins Avenue in the Mayfair neighborhood of Northeast Philadelphia. Founded in 1977 by Peter and Henrietta "Chickie" Ciarrocchi, this location originally operated as a taproom before becoming the flagship for their famous crabfries and seafood-focused sports bar chain.
+    photo: images/thomas-mansion-sledding.jpg
+    name: Sledding on Tommy's Hill at Thomas Mansion
+    coordinates: [40.034976, -75.190477]
+    icon: 🏡
+    description: As you build up speed sledding on the hill next to Thomas Mansion, you’ll convince yourself it just goes on forever. What’s great about this long hill is it’s not all that steep.
 
   - id: 4
     name: Real-life Location featured as "Adrian's Restaurant" in the Rocky Movies
@@ -331,15 +333,15 @@ default:
     icon: 🦪
     description: I did not expect this to be the top attraction in Philadelphia! Eastern State Penitentiary Historic Site was once the most famous and expensive prison in the world, but stands today in ruin, a haunting world of crumbling cellblocks and empty guard towers. Known for its grand architecture and strict discipline, this was the world’s first true “penitentiary,” a prison designed to inspire penitence, or true regret, in the hearts of convicts. Tours today include the cellblocks, solitary punishment cells, Al Capone’s Cell, and Death Row.
   - id: 2
-    name: Betsy Ross House
-    coordinates: [39.9525, -75.1433]
-    icon: 🪡
-    description: The Betsy Ross House is the historic home where legend says Betsy Ross sewed the first American flag. Built around 1740, the house is where Ross allegedly met with George Washington, Robert Morris, and George Ross to discuss the flag design. While historians debate the legend's accuracy, the house is a beloved American landmark and offers visitors a glimpse into 18th-century life and the story of America's first flag.
+    name: The Met
+    coordinates: [39.969850, -75.160037]
+    icon: 🎭
+    description: The Met Philadelphia is a comprehensively restored, historic opera house on North Broad Street that now serves as a premier 3,800-capacity concert and event venue. Originally built in 1908 by Oscar Hammerstein, this stunning venue combines ornate, classic architecture with modern amenities, hosting diverse performances, galas, and corporate events.
   - id: 3
-    name: Fort Mifflin
-    coordinates: [39.8744, -75.2175]
-    icon: 🏰
-    description: Fort Mifflin is a preserved 18th-century fort on the Delaware River, built in 1771 to protect Philadelphia. The fort played a crucial role in the Revolutionary War, holding off the British Navy for six weeks in 1777 to allow Washington's army to escape. The fort is one of the only intact Revolutionary War forts in America and offers living history programs, ghost tours, and a chance to experience America's military history firsthand.
+    name: Original Chickie's & Pete's Location
+    coordinates: [40.027329, -75.060032]
+    icon: 🦀
+    description: The original Chickie’s & Pete’s is located at 4010 Robbins Avenue in the Mayfair neighborhood of Northeast Philadelphia. Founded in 1977 by Peter and Henrietta "Chickie" Ciarrocchi, this location originally operated as a taproom before becoming the flagship for their famous crabfries and seafood-focused sports bar chain.
   - id: 4
     name: Manayunk Bridge
     coordinates: [40.0247, -75.2167]
