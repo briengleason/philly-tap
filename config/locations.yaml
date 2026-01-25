@@ -316,10 +316,10 @@ default:
     description: As you build up speed sledding on the hill next to Thomas Mansion, you’ll convince yourself it just goes on forever. What’s great about this long hill is it’s not all that steep.
 
   - id: 4
-    name: Real-life Location featured as "Adrian's Restaurant" in the Rocky Movies
-    coordinates: [39.931630, -75.166315]
-    icon: 🍝
-    description: The restaurant featured in Rocky Balboa, Creed, and Creed II, known as Adrian's Restaurant in the films, is actually The Victor Café in South Philadelphia, an authentic Italian spot famous for its live opera singers performing throughout dinner, offering a real taste of Philly movie magic.
+    name: Cemetery where over 100 sets of human remains were stolen
+    coordinates: [39.930235, -75.233859]
+    icon: ⚰️
+    description: Mount Moriah Cemetery in Delaware County, Pennsylvania, is the site of a major 2025-2026 investigation where an individual allegedly broke into dozens of mausoleums and vaults to steal over 100 sets of human remains. Authorities discovered that the historic, partially abandoned cemetery was targeted for months, leading to a "horror movie" scene where bones and mummified parts were recovered from a suspect's home.
 
 2026-01-27:
   - id: 0
@@ -343,10 +343,10 @@ default:
     icon: 🦀
     description: The original Chickie’s & Pete’s is located at 4010 Robbins Avenue in the Mayfair neighborhood of Northeast Philadelphia. Founded in 1977 by Peter and Henrietta "Chickie" Ciarrocchi, this location originally operated as a taproom before becoming the flagship for their famous crabfries and seafood-focused sports bar chain.
   - id: 4
-    name: Manayunk Bridge
-    coordinates: [40.0247, -75.2167]
-    icon: 🌉
-    description: The Manayunk Bridge is a historic railroad bridge spanning the Schuylkill River, opened in 1918. The bridge was converted to a pedestrian and bicycle path in 2015, connecting the Manayunk neighborhood to the Schuylkill River Trail. The bridge offers stunning views of the river and surrounding areas, and is part of Philadelphia's expanding network of trails for pedestrians and cyclists.
+    name: Real-life Location featured as "Adrian's Restaurant" in the Rocky Movies
+    coordinates: [39.931630, -75.166315]
+    icon: 🍝
+    description: The restaurant featured in Rocky Balboa, Creed, and Creed II, known as Adrian's Restaurant in the films, is actually The Victor Café in South Philadelphia, an authentic Italian spot famous for its live opera singers performing throughout dinner, offering a real taste of Philly movie magic.
 
 2026-01-28:
   - id: 0
