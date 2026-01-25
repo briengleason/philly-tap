@@ -327,21 +327,26 @@ default:
     coordinates: [39.940657, -75.157675]
     icon: 🍕
     description: Some people say it's the best Pizza and Cheesesteak in the city - what do you think??
-  - id: 1  
-    name: Top Attraction in Philadelphia according to Trip Advisor
-    coordinates: [39.968336, -75.172665]
-    icon: 🦪
-    description: I did not expect this to be the top attraction in Philadelphia! Eastern State Penitentiary Historic Site was once the most famous and expensive prison in the world, but stands today in ruin, a haunting world of crumbling cellblocks and empty guard towers. Known for its grand architecture and strict discipline, this was the world’s first true “penitentiary,” a prison designed to inspire penitence, or true regret, in the hearts of convicts. Tours today include the cellblocks, solitary punishment cells, Al Capone’s Cell, and Death Row.
-  - id: 2
+
+  - id: 1
     name: The Met
     coordinates: [39.969850, -75.160037]
     icon: 🎭
     description: The Met Philadelphia is a comprehensively restored, historic opera house on North Broad Street that now serves as a premier 3,800-capacity concert and event venue. Originally built in 1908 by Oscar Hammerstein, this stunning venue combines ornate, classic architecture with modern amenities, hosting diverse performances, galas, and corporate events.
+
+  - id: 2
+    name: Don Quixote Statue
+    photo: images/don-quixote-statue.jpg
+    coordinates: [39.969736, -75.139613]
+    icon: 🗿
+    description: The Statue of Don Quixote is on the corner of N American and 2nd St. This is an exact replica of the original sculpture by the artist Joaquin Garcia Donaire located in Ciudad Real - Spain. The statue has been presented by the Excma Diputacion de Ciudad Real to the City of Philadelphia as a token of friendship and understanding between our two cultures.
+
   - id: 3
     name: Original Chickie's & Pete's Location
     coordinates: [40.027329, -75.060032]
     icon: 🦀
     description: The original Chickie’s & Pete’s is located at 4010 Robbins Avenue in the Mayfair neighborhood of Northeast Philadelphia. Founded in 1977 by Peter and Henrietta "Chickie" Ciarrocchi, this location originally operated as a taproom before becoming the flagship for their famous crabfries and seafood-focused sports bar chain.
+
   - id: 4
     name: Real-life Location featured as "Adrian's Restaurant" in the Rocky Movies
     coordinates: [39.931630, -75.166315]
@@ -350,30 +355,35 @@ default:
 
 2026-01-28:
   - id: 0
-    name: Penn's Landing
-    coordinates: [39.9456, -75.1407]
-    icon: ⚓
-    description: Penn's Landing is Philadelphia's waterfront park on the Delaware River, named after William Penn who first landed here in 1682. The park features festivals, concerts, and events throughout the year, including the famous summer concert series. The waterfront offers beautiful views of the Ben Franklin Bridge and is home to historic ships including the USS Olympia, the world's oldest floating steel warship.
+    name: Independence Hall
+    coordinates: [39.948881, -75.150035]
+    icon: 🖊️
+    description: Independence Hall is where both the Declaration of Independence (1776) and the U.S. Constitution (1787) were debated and adopted. This UNESCO World Heritage Site in Old City is considered the birthplace of America. The building served as the meeting place for the Second Continental Congress during the American Revolution.
+
   - id: 1
-    name: Woody's
-    coordinates: [39.9492, -75.1675]
-    icon: 🏳️‍🌈
-    description: Woody's is one of Philadelphia's most famous LGBTQ+ bars and nightlife destinations, opened in 1980. The bar has been a cornerstone of Philadelphia's gay community for over 40 years, hosting drag shows, dance parties, and community events. The bar's vibrant atmosphere and welcoming environment make it a beloved institution in Philadelphia's LGBTQ+ neighborhood and a must-visit destination for nightlife.
+    name: Bok Bar
+    coordinates: [39.925439, -75.159618]
+    icon: ✏️
+    description: Bok Bar is Philly’s favorite seasonal rooftop bar and the only place in the city where you have panoramic views spanning from West Philly to South Jersey. I would not want to stand on that roof today though.
+
   - id: 2
-    name: Academy of Natural Sciences
-    coordinates: [39.9575, -75.1725]
+    photo: images/academy-of-science-dinosuars.jpeg
+    name: The Academy of Natural Sciences of Drexel University
+    coordinates: [39.956842, -75.171290]
     icon: 🦖
     description: The Academy of Natural Sciences of Drexel University is America's oldest natural science research institution and museum, founded in 1812. The museum features impressive dinosaur exhibits, a live butterfly garden, dioramas of wildlife from around the world, and extensive scientific collections. The academy has been at the forefront of natural science research and education for over 200 years, making it a Philadelphia institution.
+
   - id: 3
-    name: Grumblethorpe
-    coordinates: [39.9775, -75.1656]
-    icon: 🏠
-    description: Grumblethorpe is a preserved 18th-century farmhouse built in 1744 by John Wister, a wealthy merchant. The house served as a headquarters during the Battle of Germantown in 1777, and bullet holes from the fighting are still visible. The mansion features original furnishings, period rooms, and beautiful gardens, offering visitors a glimpse into 18th-century farm life in Philadelphia.
+    name: Top Attraction in Philadelphia according to Trip Advisor
+    coordinates: [39.968336, -75.172665]
+    icon: 🦪
+    description: I did not expect this to be the top attraction in Philadelphia! Eastern State Penitentiary Historic Site was once the most famous and expensive prison in the world, but stands today in ruin, a haunting world of crumbling cellblocks and empty guard towers. Known for its grand architecture and strict discipline, this was the world’s first true “penitentiary,” a prison designed to inspire penitence, or true regret, in the hearts of convicts. Tours today include the cellblocks, solitary punishment cells, Al Capone’s Cell, and Death Row.
+
   - id: 4
-    name: Wissahickon Valley Park
-    coordinates: [40.0169, -75.1975]
+    name: Oldest Fort Still in Use by the U.S. Military
+    coordinates: [39.875229, -75.213143]
     icon: 🏞️
-    description: Wissahickon Valley Park is a 1,800-acre natural area in Fairmount Park, featuring the Wissahickon Creek and miles of hiking and biking trails. The park has been protected since 1868 and offers Philadelphia residents and visitors a chance to experience wilderness just minutes from the city. The park features historic stone bridges, waterfalls, rock formations, and diverse wildlife, making it one of Philadelphia's greatest natural treasures.
+    description: Fort Mifflin, originally called Fort Island Battery and also known as Mud Island Fort, was commissioned in 1771 and sits on Mud Island (or Deep Water Island) on the Delaware River near the airport. A portion of the fort's grounds are still actively used by the U.S. Army Corps of Engineers, making it the oldest fort in use by the U.S. military.
 
 2026-01-29:
   - id: 0
