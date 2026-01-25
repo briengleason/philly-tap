@@ -260,7 +260,7 @@ function generateShareMessage() {
     const scoreString = scoreParts.join(' ');
     const finalScore = gameState.totalScore;
     
-    return `${url}  ${date}\n${scoreString}\nFinal score: ${finalScore}`;
+    return `${url}\n${date}\n${scoreString}\nFinal score: ${finalScore}`;
 }
 
 // Share score using Web Share API (mobile) or clipboard (desktop)
