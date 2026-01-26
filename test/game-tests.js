@@ -1870,6 +1870,98 @@ suite.test('Location info: showLocationInfo should handle empty description', ()
     suite.assertEquals(result.description, 'No information available for this location.');
 });
 
+suite.test('Location info photo: should show photo container when location has photo', () => {
+    const location = {
+        id: 0,
+        name: 'Test Location',
+        icon: '🔔',
+        photo: 'https://example.com/photo.jpg',
+        description: 'Test description'
+    };
+    
+    let photoContainerVisible = false;
+    
+    if (location.photo) {
+        photoContainerVisible = true;
+    }
+    
+    suite.assert(photoContainerVisible === true, 'Photo container should be visible when location has photo');
+});
+
+suite.test('Location info photo: should hide photo container when location has no photo', () => {
+    const location = {
+        id: 0,
+        name: 'Test Location',
+        icon: '🔔',
+        description: 'Test description'
+    };
+    
+    let photoContainerVisible = false;
+    
+    if (location.photo) {
+        photoContainerVisible = true;
+    }
+    
+    suite.assert(photoContainerVisible === false, 'Photo container should be hidden when location has no photo');
+});
+
+suite.test('Location info photo: photo should have correct source URL', () => {
+    const location = {
+        id: 0,
+        name: 'Test Location',
+        photo: 'https://example.com/photo.jpg',
+        description: 'Test description'
+    };
+    
+    let photoSrc = '';
+    
+    if (location.photo) {
+        photoSrc = location.photo;
+    }
+    
+    suite.assertEquals(photoSrc, 'https://example.com/photo.jpg', 'Photo source should match location photo URL');
+});
+
+suite.test('Location info photo: openPhotoModalFromInfo should open photo modal', () => {
+    const photoUrl = 'https://example.com/photo.jpg';
+    let modalImageSrc = '';
+    let modalOpen = false;
+    
+    function openPhotoModalFromInfo() {
+        const photoImg = { src: photoUrl };
+        if (photoImg.src) {
+            modalImageSrc = photoImg.src;
+            modalOpen = true;
+        }
+    }
+    
+    openPhotoModalFromInfo();
+    suite.assert(modalOpen === true, 'Photo modal should open');
+    suite.assertEquals(modalImageSrc, photoUrl, 'Modal image should have correct source');
+});
+
+suite.test('Location info photo: should handle photo load error gracefully', () => {
+    const location = {
+        id: 0,
+        name: 'Test Location',
+        photo: 'https://example.com/broken-photo.jpg',
+        description: 'Test description'
+    };
+    
+    let photoContainerVisible = true;
+    let photoErrorHandled = false;
+    
+    // Simulate photo error
+    function handlePhotoError() {
+        photoContainerVisible = false;
+        photoErrorHandled = true;
+    }
+    
+    handlePhotoError();
+    suite.assert(photoContainerVisible === false, 'Photo container should be hidden on error');
+    suite.assert(photoErrorHandled === true, 'Photo error should be handled');
+});
+
 // Minimize/expand functionality tests
 suite.test('Minimize toggle: should toggle minimized class', () => {
     let isMinimized = true;

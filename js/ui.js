@@ -151,10 +151,24 @@ function showLocationInfo(location = null) {
     const title = document.getElementById('location-info-title');
     const icon = document.getElementById('location-info-icon');
     const content = document.getElementById('location-info-content');
+    const photoContainer = document.getElementById('location-info-photo-container');
+    const photoImg = document.getElementById('location-info-photo');
     
     // Update modal content
     icon.textContent = location.icon || '📍';
     title.textContent = location.name;
+    
+    // Show photo if available
+    if (location.photo) {
+        photoImg.src = location.photo;
+        photoImg.onerror = () => {
+            // If photo fails to load, hide photo container
+            photoContainer.style.display = 'none';
+        };
+        photoContainer.style.display = 'block';
+    } else {
+        photoContainer.style.display = 'none';
+    }
     
     // Show description if available, otherwise show default message
     if (location.description && location.description.trim()) {
@@ -404,6 +418,18 @@ function openPhotoModal() {
     const modal = document.getElementById('photo-modal');
     const modalImage = document.getElementById('photo-modal-image');
     const photoImg = document.getElementById('current-location-photo');
+    
+    if (photoImg.src) {
+        modalImage.src = photoImg.src;
+        modal.classList.add('show');
+    }
+}
+
+// Open photo modal from location info modal
+function openPhotoModalFromInfo() {
+    const modal = document.getElementById('photo-modal');
+    const modalImage = document.getElementById('photo-modal-image');
+    const photoImg = document.getElementById('location-info-photo');
     
     if (photoImg.src) {
         modalImage.src = photoImg.src;

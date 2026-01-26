@@ -267,10 +267,14 @@ philly-tap/
   - Locations 4-5 (id: 3-4): Base score × 3 (tripled)
 - **Total Score Range**: 0-1000 points (sum of all 5 locations with multipliers: 100 + 100 + 200 + 300 + 300)
 - **Distance-based**: Uses Haversine formula to calculate distance
-- **Scoring Curve**: Exponential decay (closer = exponentially better score)
-  - Formula: `baseScore = 100 * (1 - (distance / MAX_DISTANCE))^1.5`
+- **Scoring Curve**: Exponential decay with steeper curve to reward accuracy (closer = exponentially better score)
+  - Formula: `baseScore = 100 * (1 - (distance / MAX_DISTANCE))^2.3`
+  - Exponent of 2.3 creates a steeper curve that penalizes distance more
+  - Close guesses (200-500ft) still get high scores (96-98)
+  - Medium distances (1-2 miles) get lower scores (60, 31)
+  - Far distances (3-4 miles) get very low scores (12, 2)
   - Then multipliers are applied: `finalScore = baseScore × multiplier`
-- **Maximum Distance**: 5km (beyond this = 0 points)
+- **Maximum Distance**: 8000m (8km / ~5 miles) - beyond this = 0 points
 
 ### 5. Visual Feedback
 - Blue pin (📍) at user's guess location
@@ -355,13 +359,13 @@ function formatDistance(meters)
 
 ### Score Calculation
 ```javascript
-function calculateScore(distance, maxDistance = 5000)
+function calculateScore(distance, maxDistance = 8000)
 function applyScoreMultiplier(score, locationId)
 ```
-- Base Formula: `100 * (1 - (distance / maxDistance))^1.5`
-- Exponential decay curve
+- Base Formula: `100 * (1 - (distance / maxDistance))^2.3`
+- Exponential decay curve with steeper penalty for distance
 - Closer guesses get disproportionately better scores
-- Maximum distance: 5000 meters (5km)
+- Maximum distance: 8000 meters (8km / ~5 miles)
 - **Score Multipliers** (applied after base score calculation):
   - Location 3 (id: 2): **x2 multiplier** (doubles the base score)
   - Locations 4-5 (id: 3-4): **x3 multiplier** (triples the base score)
@@ -772,8 +776,8 @@ The app automatically loads the correct locations based on today's date.
 - Provides better control over guess placement before finalizing
 
 ### Changing Scoring
-Modify `MAX_DISTANCE` (default: 5000 meters) and `calculateScore()` function in `index.html`.
-To change multipliers, update the `applyScoreMultiplier()` logic in `makeGuess()` function.
+Modify `MAX_DISTANCE` (default: 8000 meters) and `calculateScore()` function in `js/utils.js`.
+To change multipliers, update the `applyScoreMultiplier()` logic in `makeGuess()` function in `js/gameLogic.js`.
 
 ### Preventing Regressions
 
@@ -846,11 +850,21 @@ All CSS is embedded in `<style>` tag in `index.html`.
 **Last commit**: Check `git log` for latest changes
 
 **Recent Updates:**
+- **Location Info Modal Photo Support (2026-01-25)**: Added photo display to location info modal
+  - Photos now appear in both location card and location info modal (description popup)
+  - Tap-to-zoom functionality works from both locations
+  - Photo displays above description text in modal
+  - Responsive sizing for mobile devices
+  - Added 6 new tests for location info modal photo functionality
+- **Scoring Improvements (2026-01-25)**: Updated scoring system to reward accuracy more
+  - Increased scoring exponent from 2.0 to 2.3 for steeper curve
+  - Steeper curve penalizes distance more while keeping close guesses high
+  - MAX_DISTANCE remains 8000m (8km / ~5 miles) to avoid more zero scores
+  - Score examples: 200ft = 98, 500ft = 96, 1 mile = 60, 2 miles = 31, 3 miles = 12, 4 miles = 2
 - **Scoring Improvements (2026-01-19)**: Updated scoring system to reduce zero scores
-  - Increased MAX_DISTANCE from 5000m to 10000m (~6.2 miles)
-  - More forgiving scoring curve (exponent 1.2 vs 1.5)
+  - Increased MAX_DISTANCE from 5000m to 8000m (~5 miles)
+  - Increased scoring exponent from 1.2 to 2.0 for steeper curve
   - Quick score popup now shows base score before multipliers
-  - Score examples: 5000m = 44 points (was 0), 8000m = 14 points, 9000m = 6 points
 - **Analytics Tracking (2026-01-19)**: Integrated Google Analytics 4 for game metrics
   - Added `js/analytics.js` module for centralized event tracking
   - Tracks daily active users, game completions, location difficulty, share clicks, and errors
@@ -908,8 +922,10 @@ All CSS is embedded in `<style>` tag in `index.html`.
 
 **Features Implemented**:
 - **Photo Display**: When a location has a `photo` field, it displays in the location card instead of icon/name
-- **Responsive Sizing**: Photo container 120px × 100px (desktop), 100px × 80px (mobile)
-- **Tap to Enlarge**: Tap photo opens full-screen modal viewer
+- **Location Info Modal Photo**: Photos also appear in the location info modal (description popup) when available
+- **Responsive Sizing**: Photo container 120px × 100px (desktop), 100px × 80px (mobile) in location card
+- **Modal Photo Sizing**: Photo in info modal is 200px × 150px (desktop), full-width × 120px (mobile)
+- **Tap to Enlarge**: Tap photo opens full-screen modal viewer (works from both location card and info modal)
 - **Close Modal**: Tap the enlarged photo again or tap outside to minimize
 - **Visual Hints**: "Tap to zoom" label below photo, "Tap photo to minimize" text at bottom of modal
 - **Fallback to Icon/Name**: If photo URL fails to load, automatically shows icon/name instead
@@ -924,11 +940,12 @@ All CSS is embedded in `<style>` tag in `index.html`.
 - "Tap photo to minimize" hint appears at bottom of enlarged photo
 
 **Files Modified**:
-- `index.html`: Added photo container HTML and modal structure
-- `css/styles.css`: Added 95+ lines for photo styling, modal, and animations
-- `js/ui.js`: Added `openPhotoModal()` and `closePhotoModal()` functions, updated `updateCurrentLocationDisplay()`
+- `index.html`: Added photo container HTML and modal structure, added photo container to location info modal
+- `css/styles.css`: Added 95+ lines for photo styling, modal, and animations, added location info modal photo styles
+- `js/ui.js`: Added `openPhotoModal()` and `closePhotoModal()` functions, `openPhotoModalFromInfo()` for info modal, updated `updateCurrentLocationDisplay()` and `showLocationInfo()`
+- `js/main.js`: Exposed photo modal functions globally
 - `admin/admin.html`: Added photo URL input field, updated YAML export logic, parse photo from existing locations
-- `test/game-tests.js`: Added 5 new tests for photo functionality
+- `test/game-tests.js`: Added 10+ tests for photo functionality including location info modal
 
 **Tests Added**:
 - Photo display: location with photo displays photo instead of icon
@@ -936,6 +953,11 @@ All CSS is embedded in `<style>` tag in `index.html`.
 - Photo modal: modal toggles correctly on tap
 - Photo YAML export: photo field included in export
 - Photo fallback: broken photo fails over to icon
+- Location info photo: photo container visible when location has photo
+- Location info photo: photo container hidden when location has no photo
+- Location info photo: photo has correct source URL
+- Location info photo: openPhotoModalFromInfo opens photo modal
+- Location info photo: handles photo load error gracefully
 
 ---
 

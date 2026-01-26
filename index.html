@@ -111,6 +111,10 @@
             </div>
             <button id="location-info-close" onclick="hideLocationInfo()" aria-label="Close">×</button>
         </div>
+        <div id="location-info-photo-container" style="display: none;">
+            <img id="location-info-photo" src="" alt="Location photo" onclick="openPhotoModalFromInfo()">
+            <div id="location-info-photo-hint">Tap to zoom</div>
+        </div>
         <div id="location-info-content">No information available for this location.</div>
     </div>
     <div id="quick-score">

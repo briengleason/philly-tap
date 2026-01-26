@@ -8,6 +8,9 @@ window.showLocationInfo = showLocationInfo;
 window.hideLocationInfo = hideLocationInfo;
 window.toggleMinimize = toggleMinimize;
 window.shareScore = shareScore;
+window.openPhotoModal = openPhotoModal;
+window.openPhotoModalFromInfo = openPhotoModalFromInfo;
+window.closePhotoModal = closePhotoModal;
 
 // Set up location info modal event handlers
 const modalEl = document.getElementById('location-info-modal');
