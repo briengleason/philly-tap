@@ -83,12 +83,12 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 }
 
 // Calculate score based on distance (0-100)
-// Updated to match production: MAX_DISTANCE = 10000, exponent = 1.2
+// Updated to match production: MAX_DISTANCE = 8000, exponent = 2.3
 function calculateScore(distance, maxDistance = 8000) {
     if (distance >= maxDistance) {
         return 0;
     }
-    const score = 100 * Math.pow(1 - (distance / maxDistance), 1.2);
+    const score = 100 * Math.pow(1 - (distance / maxDistance), 2.3);
     return Math.round(Math.max(0, Math.min(100, score)));
 }
 

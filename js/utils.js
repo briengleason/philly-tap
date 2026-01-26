@@ -21,9 +21,10 @@ function calculateScore(distance) {
     if (distance >= MAX_DISTANCE) {
         return 0;
     }
-    // Using exponential decay with adjusted curve for more forgiving scoring
-    // Lower exponent (1.2 vs 1.5) makes the curve less steep, giving more points for far distances
-    const score = 100 * Math.pow(1 - (distance / MAX_DISTANCE), 1.2);
+    // Using exponential decay with steeper curve to reward accuracy
+    // Higher exponent (2.3) makes the curve steeper, penalizing far distances more
+    // Close guesses get high scores, far guesses get much lower scores
+    const score = 100 * Math.pow(1 - (distance / MAX_DISTANCE), 2.3);
     return Math.round(Math.max(0, Math.min(100, score)));
 }
 
