@@ -448,3 +448,23 @@ function closePhotoModal(event) {
     const modal = document.getElementById('photo-modal');
     modal.classList.remove('show');
 }
+
+// Toggle menu
+function toggleMenu() {
+    const menuModal = document.getElementById('menu-modal');
+    const menuOverlay = document.getElementById('menu-overlay');
+    
+    if (!menuModal || !menuOverlay) return;
+    
+    const isOpen = menuModal.classList.contains('show');
+    
+    if (isOpen) {
+        menuModal.classList.remove('show');
+        menuOverlay.classList.remove('show');
+        document.body.style.overflow = '';
+    } else {
+        menuModal.classList.add('show');
+        menuOverlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+}

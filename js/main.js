@@ -7,6 +7,7 @@
 window.showLocationInfo = showLocationInfo;
 window.hideLocationInfo = hideLocationInfo;
 window.toggleMinimize = toggleMinimize;
+window.toggleMenu = toggleMenu;
 window.shareScore = shareScore;
 window.openPhotoModal = openPhotoModal;
 window.openPhotoModalFromInfo = openPhotoModalFromInfo;
@@ -32,6 +33,43 @@ if (overlayEl) {
 if (closeBtn) {
     // Close on close button click (backup to onclick)
     closeBtn.addEventListener('click', hideLocationInfo);
+}
+
+// Set up menu modal event handlers
+const menuModalEl = document.getElementById('menu-modal');
+const menuOverlayEl = document.getElementById('menu-overlay');
+const menuCloseBtn = document.getElementById('menu-close');
+
+if (menuCloseBtn) {
+    // Close on close button click
+    menuCloseBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleMenu();
+    });
+}
+
+if (menuModalEl) {
+    // Prevent menu from closing when clicking inside it (but allow close button)
+    menuModalEl.addEventListener('click', (e) => {
+        // Check if click is on or inside the close button
+        if (e.target.closest('#menu-close')) {
+            // Let the close button handler handle it
+            return;
+        }
+        // Stop propagation for other clicks inside the modal
+        e.stopPropagation();
+    });
+}
+
+if (menuOverlayEl) {
+    // Close on overlay click
+    menuOverlayEl.addEventListener('click', (e) => {
+        // Only close if clicking directly on overlay, not through modal
+        if (e.target === menuOverlayEl) {
+            toggleMenu();
+        }
+    });
 }
 
 // Track if user is dragging to distinguish from taps

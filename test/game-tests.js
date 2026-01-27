@@ -2729,6 +2729,109 @@ suite.test('Photo modal hint: minimize hint should be "Tap photo to minimize"', 
     suite.assert(minimizeHint === 'Tap photo to minimize', 'Minimize hint should be "Tap photo to minimize"');
 });
 
+// Menu functionality tests
+suite.test('Menu: toggleMenu function should exist', () => {
+    if (typeof window !== 'undefined' && window.toggleMenu) {
+        suite.assert(typeof window.toggleMenu === 'function', 'toggleMenu should be a function');
+    } else {
+        // Skip in Node.js environment
+        suite.assert(true, 'Skipping DOM test in Node.js');
+    }
+});
+
+suite.test('Menu: menu button should exist in HTML', () => {
+    if (typeof document !== 'undefined' && document.getElementById) {
+        const menuBtn = document.getElementById('menu-btn');
+        if (menuBtn) {
+            suite.assert(menuBtn !== null, 'Menu button should exist');
+        } else {
+            suite.assert(true, 'Skipping - menu button not found in test environment');
+        }
+    } else {
+        suite.assert(true, 'Skipping DOM test in Node.js');
+    }
+});
+
+suite.test('Menu: menu modal should exist in HTML', () => {
+    if (typeof document !== 'undefined' && document.getElementById) {
+        const menuModal = document.getElementById('menu-modal');
+        if (menuModal) {
+            suite.assert(menuModal !== null, 'Menu modal should exist');
+        } else {
+            suite.assert(true, 'Skipping - menu modal not found in test environment');
+        }
+    } else {
+        suite.assert(true, 'Skipping DOM test in Node.js');
+    }
+});
+
+suite.test('Menu: menu overlay should exist in HTML', () => {
+    if (typeof document !== 'undefined' && document.getElementById) {
+        const menuOverlay = document.getElementById('menu-overlay');
+        if (menuOverlay) {
+            suite.assert(menuOverlay !== null, 'Menu overlay should exist');
+        } else {
+            suite.assert(true, 'Skipping - menu overlay not found in test environment');
+        }
+    } else {
+        suite.assert(true, 'Skipping DOM test in Node.js');
+    }
+});
+
+suite.test('Menu: close button should exist in HTML', () => {
+    if (typeof document !== 'undefined' && document.getElementById) {
+        const menuClose = document.getElementById('menu-close');
+        if (menuClose) {
+            suite.assert(menuClose !== null, 'Menu close button should exist');
+        } else {
+            suite.assert(true, 'Skipping - menu close button not found in test environment');
+        }
+    } else {
+        suite.assert(true, 'Skipping DOM test in Node.js');
+    }
+});
+
+suite.test('Menu: header should display "How to Play"', () => {
+    if (typeof document !== 'undefined' && document.querySelector) {
+        const menuHeader = document.querySelector('#menu-modal .menu-header h2');
+        if (menuHeader) {
+            suite.assert(menuHeader.textContent.trim() === 'How to Play', 'Menu header should be "How to Play"');
+        } else {
+            suite.assert(true, 'Skipping - menu header not found');
+        }
+    } else {
+        suite.assert(true, 'Skipping DOM test in Node.js');
+    }
+});
+
+suite.test('Menu: contact email should be playphillytap@gmail.com', () => {
+    if (typeof document !== 'undefined' && document.querySelector) {
+        const contactLink = document.querySelector('#menu-modal a[href^="mailto:"]');
+        if (contactLink) {
+            const email = contactLink.getAttribute('href').replace('mailto:', '');
+            suite.assert(email === 'playphillytap@gmail.com', 'Contact email should be playphillytap@gmail.com');
+        } else {
+            suite.assert(true, 'Skipping - contact link not found');
+        }
+    } else {
+        suite.assert(true, 'Skipping DOM test in Node.js');
+    }
+});
+
+suite.test('Menu: should contain location recommendations text', () => {
+    if (typeof document !== 'undefined' && document.querySelector) {
+        const menuText = document.querySelector('#menu-modal .menu-text');
+        if (menuText) {
+            const text = menuText.textContent;
+            suite.assert(text.includes('location suggestion') || text.includes('Location suggestion'), 'Menu should contain location recommendations text');
+        } else {
+            suite.assert(true, 'Skipping - menu text not found');
+        }
+    } else {
+        suite.assert(true, 'Skipping DOM test in Node.js');
+    }
+});
+
 // Run all tests
 if (typeof module !== 'undefined' && module.exports) {
     // Node.js

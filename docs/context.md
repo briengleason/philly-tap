@@ -160,6 +160,17 @@
 - Share includes score message with emojis and game URL
 - Added comprehensive tests for Web Share API functionality
 
+### Phase 17: Game Menu & How to Play
+- Added hamburger menu button in top-left corner (outside location card)
+- Menu slides in from the left side (matching menu button position)
+- Menu header displays "How to Play" instead of generic "Menu"
+- Comprehensive "How to Play" section explaining game rules and scoring
+- Location recommendations section with contact email (playphillytap@gmail.com)
+- Menu can be closed via close button (×), overlay click, or menu button toggle
+- Fixed menu button icon vertical centering for better visual alignment
+- Menu styled with blue color scheme matching the UI
+- Responsive design for mobile and desktop
+
 ## Project Structure
 
 ```
