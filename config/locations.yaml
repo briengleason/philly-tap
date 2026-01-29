@@ -444,34 +444,71 @@ default:
     description: The National Basketball League was the first professional basketball league in the world. The league debuted on December 1, 1898, with a game between the Trenton Nationals and the Hancock Athletic Association at Textile Hall in Philadelphia's Kensington section. The Nationals rallied in the second half to win, 21–19, before 900 fans.
 
   - id: 4
-    name: Highest Elevation in Philadelphias
+    name: Highest Elevation in Philadelphia
     coordinates: [40.078540, -75.210338]
     icon: 🏔️
     description: Summit Street, not surprisingly, is located at the highest elevation in Philadelphia which is 446 feet above sea level. But today it may be better known as one of the most interesting and beautiful streets in Chestnut Hill.
 
 2026-01-31:
   - id: 0
-    name: Dilworth Park
-    coordinates: [39.9523, -75.1636]
-    icon: ⛲
-    description: Dilworth Park is a modern public plaza in front of City Hall, opened in 2014. The park features fountains, seating areas, a seasonal ice rink, and beautiful landscaping. The park serves as a gathering place for locals and visitors, hosting events, concerts, and festivals throughout the year. It transforms Philadelphia's most historic civic space into a vibrant modern park that connects City Hall to the surrounding neighborhood.
+    name: Jefferson Station
+    coordinates: [39.952493, -75.158059]
+    icon: 🚇
+    description: Before becoming Jefferson Station, the SEPTA station in Philadelphia was called Market East Station, a name it held from its opening in 1984 until the change was made in 2014 as part of a naming rights deal with Thomas Jefferson University.
+
   - id: 1
-    name: Ishkabibble's
-    coordinates: [39.9414, -75.1484]
-    icon: 🥙
-    description: Ishkabibble's is a South Street institution serving cheesesteaks and hoagies since 1979. The tiny shop is known for its classic Philly cheesesteaks, chicken cheesesteaks, and Italian hoagies. The shop's name comes from a slang term meaning "who knows?" and has become a beloved local spot, consistently ranked among Philadelphia's best cheesesteak shops despite its modest size and simple preparation.
+    name: Kimmel Center for the Performing Arts
+    coordinates: [39.946793, -75.165297]
+    icon: 🎭
+    description: The brightest light on the Avenue of the Arts is the Kimmel Center for the Performing Arts, a dazzling regional performing arts center whose discreet brick exterior rises to a bold 150-foot glass vaulted rooftop for startling views of the city. It was named after Sydney Kimmel, a Philadelphia-born businessman.
+
   - id: 2
-    name: Society Hill Playhouse
-    coordinates: [39.9447, -75.1489]
-    icon: 🎭
-    description: Society Hill Playhouse was a historic off-Broadway theater in Society Hill, operating from 1959 to 2014. The theater produced hundreds of plays and musicals over its 55-year history, including original works and classics. While the theater has closed, its legacy lives on in Philadelphia's theater community, and the building remains a landmark in the Society Hill neighborhood.
+    name: Suraya Restaurant
+    coordinates: [39.973714, -75.133928]
+    icon: 🥗
+    description: Suraya is an award winning restaurant in Fishtown. It serves up flavors of the Levant - the area that includes Turkey, Syria, Palestine, Lebanon, Jordan, Israel and Iraq. The restaurant has over 12,000 ft of space.
+
   - id: 3
-    name: Arden Theatre
-    coordinates: [39.9533, -75.1600]
-    icon: 🎭
-    description: The Arden Theatre Company is a professional theater company in Old City, founded in 1988. The theater produces classical and contemporary plays, musicals, and new works in its two-theater complex. The Arden is known for its innovative productions, commitment to Philadelphia artists, and educational programs that serve thousands of students each year, making it one of Philadelphia's premier theater companies.
+    name: Manayunk's Founders Philly Freeze Out Festival
+    coordinates: [40.023652, -75.220193]
+    icon: ❄️
+    description: Philadelphia's largest outdoor winter festival is happening in Manayunk today (yes, Manayunk is still in Philadelphia city limits). There will be a 5k at 9 AM and a Chowder Crawl at Noon. Going out to Manayunk in 0° - no thank you!
+
   - id: 4
-    name: Curtis Institute of Music
-    coordinates: [39.9483, -75.1686]
+    photo: images/sin-city-cabaret-bears.jpg
+    name: Sin City Cabaret Bears
+    coordinates: [39.917123, -75.211993]
+    icon: 🧸
+    description: These bears belong to Sin City Cabaret in Southwest Philly on Passyunk Ave. The bears have been there since 2021, but just went viral this week after a TikTok got over 1.4 million views. They even were written about in the Inquirer. In 2022, rapper and Super Bowl LIX halftime performer Bad Bunny dropped $50K at Sin City hours before his Made in America performance.
+
+2026-02-01:
+  - id: 0
+    name: Marconi Plaza
+    coordinates: [39.915667, -75.171128]
+    icon: 🌱
+    description: Marconi Plaza in South Philadelphia is one of the city’s largest public open spaces. The Plaza was created in 1913. Broad Street divides the park in two roughly equal parts. The park features grassy areas, athletic fields, play areas, and shaded plazas.
+
+  - id: 1
+    name: Location of Philadelphia Auto Show
+    coordinates: [39.955123, -75.162643]
+    icon: 🚗
+    description: Beep beep! This weekend was the first weekend of the Philadelphia Auto Shoow at the Pennsylvania Convention Center. It runs form now until February 8.
+
+  - id: 2
+    photo: images/rittenhouse-square-snow.jpg
+    name: Rittenhouse Square in the Snow
+    coordinates: [39.949462, -75.171892]
+    icon: 🌳
+    description: Rittenhouse Square in the snow!
+
+  - id: 3
+    name: Oldest Church in Philadelphia
+    coordinates: [39.934486, -75.143549]
+    icon: ⛪
+    description: Gloria Dei Church aka Old Swedes is the oldest Church in not only Philadelphia, but all of Pennsylvania. It was built between 1698 and 1700. It is also the second oldest Swedish church in the United States after Holy Trinity Church in Delaware.
+
+  - id: 4
+    name: Meeting spot of Hall and Oates
+    coordinates: [39.975755, -75.226352]
     icon: 🎼
-    description: The Curtis Institute of Music is one of the world's most prestigious music conservatories, founded in 1924. The school offers full-tuition scholarships to all students and has produced many of the world's greatest musicians including Leonard Bernstein, Samuel Barber, and Lang Lang. The institute is housed in beautiful historic buildings in Rittenhouse Square and maintains a reputation for excellence in classical music education.
+    description: The Adelphi Ballroom in West Philadelphia was the original meeting spot of Hall and Oates. There was a "Battle of the Bands" that they both played in. They were both Temple students at the time. John Oates was from MontCo and Darryl Oates was from Pottstown.
