@@ -438,10 +438,10 @@ default:
     description: The Christopher Columbus Monument was originally erected on the Centennial Exposition grounds at the intersection of Fountain and Belmont Avenues, near the Conservatory and dedicated on October 13, 1876 as a tribute from Italy to America. The entire monument cost $18,000, was made of Italian Ravazzoni marble. It is now in Marconi Plaza in South Philadelphia.
 
   - id: 3
-    name: Location of First Professional Basketball League Game
-    coordinates: [39.987427, -75.129789]
-    icon: 🏀
-    description: The National Basketball League was the first professional basketball league in the world. The league debuted on December 1, 1898, with a game between the Trenton Nationals and the Hancock Athletic Association at Textile Hall in Philadelphia's Kensington section. The Nationals rallied in the second half to win, 21–19, before 900 fans.
+    name: Former Dive Bar Listed for Sale this week
+    coordinates: [39.947737, -75.166144]
+    icon: 🍻
+    description: McGlinchey's Bar, which closed last summer, is now on the market. $2.45 million will buy you a shot of Philly bar history - and even the name according to the Inquirer. The bar at 259 S. 15th St. first opened in the 1950s and was a classic cash-only, smoking inside establishment.
 
   - id: 4
     name: Highest Elevation in Philadelphia
@@ -512,3 +512,10 @@ default:
     coordinates: [39.975755, -75.226352]
     icon: 🎼
     description: The Adelphi Ballroom in West Philadelphia was the original meeting spot of Hall and Oates. There was a "Battle of the Bands" that they both played in. They were both Temple students at the time. John Oates was from MontCo and Darryl Oates was from Pottstown.
+
+2026-02-02:
+  - id: 3
+    name: Location of First Professional Basketball League Game
+    coordinates: [39.987427, -75.129789]
+    icon: 🏀
+    description: The National Basketball League was the first professional basketball league in the world. The league debuted on December 1, 1898, with a game between the Trenton Nationals and the Hancock Athletic Association at Textile Hall in Philadelphia's Kensington section. The Nationals rallied in the second half to win, 21–19, before 900 fans.
