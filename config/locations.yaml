@@ -675,35 +675,34 @@ default:
 
 2026-02-07:
   - id: 0
-    photo: images/barnes-foundation-van-gogh-ensemble.jpg
-    name: Hospital of the University of Pennsylvania
-    coordinates: [39.950148, -75.193883]
-    icon: 🏨
-    description: The Hospital of the University of Pennsylvania (HUP) is the flagship hospital of Penn Medicine and is located in the University City section of West Philadelphia. The hospital was founded at its current location in 1874 by the University of Pennsylvania School of Medicine, making it the oldest university-owned teaching hospital in the country.
+    name: Citizens Bank Park
+    coordinates: [39.906057, -75.166495]
+    icon: ⚾
+    description: In June 2003, Citizens Bank secured a 25-year, $95 million partnership for the naming rights to the Philadelphia Phillies' new home, resulting in the venue being named Citizens Bank Park. The agreement, which runs through 2028, included $57.5 million for the rights themselves, alongside an additional $37.5 million for exclusive advertising, making it the sole financial services advertiser on Phillies media broadcasts.
 
   - id: 1
-    name: 12 Steps Down
-    coordinates: [39.939041, -75.157636]
-    icon: 🍺
-    description: Best bar in Philadelphia - shout out 12 steps!
+    name: Philadelphia Building on a $100 Bill
+    coordinates: [39.948881, -75.150035]
+    icon: 💵
+    description: Independence Hall is famously on the $100 bill. For everyone that has seen National Treasure, you will remember Nic Cage using a water bottle and a hundred dollar bill to uncover a clue that showed him where Benjamin Franklin's bifocals were hidden. History!
 
   - id: 2
-    name: Barnes Foundation
-    coordinates: [39.960643, -75.172807]
-    icon: 🎨
-    description: This is one of the many ensembles of the Barnes Foundation off the Benjamin Franklin Parkway in Philadelphia. This ensemble features a famous Van Gogh painting titled Houses and Homes. Van Gogh painted this landscape during the last year of his life, when he was a patient at an asylum. This painting is a remembrance of his native Netherlands, showing the thatched cottages that dotted the Dutch landscape.
+    name: Philadelphia's United States Mint
+    coordinates: [39.953386, -75.148058]
+    icon: 🪙
+    description: The nation’s first mint provides a wide array of coins and manufacturing services. Philadelphia produces coin and medal dies. It mints circulating coins and medals; numismatic products including annual uncirculated coin sets; and commemorative coins as authorized by Congress.
 
   - id: 3
-    name: Location of Quaker Peace Treaty Signing
-    coordinates: [39.966274, -75.128479]
-    icon: 🏃
-    description: According to legend, Pennsylvania founder William Penn signed his treaty of peace with the local Lenape tribe under an elm tree just off the Delaware River in 1683 in what is now known as Penn Treaty Park. Today, a statue of William Penn greets picnickers and dog walkers, and throughout the year, people come to the waterfront park from all over the city. It is a great turnaround point for a run along the Delaware.
+    name: Divine Lorraine Hotel
+    coordinates: [39.966718, -75.160257]
+    icon: 🏢
+    description: The Divine Lorraine Hotel was known as the Mint House Hotel from 2022 to 2025 before going back to it's historical name. It was architected over 130 years ago by Willis G. Hale as one of the first luxury apartment buildings in the city.
 
   - id: 4
-    name: Oldest Surviving Firehouse in the US
-    coordinates: [39.941689, -75.145811]
+    name: First Bank of the United States
+    coordinates: [39.948046, -75.146419]
     icon: 🚒
-    description: The Head House in Philadelphia, located at 2nd and Pine Streets, is recognized as the oldest surviving firehouse in the United States, built in 1804–1805 to serve as a fire engine company for the New Market. Today it hosts farmers markets and other events!!
+    description: Established in 1791 in Philadelphia to stabilize the nation's post-Revolutionary War economy, the First Bank of the United States was a cornerstone of Alexander Hamilton’s financial system, handling federal deposits and issuing currency. Despite its success in managing debt, the bank faced intense political opposition, and its twenty-year charter expired in 1811.
 
 2026-02-08:
   - id: 0
@@ -736,3 +735,35 @@ default:
     coordinates: [39.952493, -75.158059]
     icon: 🚇
     description: The 1963 NFL Championship Game was the first ever NFL Championship Game. It was played between the Green Bay Packers and the New York Giants. The Packers won the game 16-7.
+
+2026-02-09:
+  - id: 0
+    name: Hospital of the University of Pennsylvania
+    coordinates: [39.950148, -75.193883]
+    icon: 🏨
+    description: The Hospital of the University of Pennsylvania (HUP) is the flagship hospital of Penn Medicine and is located in the University City section of West Philadelphia. The hospital was founded at its current location in 1874 by the University of Pennsylvania School of Medicine, making it the oldest university-owned teaching hospital in the country.
+
+  - id: 1
+    name: 12 Steps Down
+    coordinates: [39.939041, -75.157636]
+    icon: 🍺
+    description: Best bar in Philadelphia - shout out 12 steps!
+
+  - id: 2
+    photo: images/barnes-foundation-van-gogh-ensemble.jpg
+    name: Barnes Foundation
+    coordinates: [39.960643, -75.172807]
+    icon: 🎨
+    description: This is one of the many ensembles of the Barnes Foundation off the Benjamin Franklin Parkway in Philadelphia. This ensemble features a famous Van Gogh painting titled Houses and Homes. Van Gogh painted this landscape during the last year of his life, when he was a patient at an asylum. This painting is a remembrance of his native Netherlands, showing the thatched cottages that dotted the Dutch landscape.
+
+  - id: 3
+    name: Location of Quaker Peace Treaty Signing
+    coordinates: [39.966274, -75.128479]
+    icon: 🏃
+    description: According to legend, Pennsylvania founder William Penn signed his treaty of peace with the local Lenape tribe under an elm tree just off the Delaware River in 1683 in what is now known as Penn Treaty Park. Today, a statue of William Penn greets picnickers and dog walkers, and throughout the year, people come to the waterfront park from all over the city. It is a great turnaround point for a run along the Delaware.
+
+  - id: 4
+    name: Oldest Surviving Firehouse in the US
+    coordinates: [39.941689, -75.145811]
+    icon: 🚒
+    description: The Head House in Philadelphia, located at 2nd and Pine Streets, is recognized as the oldest surviving firehouse in the United States, built in 1804–1805 to serve as a fire engine company for the New Market. Today it hosts farmers markets and other events!!
