@@ -610,6 +610,37 @@ default:
 
 
 2026-02-05:
+  - id: 0
+    name: Boathouse Row
+    coordinates: [39.969583, -75.187632]
+    icon: 🚣
+    description: Boathouse Row consistes of 15 boathouses along the Schuykill River. The boathouses are all at least a century old, and some were built more than 150 years ago.
+
+  - id: 1
+    name: Famous 4th Street Delicatessen
+    coordinates: [39.940483, -75.149633]
+    icon: 🥘
+    description: The Famous 4th Street Delicatessen, a Philly institution since 1923, sits on the corner of 4th and Bainbridge Streets in Queen Village. Long known for its towering corned beef and pastrami sandwiches, the menu is a treasure trove of beloved Jewish deli classics, starting with a lineup of hefty sandwiches like Reubens, roast beef and pastrami, each served with a choice of sides like potato salad, chips or a potato pancake.
+
+  - id: 2
+    name: Tomb of the Unknown Soldier
+    coordinates: [39.947139, -75.153128]
+    icon: 🪖
+    description: Tomb of the Unknown Revolutionary War Soldier, dedicated in 1957, honors the thousands of soldiers who died in the Revolutionary War, many of whom were buried in the park. Formerly known as Southeast Square, burials began in the early 1706 and continued until the late 1700s, according to the Independence Hall Association.
+
+  - id: 3
+    photo: images/schuykill-river-pedestrain-bridge.jpg
+    name: Schuylkill River Trail Cable-Stay Bridge
+    coordinates: [39.941816, -75.193152]
+    icon: 🏃
+    description: A new section of the Schuylkill River Trail, known as Christian to Crescent, opened last year. The $48 million project, a decade in the making, will ultimately connect Center City with the Grays Ferry neighborhood in South Philadelphia.
+
+  - id: 4
+    name: Invention Place of the Slinky
+    coordinates: [39.971949, -75.121428]
+    icon: 🛠️
+    description: The Slinky was invented in at the William Cramp & Sons Shipbuilding Company in Port Richmond in 1943. Naval mechanical engineer Richard James  accidentally discovered that a tension spring meant for stabilizing ship instruments could "walk" when knocked off a shelf. His wife, Betty, named the toy and helped market it, with a wildly successful demonstration at Gimbels department store in 1945.
+
 
 2026-02-06:
   - id: 0
@@ -642,8 +673,37 @@ default:
     icon: 🍗
     description: The Wing Bowl was hosted in the Wells Fargo Center from 2000 until it ended in 2018. The Wing Bowl drew crowds of over 20,000. It is coming back this year but being hosted in Las Vegas.
 
-
 2026-02-07:
+  - id: 0
+    photo: images/barnes-foundation-van-gogh-ensemble.jpg
+    name: Hospital of the University of Pennsylvania
+    coordinates: [39.950148, -75.193883]
+    icon: 🏨
+    description: The Hospital of the University of Pennsylvania (HUP) is the flagship hospital of Penn Medicine and is located in the University City section of West Philadelphia. The hospital was founded at its current location in 1874 by the University of Pennsylvania School of Medicine, making it the oldest university-owned teaching hospital in the country.
+
+  - id: 1
+    name: 12 Steps Down
+    coordinates: [39.939041, -75.157636]
+    icon: 🍺
+    description: Best bar in Philadelphia - shout out 12 steps!
+
+  - id: 2
+    name: Barnes Foundation
+    coordinates: [39.960643, -75.172807]
+    icon: 🎨
+    description: This is one of the many ensembles of the Barnes Foundation off the Benjamin Franklin Parkway in Philadelphia. This ensemble features a famous Van Gogh painting titled Houses and Homes. Van Gogh painted this landscape during the last year of his life, when he was a patient at an asylum. This painting is a remembrance of his native Netherlands, showing the thatched cottages that dotted the Dutch landscape.
+
+  - id: 3
+    name: Location of Quaker Peace Treaty Signing
+    coordinates: [39.966274, -75.128479]
+    icon: 🏃
+    description: According to legend, Pennsylvania founder William Penn signed his treaty of peace with the local Lenape tribe under an elm tree just off the Delaware River in 1683 in what is now known as Penn Treaty Park. Today, a statue of William Penn greets picnickers and dog walkers, and throughout the year, people come to the waterfront park from all over the city. It is a great turnaround point for a run along the Delaware.
+
+  - id: 4
+    name: Oldest Surviving Firehouse in the US
+    coordinates: [39.941689, -75.145811]
+    icon: 🚒
+    description: The Head House in Philadelphia, located at 2nd and Pine Streets, is recognized as the oldest surviving firehouse in the United States, built in 1804–1805 to serve as a fire engine company for the New Market. Today it hosts farmers markets and other events!!
 
 2026-02-08:
   - id: 0

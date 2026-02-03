@@ -172,9 +172,88 @@ map.getContainer().addEventListener('touchend', (e) => {
     touchStartLatLng = null;
 }, { passive: true });
 
+// Adjust game panel and menu button position based on banner height
+function adjustPositionsForBanner() {
+    const banner = document.getElementById('weekend-banner');
+    const gamePanel = document.getElementById('game-panel');
+    const menuBtn = document.getElementById('menu-btn');
+    
+    if (!banner || banner.style.display === 'none') {
+        // No banner, use default positions
+        if (gamePanel) {
+            gamePanel.style.top = window.innerWidth <= 767 ? '10px' : '20px';
+        }
+        if (menuBtn) {
+            menuBtn.style.top = window.innerWidth <= 767 ? '10px' : '20px';
+        }
+        return;
+    }
+    
+    // Get actual banner height
+    const bannerHeight = banner.offsetHeight;
+    const offset = bannerHeight + (window.innerWidth <= 767 ? 10 : 20);
+    
+    if (gamePanel) {
+        gamePanel.style.top = `${offset}px`;
+    }
+    if (menuBtn) {
+        menuBtn.style.top = `${offset}px`;
+    }
+}
+
+// Show weekend banner if it's Saturday or Sunday
+function showWeekendBanner() {
+    const today = new Date();
+    const dayOfWeek = 6; // today.getDay(); // 0 = Sunday, 6 = Saturday
+    
+    const banner = document.getElementById('weekend-banner');
+    const bannerContent = document.getElementById('weekend-banner-content');
+    
+    if (!banner || !bannerContent) return;
+    
+    if (dayOfWeek === 6) {
+        // Saturday
+        bannerContent.textContent = 'Tomorrow is the last day to play PhillyTap - thank you everyone for playing and sharing!';
+        banner.style.display = 'flex';
+        // Wait for banner to render, then adjust positions
+        setTimeout(() => {
+            adjustPositionsForBanner();
+        }, 100);
+    } else if (dayOfWeek === 0) {
+        // Sunday
+        bannerContent.textContent = 'Today is the last day to play PhillyTap - thank you everyone for playing!';
+        banner.style.display = 'flex';
+        // Wait for banner to render, then adjust positions
+        setTimeout(() => {
+            adjustPositionsForBanner();
+        }, 100);
+    } else {
+        // Not weekend, hide banner
+        banner.style.display = 'none';
+        adjustPositionsForBanner();
+    }
+}
+
 // Track page view on load
 document.addEventListener('DOMContentLoaded', () => {
     trackPageView();
+    showWeekendBanner();
+    
+    // Adjust positions when window is resized or orientation changes
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            adjustPositionsForBanner();
+        }, 100);
+    });
+    
+    // Also adjust on orientation change (mobile)
+    window.addEventListener('orientationchange', () => {
+        setTimeout(() => {
+            adjustPositionsForBanner();
+        }, 200);
+    });
 });
 
 // Start loading locations when page loads
