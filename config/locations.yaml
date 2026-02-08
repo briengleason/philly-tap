@@ -707,33 +707,33 @@ default:
 2026-02-08:
   - id: 0
     name: Lincoln Financial Field
-    coordinates: [39.9014189, -75.1675992]
-    icon: 🚇
+    coordinates: [39.901419, -75.167599]
+    icon: 🦅
     description: Lincoln Financial Field is the home of the Philadelphia Eagles. Opened in 2003, it seats approximately 67,500–69,800 and is 1.7 million sq/ft.
 
   - id: 1
-    name: North Broad Street after the Super Bowl
-    coordinates: [39.954358, -75.1639646]
     photo: images/broad-street-super-bowl.jpeg
-    icon: 🚇
-    description: This photo was taken at the intersection of Arch and Broad after the Eagles won the Super Bowl in 2025. 
+    name: North Broad Street after the Super Bowl
+    coordinates: [39.954549, -75.163272]
+    icon: 🎉
+    description: This photo was taken at the intersection of Arch and Broad after the Eagles won the Super Bowl in 2025.
 
   - id: 2
     name: Location of most recent Bad Bunny Concert in Philadelphia
-    coordinates: [39.9012015, -75.1745544]
-    icon: 🚇
-    description: Bad Bunny brought his "Most Wanted Tour" to the Wells Fargo Center on April 19, 2024. 
+    coordinates: [39.901201, -75.171979]
+    icon: 🐰
+    description: Bad Bunny brought his "Most Wanted Tour" to the Wells Fargo Center on April 19, 2024.
 
   - id: 3
     name: Only Philadelphia High School with an alumni playing in this year's Super Bowl
     coordinates: [39.927428, -75.162929]
-    icon: 🚇
-    description: Christian Barmore, a standout defensive tackle for the New England Patriots, attended Saints John Neumann and Maria Goretti Catholic High School in Philadelphia, Pennsylvania. He spent his senior year there after starting at Abraham Lincoln High School. Barmore became a top-rated defensive lineman before playing at Alabama. 
-  
+    icon: ✏️
+    description: Christian Barmore, a standout defensive tackle for the New England Patriots, attended Saints John Neumann and Maria Goretti Catholic High School in Philadelphia, Pennsylvania. He spent his senior year there after starting at Abraham Lincoln High School. Barmore became a top-rated defensive lineman before playing at Alabama.
+
   - id: 4
     name: Location of the 1960 NFL Championship Game
-    coordinates: [39.9502158, -75.1947226]
-    icon: 🚇
+    coordinates: [39.950216, -75.194723]
+    icon: 🏈
     description: The 1960 NFL Championship Game was the 28th NFL title game, played between the Green Bay Packers and Philadelphia Eagles on the afternoon of Monday, December 26, at Franklin Field in Philadelphia. The victory was the third NFL title for the Philadelphia Eagles, but it would prove to be their last for another 57 years until February 4, 2018, when the Eagles defeated the New England Patriots 41–33 in Super Bowl LII.
 
 2026-02-09:
